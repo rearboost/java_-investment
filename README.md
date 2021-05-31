@@ -1,2 +1,2 @@
-# Jaya Investment
-This Jaya Investment for special clinet Gayan ( Aluthgama )
+# Jayamaga Investment
+This Jayamaga Investment for special clinet Gayan ( Aluthgama )
