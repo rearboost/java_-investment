@@ -1,2 +1,2 @@
-# poli-app-c2
-This Poli app for special clinet Hashan ( Hasalaka )
+# Jaya Investment
+This Jaya Investment for special clinet Gayan ( Aluthgama )
