@@ -1,2 +1,2 @@
-# java_-investment
-Microcredit System - Jaya Investment
+# poli-app-c2
+This Poli app for special clinet Hashan ( Hasalaka )
