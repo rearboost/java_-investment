@@ -1,13 +1,6 @@
- <footer class="footer footer-black  footer-white ">
-    <div class="container-fluid">
-        <div class="row">
-        <div class="credits ml-auto">
-            <span class="copyright">
-            © <script>
-                document.write(new Date().getFullYear())
-            </script>, made with <i class="fa fa-heart heart"></i> by <a href="https://rearboost.com" target="_blank" rel="noopener noreferrer">Rearboost Innovatios</a>
-            </span>
-        </div>
-        </div>
+<footer class="footer">
+    <div class="container-fluid clearfix">
+        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2021</span>
+        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><a href="#" target="_blank">Jayamaga Investments Micro Credit System</a> By Rearboost</span>
     </div>
 </footer>

@@ -1,145 +1,119 @@
-    <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a href="#" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="assets/img/logo-small.png">
-          </div>
-        </a>
-        <a href="#" class="simple-text logo-normal">
-          POLY APP
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li 
-            <?php if (basename($_SERVER['PHP_SELF'])=='index.php')
-            {
-             echo 'class="active"';
-            } else 
-            {
-             echo 'class=""'; 
-            } 
-            ?>
-            >
-            <a href="index">
-              <i class="nc-icon nc-bank"></i>
-              <p>DASHBOARD</p>
-            </a>
-          </li>
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-profile">
+              <a href="#" class="nav-link">
+                <div class="profile-image">
+                  <img class="img-xs rounded-circle" src="../assets/images/faces/face8.png" alt="profile image">
+                  <div class="dot-indicator bg-success"></div>
+                </div>
+                <?php 
+                if(isset($_SESSION['username'])){
+                    $user= $_SESSION['username'];
+                    $sql=mysqli_query($conn,"SELECT * FROM user U, center C WHERE username='$user' AND C.id=U.center_id");
+                    $row = mysqli_fetch_assoc($sql);
+                    $name = $row['username'];
+                    $center_name = $row['center_name'];
+                }
+                ?>
+                <div class="text-wrapper">
+                  <p class="profile-name"><?php echo $name; ?></p>
+                  <p class="center_name"><?php echo $center_name; ?></p>
+                </div>
+              </a>
+            </li>
+            <!--+++++++++++++++++++++++++++++++++++++++ Admin Module  +++++++++++++++++++++++++++++++++++++++-->
+            <?php if ($_SESSION['user_role']==1): ?>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Dashboard</span>
+              </a>
+            </li>
+            <?php else: ?>
+            <?php endif ?>
+             <?php if ($_SESSION['user_role']==1): ?>
+              <li class="nav-item">
+                <a class="nav-link" href="customer.php">
+                  <i class="menu-icon typcn typcn-shopping-bag"></i>
+                  <span class="menu-title">Borrowers</span>
+                </a>
+              </li>
+            <?php else: ?>
+            <?php endif ?>
+            
+
+            <?php if ($_SESSION['user_role']==1): ?>
+            <li class="nav-item">
+              <a class="nav-link" href="loan.php">
+                <i class="menu-icon typcn typcn-shopping-bag"></i>
+                <span class="menu-title" style="color: chartreuse;">Loans</span>
+              </a>
+            </li>
+
+            <?php else: ?>
+            <?php endif ?>
+
+            <?php if ($_SESSION['user_role']==1): ?>
+            <li class="nav-item">
+              <a class="nav-link" href="collection.php">
+                <i class="menu-icon typcn typcn-shopping-bag"></i>
+                <span class="menu-title" style="color: chartreuse;">Collection</span>
+              </a>
+            </li>
+
+            <?php else: ?>
+            <?php endif ?>
+            
+            <?php //if ($_SESSION['user_role']==1): ?>
+
+            <!-- <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-style" aria-expanded="false" aria-controls="ui-style">
+                <i class="menu-icon typcn typcn-coffee"></i>
+                <span class="menu-title" style="color: chartreuse;">POS</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="ui-style">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="billing_item.php">Billing Items</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="billing_history.php">Bill History</a>
+                  </li>
+                </ul>
+              </div>
+            </li> -->
+            <?php //else: ?>
+            <?php //endif ?>
 
 
-          <li 
-            <?php if (basename($_SERVER['PHP_SELF'])=='customer.php')
-            {
-             echo 'class="active"';
-            } else 
-            {
-             echo 'class=""'; 
-            } 
-            ?>
-            >
-            <a href="customer">
-              <i class="nc-icon nc-single-02"></i>
-              <p>CUSTOMERS</p>
-            </a>
-          </li>
+            <?php if ($_SESSION['user_role']== 1 || $_SESSION['user_role']==  2): ?>
 
-          <li 
-            <?php if (basename($_SERVER['PHP_SELF'])=='customer_loan.php')
-            {
-             echo 'class="active"';
-            } else 
-            {
-             echo 'class=""'; 
-            } 
-            ?>
-            >
-            <a href="customer_loan">
-              <i class="nc-icon nc-badge"></i>
-              <p>CUSTOMER LOANS</p>
-            </a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-buyer" aria-expanded="false" aria-controls="ui-buyer">
+                <i class="menu-icon typcn typcn-coffee"></i>
+                <span class="menu-title">Setting</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="ui-buyer">
+                <ul class="nav flex-column sub-menu">
+                    <?php if ($_SESSION['user_role']== 1 || $_SESSION['user_role']==  2): ?>
+                    <li class="nav-item">
+                      <a class="nav-link" href="setting.php">User Settings</a>
+                    </li>
+                    <?php else: ?>
+                    <?php endif ?>
+                    <?php if ($_SESSION['user_role']== 1 ): ?>
+                    <li class="nav-item">
+                      <a class="nav-link" href="center.php">Create center</a>
+                    </li>
+                    <?php else: ?>
+                    <?php endif ?>
+                </ul>
+              </div>
+            </li>
+            <?php else: ?>
+            <?php endif ?>
 
-          <li 
-            <?php if (basename($_SERVER['PHP_SELF'])=='debt_collection.php')
-            {
-             echo 'class="active"';
-            } else 
-            {
-             echo 'class=""'; 
-            } 
-            ?>
-            >
-            <a href="debt_collection">
-              <i class="nc-icon nc-book-bookmark"></i>
-              <p>DEBT COLLECTION</p>
-            </a>
-          </li>
-
-          <!-- <li 
-            <?php 
-            // if (basename($_SERVER['PHP_SELF'])=='cheque_transfer.php')
-            // {
-            //  echo 'class="active"';
-            // } else 
-            // {
-            //  echo 'class=""'; 
-            // } 
-            ?>
-            > -->
-            <!-- <a href="cheque_transfer">
-              <i class="nc-icon nc-tap-01"></i>
-              <p>CHEQUE TRANSFER</p>
-            </a>
-          </li> -->
-
-          <li 
-            <?php if (basename($_SERVER['PHP_SELF'])=='report.php')
-            {
-             echo 'class="active"';
-            } else 
-            {
-             echo 'class=""'; 
-            } 
-            ?>
-            >
-            <a href="report">
-              <i class="nc-icon nc-single-copy-04"></i>
-              <p>CUSTOMER HISTORY</p>
-            </a>
-          </li>
-
-          <li 
-            <?php if (basename($_SERVER['PHP_SELF'])=='income.php')
-            {
-             echo 'class="active"';
-            } else 
-            {
-             echo 'class=""'; 
-            } 
-            ?>
-            >
-            <a href="income">
-              <i class="nc-icon nc-tap-01"></i>
-              <p>Income Report</p>
-            </a>
-          </li>
-
-          <li 
-            <?php if (basename($_SERVER['PHP_SELF'])=='user.php')
-            {
-             echo 'class="active"';
-            } else 
-            {
-             echo 'class=""'; 
-            } 
-            ?>
-            >
-            <a href="user">
-              <i class="nc-icon nc-single-02"></i>
-              <p>USER PROFILE</p>
-            </a>
-          </li>         
-        </ul>
-      </div>
-    </div>
+          </ul>
+        </nav>
