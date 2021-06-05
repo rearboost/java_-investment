@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2021 at 01:04 AM
+-- Generation Time: Jun 05, 2021 at 01:57 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -113,7 +113,10 @@ CREATE TABLE `loan` (
 --
 
 INSERT INTO `loan` (`loan_no`, `branch`, `centerID`, `customerID`, `contractNo`, `loanAmt`, `terms`, `interestRate`, `rental`, `inspectionDate`, `disburseDate`, `gurantee1`, `gurantee2`, `loanStep`, `status`) VALUES
-(1, 'Kalutara', 2, 2, 'YT00001', 15000.00, 16, 6.00, 850.00, '2021-06-01', '2021-06-03', 'Sampath, 917898547V, 0917894587', 'Gemunu, 88748578V, 0917894578', 1, 1);
+(1, 'Kalutara', 2, 4, 'YT00001', 15000.00, 16, 5.00, 1125.00, '2021-06-02', '2021-06-04', '', '', 1, 1),
+(2, 'Kalutara', 2, 2, 'YT00002', 10000.00, 16, 6.00, 775.00, '2021-06-01', '2021-06-04', '', '', 2, 1),
+(3, 'Colombo', 1, 1, 'CL00003', 10000.00, 16, 9.00, 850.00, '2021-04-30', '2021-05-01', '', '', 1, 1),
+(4, 'Kalutara', 2, 2, 'YT00004', 5000.00, 8, 6.00, 700.00, '2021-04-24', '2021-04-26', '', '', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -138,7 +141,13 @@ CREATE TABLE `loan_installement` (
 --
 
 INSERT INTO `loan_installement` (`id`, `li_date`, `month`, `year`, `paid`, `arrears`, `total_paid`, `outstanding`, `loanNo`) VALUES
-(1, '2021-06-10', '06', '2021', 750.00, 100.00, 750.00, '12850.00', 1);
+(1, '2021-05-03', '06', '2021', 700.00, 0.00, 700.00, '4900.00', 4),
+(2, '2021-05-10', '06', '2021', 600.00, 100.00, 1300.00, '4300.00', 4),
+(3, '2021-05-24', '06', '2021', 1400.00, 100.00, 2700.00, '2900.00', 4),
+(4, '2021-05-31', '06', '2021', 1000.00, -200.00, 3700.00, '1900.00', 4),
+(5, '2021-06-07', '06', '2021', 500.00, 0.00, 4200.00, '1400.00', 4),
+(6, '2021-06-14', '06', '2021', 700.00, 0.00, 4900.00, '700.00', 4),
+(8, '2021-06-21', '06', '2021', 700.00, 0.00, 5600.00, '0.00', 4);
 
 -- --------------------------------------------------------
 
@@ -190,7 +199,7 @@ CREATE TABLE `summary` (
 --
 
 INSERT INTO `summary` (`id`, `year`, `month`, `loanAMT`, `debtAMT`, `createDate`) VALUES
-(1, '2021', '06', '0.00', '750.00', '2021-06-04'),
+(1, '2021', '06', '40000.00', '6300.00', '2021-06-04'),
 (2, '2021', '01', '0.00', '0.00', '2021-06-04'),
 (3, '2021', '02', '0.00', '0.00', '2021-06-04'),
 (4, '2021', '03', '0.00', '0.00', '2021-06-04'),
@@ -301,12 +310,12 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `loan`
 --
 ALTER TABLE `loan`
-  MODIFY `loan_no` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `loan_no` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `loan_installement`
 --
 ALTER TABLE `loan_installement`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `special_days`
 --

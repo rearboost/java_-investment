@@ -60,7 +60,7 @@
 
 <table border="0">
 	<tr><td>Last Renewing On</td><td><?php echo  ' : '. $last_date; ?></td></tr>
-	<tr><td>Renew Amount</td><td><?php echo  ' : '. $RenewAmt; ?></td></tr>
+	<tr><td>Outstanding</td><td><?php echo  ' : '. $RenewAmt; ?></td></tr>
 	<tr><td>Total Paid</td><td><?php echo  ' : '. $TotalPaid; ?></td></tr>
 </table>
 

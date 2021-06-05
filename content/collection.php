@@ -61,7 +61,7 @@
                                 <SELECT class="form-control" name="customer" id="customer" required>
                                 <option disabled="" selected="">--Select Customer--</option>
                                 <?php
-                                  $fetchCustomer = "SELECT C.cust_id as cust_id, C.memberID as memberID, C.name as name FROM customer C INNER JOIN loan L ON C.cust_id=L.customerID AND L.status=1";
+                                  $fetchCustomer = "SELECT DISTINCT(C.cust_id) as cust_id, C.memberID as memberID, C.name as name FROM customer C INNER JOIN loan L ON C.cust_id=L.customerID AND L.status=1";
                                   //$fetchCustomer = "SELECT * FROM customer C INNER JOIN loan L ON C.cust_id==L.customerID AND L.status=1";
                                 
 
@@ -117,7 +117,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Outstanding</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="outstanding"  id="outstanding" placeholder="LKR.0.00"/>
+                                <input type="text" class="form-control" name="outstanding"  id="outstanding" placeholder="LKR.0.00" readonly=""/>
                                 <input type="hidden" class="form-control" name="totalPaid"  id="totalPaid" placeholder="LKR.0.00"/>
                             </div>
                           </div>
@@ -130,7 +130,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Arrears</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="arrears"  id="arrears" placeholder="LKR.0.00"/>
+                                <input type="text" class="form-control" name="arrears"  id="arrears" placeholder="LKR.0.00" readonly=""/>
                             </div>
                           </div>
                         </div>
@@ -260,7 +260,6 @@
 
     $('#customer').on('change',function(){
 
-        var currentDate = $('#li_date').val();
         var customer = this.value;
         if(customer){
           
@@ -276,10 +275,25 @@
           $('#contractNo').html('<option>Select customer First</option>');
         }
 
+    });
+
+    $('#contractNo').on('change',function(){
+        var currentDate = $('#li_date').val();
+        
+       $.ajax({
+              url:"loan_details.php",
+              method:"POST",
+              data:{"contractNo":this.value},
+              success:function(data){
+                $('#detail_section').html(data);
+              }
+        });
+
+
         $.ajax({
             type: 'post',
             url: '../functions/get_renewingDetail.php',
-            data: {customer:customer},
+            data: {contractNo:this.value},
             success: function (response) {
 
                 var obj = JSON.parse(response);
@@ -309,30 +323,19 @@
 
             }
         });
-    });
-
-    $('#contractNo').on('change',function(){
-       $.ajax({
-              url:"loan_details.php",
-              method:"POST",
-              data:{"contractNo":this.value},
-              success:function(data){
-                $('#detail_section').html(data);
-              }
-        });
      });
 
     ///// calculate the renew amount /////////////////
     $('#payment').on('keyup',function(){
 
-      var customer = $('#customer').val();
+      var contractNo = $('#contractNo').val();
       var payment = this.value;
       var currentDate = $('#li_date').val();
 
       $.ajax({
             type: 'post',
             url: '../functions/get_renewingDetail.php',
-            data: {customer:customer},
+            data: {contractNo:contractNo},
             success: function (response) {
 
                 var obj = JSON.parse(response);

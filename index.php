@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sripathi Jewellers - Login</title>
+    <title>Jayagama Investments - Login</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="./assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="./assets/vendors/iconfonts/ionicons/dist/css/ionicons.css">
@@ -128,10 +128,10 @@
 
             if($row['user_role']==2){
               //header('Location: content/progress.php');
-              echo "<script type='text/javascript'>window.location = \"content/customer.php\"</script>";
+              echo "<script type='text/javascript'>window.location = \"content/home.php\"</script>";
              }else{
               //header('Location: content/home.php');
-              echo "<script type='text/javascript'>window.location = \"content/setting.php\"</script>";
+              echo "<script type='text/javascript'>window.location = \"content/home.php\"</script>";
              }
         
                  

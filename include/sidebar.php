@@ -24,7 +24,7 @@
             <!--+++++++++++++++++++++++++++++++++++++++ Admin Module  +++++++++++++++++++++++++++++++++++++++-->
             <?php if ($_SESSION['user_role']==1): ?>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="home.php">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Dashboard</span>
               </a>
@@ -64,27 +64,30 @@
             <?php else: ?>
             <?php endif ?>
             
-            <?php //if ($_SESSION['user_role']==1): ?>
+            <?php if ($_SESSION['user_role']==1): ?>
 
-            <!-- <li class="nav-item">
+            <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#ui-style" aria-expanded="false" aria-controls="ui-style">
                 <i class="menu-icon typcn typcn-coffee"></i>
-                <span class="menu-title" style="color: chartreuse;">POS</span>
+                <span class="menu-title">Reports</span>
                 <i class="menu-arrow"></i>
               </a>
               <div class="collapse" id="ui-style">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="billing_item.php">Billing Items</a>
+                    <a class="nav-link" href="borrower_report.php">Borrower Reports</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="billing_history.php">Bill History</a>
+                    <a class="nav-link" href="loan_report.php">Monthly Loans</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="collection_report.php">Monthly Collections</a>
                   </li>
                 </ul>
               </div>
-            </li> -->
-            <?php //else: ?>
-            <?php //endif ?>
+            </li>
+            <?php else: ?>
+            <?php endif ?>
 
 
             <?php if ($_SESSION['user_role']== 1 || $_SESSION['user_role']==  2): ?>

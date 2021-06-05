@@ -82,7 +82,7 @@
         $result = mysqli_query($conn,$insert);
 
         if($outstanding <= 0){
-            $update_status = mysqli_query($con,"UPDATE loan SET status =0 WHERE loan_no=$loan_no");
+            $update_status = mysqli_query($conn,"UPDATE loan SET status =0 WHERE loan_no=$loan_no");
         }
 
         if($result){

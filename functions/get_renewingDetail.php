@@ -2,13 +2,13 @@
 	error_reporting(0);
 	include("../include/config.php");
 
-	$customer = $_POST['customer'];
+	$contractNo = $_POST['contractNo'];
 
 	// $get_Cid = mysqli_query($conn, "SELECT * FROM customer WHERE name='$customer'");
 	// $cutomData = mysqli_fetch_assoc($get_Cid);
 	// $customer_id = $cutomData['id'];
 
-	$get_paw = mysqli_query($conn,"SELECT * FROM loan WHERE customerID = '$customer'");
+	$get_paw = mysqli_query($conn,"SELECT * FROM loan WHERE contractNo = '$contractNo'");
 
 	$data = mysqli_fetch_array($get_paw); 
 
