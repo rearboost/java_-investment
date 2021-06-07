@@ -3,7 +3,45 @@ include('../include/config.php');
 ?>
 <!DOCTYPE html>
 <html>
-    <?php include('../include/head.php'); ?>
+    <?php //include('../include/head.php'); ?>
+    <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Jayamaga Investments</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../assets/vendors/iconfonts/ionicons/dist/css/ionicons.css">
+    <link rel="stylesheet" href="../assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.addons.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../assets/css/shared/style.css">
+    <!-- endinject -->
+    <link rel="stylesheet" href="../assets/css/shared/demo.css">
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../assets/css/demo_1/style.css">
+    <!-- End Layout styles -->
+    <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+     <!-- Data Tables styles -->
+    <link rel="shortcut icon" href="../assets/css/jquery.dataTables.css" />
+
+    <link rel="stylesheet" href="../assets/css/jquery.dataTables.css">
+
+    <!-- chart links -->
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+    <!-- include check the session is logedor not redrect to login code here -->
+    <?php  include('../include/check.php');   ?>
+    
+  </head>
 <body>
 <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
@@ -138,22 +176,174 @@ include('../include/config.php');
                 </div>
               </div>
             </div>
-            
 
             <div class="row">
-              <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
+
+              <!-- Area Chart -->
+              <div class="col-md-8 col-sm">
+                <div class="card shadow mb-7">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Loans and Debt Collection Overview</h6>
+                  </div>
+                  <!-- Card Body -->
                   <div class="card-body">
-                    <h4 class="card-title">Loans & Debt collection overview</h4>
+                    <div class="chart-area">
+                      <!-- <canvas id="myAreaChart"></canvas> -->
+                      <?php 
+
+                          $year =  date("Y");
+
+                          $query="SELECT  SUBSTRING('JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC ', (month * 4) - 3, 3)
+                          AS  monthName,loanAMT,debtAMT
+                          FROM  summary WHERE year='$year' ORDER BY month ASC ";
+                          $result=mysqli_query($conn,$query);
+                          $chart_data='';
+                          //$row=$result->fetch_assoc();
+                          while($row=mysqli_fetch_array($result)){
+
+                              $chart_data .= "{ y:'".$row["monthName"]."', a:".$row["loanAMT"].", b:".$row["debtAMT"]."}, ";
+                          }
+
+                      ?>
+                      <div id="myfirstchart" style="height: 250px;"></div> 
+                      <!-- <div class="ml-auto"> 
+                        <canvas height="120" id="realtime-statistics"></canvas>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 col-sm">
+                <div class="card shadow mb-4">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Calendar</h6>
                     
-                    <!-- bar chart in here -->
+                  </div>
+                  <!-- Card Body -->
+                  <div class="card-body">
+
+                    <script language="javascript" type="text/javascript">
+                        var day_of_week = new Array('Sun','Mon','Tue','Wed','Thu','Fri','Sat');
+                        var month_of_year = new Array('January','February','March','April','May','June','July','August','September','October','November','December');
+
+                        //  DECLARE AND INITIALIZE VARIABLES
+                        var Calendar = new Date();
+
+                        var year = Calendar.getFullYear();     // Returns year
+                        var month = Calendar.getMonth();    // Returns month (0-11)
+                        var today = Calendar.getDate();    // Returns day (1-31)
+                        var weekday = Calendar.getDay();    // Returns day (1-31)
+
+                        var DAYS_OF_WEEK = 7;    // "constant" for number of days in a week
+                        var DAYS_OF_MONTH = 31;    // "constant" for number of days in a month
+                        var cal;    // Used for printing
+
+                        Calendar.setDate(1);    // Start the calendar day at '1'
+                        Calendar.setMonth(month);    // Start the calendar month at now
+
+
+                        /* VARIABLES FOR FORMATTING
+                        NOTE: You can format the 'BORDER', 'BGCOLOR', 'CELLPADDING', 'BORDERCOLOR'
+                              tags to customize your caledanr's look. */
+
+                        var TR_start = '<TR>';
+                        var TR_end = '</TR>';
+                        var highlight_start = '<TD WIDTH="30"><TABLE style="width: 100%;" CELLSPACING=0 BORDER=1 BGCOLOR=42c765 BORDERCOLOR=CCCCCC><TR><TD WIDTH=20><B><CENTER>';
+                        var highlight_end   = '</CENTER></TD></TR></TABLE></B>';
+                        var TD_start = '<TD WIDTH="30"><CENTER>';
+                        var TD_end = '</CENTER></TD>';
+
+                        /* BEGIN CODE FOR CALENDAR
+                        NOTE: You can format the 'BORDER', 'BGCOLOR', 'CELLPADDING', 'BORDERCOLOR'
+                        tags to customize your calendar's look.*/
+
+                        cal =  '<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=0 BORDERCOLOR=BBBBBB style="width: 100%;"><TR><TD>';
+                        cal += '<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2 style="width: 100%;">' + TR_start;
+                        cal += '<TD COLSPAN="' + DAYS_OF_WEEK + '" BGCOLOR="#42c765"><CENTER><B>';
+                        cal += month_of_year[month]  + '   ' + year + '</B>' + TD_end + TR_end;
+                        cal += TR_start;
+
+                        //   DO NOT EDIT BELOW THIS POINT  //
+
+                        // LOOPS FOR EACH DAY OF WEEK
+                        for(index=0; index < DAYS_OF_WEEK; index++)
+                        {
+
+                        // BOLD TODAY'S DAY OF WEEK
+                        if(weekday == index)
+                        cal += TD_start + '<B>' + day_of_week[index] + '</B>' + TD_end;
+
+                        // PRINTS DAY
+                        else
+                        cal += TD_start + day_of_week[index] + TD_end;
+                        }
+
+                        cal += TD_end + TR_end;
+                        cal += TR_start;
+
+                        // FILL IN BLANK GAPS UNTIL TODAY'S DAY
+                        for(index=0; index < Calendar.getDay(); index++)
+                        cal += TD_start + '  ' + TD_end;
+
+                        // LOOPS FOR EACH DAY IN CALENDAR
+                        for(index=0; index < DAYS_OF_MONTH; index++)
+                        {
+                        if( Calendar.getDate() > index )
+                        {
+                          // RETURNS THE NEXT DAY TO PRINT
+                          week_day =Calendar.getDay();
+
+                          // START NEW ROW FOR FIRST DAY OF WEEK
+                          if(week_day == 0)
+                          cal += TR_start;
+
+                          if(week_day != DAYS_OF_WEEK)
+                          {
+
+                          // SET VARIABLE INSIDE LOOP FOR INCREMENTING PURPOSES
+                          var day  = Calendar.getDate();
+
+                          // HIGHLIGHT TODAY'S DATE
+                          if( today==Calendar.getDate() )
+                          cal += highlight_start + day + highlight_end + TD_end;
+
+                          // PRINTS DAY
+                          else
+                          cal += TD_start + day + TD_end;
+                          }
+
+                          // END ROW FOR LAST DAY OF WEEK
+                          if(week_day == DAYS_OF_WEEK)
+                          cal += TR_end;
+                          }
+
+                          // INCREMENTS UNTIL END OF THE MONTH
+                          Calendar.setDate(Calendar.getDate()+1);
+
+                        }// end for loop
+
+                        cal += '</TD></TR></TABLE></TABLE>';
+
+                        //  PRINT CALENDAR
+                        document.write(cal);
+
+                        //  End -->
+                        </script>
+                          <br/>
+                        <div style="clear:both">
+                      </div>
+                      <div>
+                      </div>
 
                   </div>
                 </div>
               </div>
-             
-             
             </div>
+
+
 
           </div>
           <!-- content-wrapper ends -->
@@ -179,7 +369,31 @@ include('../include/config.php');
   // function SendMsg(id){
   //     window.location.href = "home.php?msg_id=" + id;
   // }
-  $(document).ready( function () {
-      $('#myTable').DataTable();
-  });
+  // $(document).ready( function () {
+  //     $('#myTable').DataTable();
+  // });
+
+  var data = [
+    <?php echo $chart_data; ?>
+  ],
+
+  //console.log("data",data);
+  config = {
+    data: data,
+    xkey: 'y',
+    ykeys: ['a', 'b'],
+    labels: ['Total loans', 'Total Collection'],
+    fillOpacity: 0.6,
+    hideHover: 'auto',
+    behaveLikeLine: true,
+    resize: true,
+    pointFillColors:['#ffffff'],
+    pointStrokeColors: ['black'],
+    lineColors:['gray','red']
+    };
+
+    config.element = 'myfirstchart';
+    Morris.Bar(config);
+    config.element = 'stacked';
+    config.stacked = true;
 </script>
