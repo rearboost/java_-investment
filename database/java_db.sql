@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2021 at 01:57 AM
+-- Generation Time: Jun 12, 2021 at 01:55 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -68,21 +68,24 @@ CREATE TABLE `cheque` (
 CREATE TABLE `customer` (
   `cust_id` int(11) NOT NULL,
   `memberID` varchar(20) NOT NULL,
-  `centerID` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `NIC` varchar(15) NOT NULL,
   `address` varchar(150) NOT NULL,
-  `contact` varchar(15) NOT NULL
+  `contact` varchar(15) NOT NULL,
+  `contact2` varchar(15) NOT NULL,
+  `image` varchar(100) NOT NULL DEFAULT '100.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`cust_id`, `memberID`, `centerID`, `name`, `NIC`, `address`, `contact`) VALUES
-(1, 'JI-00001', 1, 'anne fernando', '984567892V', 'Nuwara road, Kadawatha', '0771234567'),
-(2, 'JI-00002', 2, 'Imashi Bhagya', '928578954V', 'Bambalapitiya', '9477123400'),
-(4, 'JI-00003', 2, 'Indunil Sanjeewa', '984567892V', 'No.43/D/4, 3rd Lane, Galwarusa, Korathota, Kaduwela.', '0766652982');
+INSERT INTO `customer` (`cust_id`, `memberID`, `name`, `NIC`, `address`, `contact`, `contact2`, `image`) VALUES
+(1, 'JI-00001', 'anne fernando', '984567892V', 'Nuwara road, Kadawatha', '0771234567', '', ''),
+(2, 'JI-00002', 'Imashi Bhagya', '928578954V', 'Bambalapitiya', '9477123400', '', ''),
+(4, 'JI-00003', 'Indunil Sanjeewa', '984567892V', 'No.43/D/4, 3rd Lane, Galwarusa, Korathota, Kaduwela.', '0766652982', '', ''),
+(5, 'JI-00005', 'Janith Lakshan', '964789458V', 'Karathota, Kaduwela.', '0117894562', '0774854854', 'JI-00005.jpg'),
+(6, 'JI-00006', 'Sachintha', '936547892V', 'Aluthgama', '0771234567', '', '100.jpg');
 
 -- --------------------------------------------------------
 
@@ -95,6 +98,7 @@ CREATE TABLE `loan` (
   `branch` varchar(50) NOT NULL,
   `centerID` int(11) NOT NULL,
   `customerID` int(11) NOT NULL,
+  `loanType` varchar(10) NOT NULL DEFAULT 'weekly',
   `contractNo` varchar(50) NOT NULL,
   `loanAmt` double(10,2) NOT NULL,
   `terms` int(11) NOT NULL,
@@ -112,11 +116,11 @@ CREATE TABLE `loan` (
 -- Dumping data for table `loan`
 --
 
-INSERT INTO `loan` (`loan_no`, `branch`, `centerID`, `customerID`, `contractNo`, `loanAmt`, `terms`, `interestRate`, `rental`, `inspectionDate`, `disburseDate`, `gurantee1`, `gurantee2`, `loanStep`, `status`) VALUES
-(1, 'Kalutara', 2, 4, 'YT00001', 15000.00, 16, 5.00, 1125.00, '2021-06-02', '2021-06-04', '', '', 1, 1),
-(2, 'Kalutara', 2, 2, 'YT00002', 10000.00, 16, 6.00, 775.00, '2021-06-01', '2021-06-04', '', '', 2, 1),
-(3, 'Colombo', 1, 1, 'CL00003', 10000.00, 16, 9.00, 850.00, '2021-04-30', '2021-05-01', '', '', 1, 1),
-(4, 'Kalutara', 2, 2, 'YT00004', 5000.00, 8, 6.00, 700.00, '2021-04-24', '2021-04-26', '', '', 1, 0);
+INSERT INTO `loan` (`loan_no`, `branch`, `centerID`, `customerID`, `loanType`, `contractNo`, `loanAmt`, `terms`, `interestRate`, `rental`, `inspectionDate`, `disburseDate`, `gurantee1`, `gurantee2`, `loanStep`, `status`) VALUES
+(1, 'Kalutara', 2, 4, 'weekly', 'YT00001', 15000.00, 16, 5.00, 1125.00, '2021-06-02', '2021-06-04', '', '', 1, 1),
+(2, 'Kalutara', 2, 2, 'weekly', 'YT00004', 5000.00, 8, 6.00, 700.00, '2021-04-24', '2021-04-26', '', '', 1, 0),
+(3, 'Colombo', 1, 1, 'weekly', 'CL00003', 10000.00, 16, 9.00, 850.00, '2021-04-30', '2021-05-01', '', '', 1, 1),
+(4, 'Kalutara', 2, 2, 'weekly', 'YT00002', 10000.00, 16, 6.00, 775.00, '2021-06-01', '2021-06-04', '', '', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -141,13 +145,13 @@ CREATE TABLE `loan_installement` (
 --
 
 INSERT INTO `loan_installement` (`id`, `li_date`, `month`, `year`, `paid`, `arrears`, `total_paid`, `outstanding`, `loanNo`) VALUES
-(1, '2021-05-03', '06', '2021', 700.00, 0.00, 700.00, '4900.00', 4),
-(2, '2021-05-10', '06', '2021', 600.00, 100.00, 1300.00, '4300.00', 4),
-(3, '2021-05-24', '06', '2021', 1400.00, 100.00, 2700.00, '2900.00', 4),
-(4, '2021-05-31', '06', '2021', 1000.00, -200.00, 3700.00, '1900.00', 4),
-(5, '2021-06-07', '06', '2021', 500.00, 0.00, 4200.00, '1400.00', 4),
-(6, '2021-06-14', '06', '2021', 700.00, 0.00, 4900.00, '700.00', 4),
-(8, '2021-06-21', '06', '2021', 700.00, 0.00, 5600.00, '0.00', 4);
+(1, '2021-05-03', '06', '2021', 700.00, 0.00, 700.00, '4900.00', 2),
+(2, '2021-05-10', '06', '2021', 600.00, 100.00, 1300.00, '4300.00', 2),
+(3, '2021-05-24', '06', '2021', 1400.00, 100.00, 2700.00, '2900.00', 2),
+(4, '2021-05-31', '06', '2021', 1000.00, -200.00, 3700.00, '1900.00', 2),
+(5, '2021-06-07', '06', '2021', 500.00, 0.00, 4200.00, '1400.00', 2),
+(6, '2021-06-14', '06', '2021', 700.00, 0.00, 4900.00, '700.00', 2),
+(8, '2021-06-21', '06', '2021', 700.00, 0.00, 5600.00, '0.00', 2);
 
 -- --------------------------------------------------------
 
@@ -305,7 +309,7 @@ ALTER TABLE `cheque`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `loan`
 --

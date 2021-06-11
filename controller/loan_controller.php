@@ -8,6 +8,7 @@
             $branch         = $_POST['branch'];
             $center         = $_POST['center'];
             $customer       = $_POST['customer'];
+            $loan_type      = $_POST['loan_type'];
             $contractNo     = $_POST['contractNo'];
             $loanAmt        = $_POST['loanAmt'];
             $terms          = $_POST['terms'];
@@ -18,6 +19,12 @@
             $gurantee1      = $_POST['gurantee1'];
             $gurantee2      = $_POST['gurantee2'];
             $loanStep       = $_POST['loanStep'];
+
+            // customer details
+            $cust_id      = $_POST['cust_id'];
+            $contact1      = $_POST['contact1'];
+            $contact2      = $_POST['contact2'];
+            $address       = $_POST['address'];
 
 
             $year =  date("Y");
@@ -81,11 +88,15 @@
             }
 
 
-            $insert = "INSERT INTO loan (branch,centerID,customerID,contractNo,loanAmt,terms,interestRate,rental,inspectionDate,disburseDate,gurantee1,gurantee2,loanStep,status) VALUES ('$branch','$center','$customer','$contractNo','$loanAmt','$terms','$intRate','$rental','$inspectionDate','$disburseDate','$gurantee1','$gurantee2','$loanStep',1)";
+            $insert = mysqli_query($conn,"INSERT INTO loan (branch,centerID,customerID,contractNo,loanAmt,terms,interestRate,rental,inspectionDate,disburseDate,gurantee1,gurantee2,loanStep,status) VALUES ('$branch','$center','$cust_id','$contractNo','$loanAmt','$terms','$intRate','$rental','$inspectionDate','$disburseDate','$gurantee1','$gurantee2','$loanStep',1)");
 
-            $result = mysqli_query($conn,$insert);
-            if($result){
-                echo  1;
+            if($insert){
+                $updateCustomer = mysqli_query($conn, "UPDATE customer SET contact =$contact1, contact2=$contact2, address='$address' WHERE cust_id=$cust_id");
+                if($updateCustomer){ 
+                    echo  1;
+                }else{
+                    echo  0;
+                }
             }else{
                 echo  mysqli_error($conn);		
             }

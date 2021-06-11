@@ -27,7 +27,7 @@
                   <div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
                     <ul class="quick-links">
                       <li><a href="#"> REPORT</a></li>
-                      <li><a href="#"> BORROWER REPORT</a></li>
+                      <li><a href="#"> CLIENT REPORT</a></li>
                     </ul>
                   </div>
                 </div>

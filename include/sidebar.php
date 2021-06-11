@@ -31,13 +31,28 @@
             </li>
             <?php else: ?>
             <?php endif ?>
-             <?php if ($_SESSION['user_role']==1): ?>
-              <li class="nav-item">
-                <a class="nav-link" href="customer.php">
-                  <i class="menu-icon typcn typcn-shopping-bag"></i>
-                  <span class="menu-title">Borrowers</span>
-                </a>
-              </li>
+
+            <?php if ($_SESSION['user_role']==1): ?>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-style" aria-expanded="false" aria-controls="ui-style">
+                <i class="menu-icon typcn typcn-coffee"></i>
+                <span class="menu-title">Clients</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="ui-style">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="customer.php">Create a Client</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="search_client.php">Search a client</a>
+                  </li>
+                  <!-- <li class="nav-item">
+                    <a class="nav-link" href="collection_report.php">Monthly Collections</a>
+                  </li> -->
+                </ul>
+              </div>
+            </li>
             <?php else: ?>
             <?php endif ?>
             
@@ -75,7 +90,7 @@
               <div class="collapse" id="ui-style">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="borrower_report.php">Borrower Reports</a>
+                    <a class="nav-link" href="borrower_report.php">Client Reports</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="loan_report.php">Monthly Loans</a>
