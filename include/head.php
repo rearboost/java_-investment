@@ -27,5 +27,12 @@
 
     <!-- include check the session is logedor not redrect to login code here -->
     <?php  include('../include/check.php');   ?>
+
+    <style>
+      .main-panel {
+        width: 100% !important;
+      }
+
+    </style>
     
   </head>
