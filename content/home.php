@@ -154,7 +154,7 @@ include('../include/config.php');
                       <div class="col-md-6">
                         <div class="d-flex align-items-center pb-2">
                           <i class="mdi mdi-account-check" style="color: green; font-size: 2em;"></i>
-                          <p class="mb-0"> Active borrowers</p>
+                          <p class="mb-0"> Active Clients</p>
                         </div>
                         <h4 class="font-weight-semibold"><?php echo $active;?></h4>
                         <div class="progress progress-md">
@@ -164,7 +164,7 @@ include('../include/config.php');
                       <div class="col-md-6 mt-4 mt-md-0">
                         <div class="d-flex align-items-center pb-2">
                           <i class="mdi mdi-account" style="color: red; font-size: 2em;"></i>
-                          <p class="mb-0">Deactive borrowers</p>
+                          <p class="mb-0">Deactive Clients</p>
                         </div>
                         <h4 class="font-weight-semibold"><?php echo $deactive;?></h4>
                         <div class="progress progress-md">

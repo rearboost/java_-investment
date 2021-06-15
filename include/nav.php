@@ -1,46 +1,103 @@
  <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-        <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
           <a class="navbar-brand brand-logo" href="mortgage.php">
             <img src="../assets/images/light_logo.png" alt="logo" style="height:50px; width: 80px;" /> </a>
           <a class="navbar-brand brand-logo-mini" href="mortgage.php">
             <img src="../assets/images/light_logo.png" alt="logo" /> </a>
-            <!-- <h3 style="color: #fff; font-weight: 800; padding-top: 15px; border-bottom: 2px solid #fff;">Mobile Shop</h3> -->
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center">
           <ul class="navbar-nav">
-            <li class="nav-item font-weight-semibold d-none d-lg-block">Help : +94 7X XXXX XXX</li>
-            <!-- <li class="nav-item dropdown language-dropdown">
+
+            <li class="nav-item font-weight-semibold d-none d-lg-block">
+              <a class="nav-link px-2 d-flex align-items-center" href="home.php">
+                <div class="d-inline-flex mr-0 mr-md-3">
+                  <div class="flag-icon-holder">
+                    <i class="mdi mdi-view-dashboard-outline"></i>
+                  </div>
+                </div>
+                <span class="profile-text font-weight-medium d-none d-md-block">Dashboard</span>
+              </a>
+            </li>
+
+            <li class="nav-item dropdown language-dropdown">
               <a class="nav-link dropdown-toggle px-2 d-flex align-items-center" id="LanguageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                 <div class="d-inline-flex mr-0 mr-md-3">
                   <div class="flag-icon-holder">
-                    <i class="flag-icon flag-icon-us"></i>
+                    <i class="mdi mdi-account-edit"></i>
                   </div>
                 </div>
-                <span class="profile-text font-weight-medium d-none d-md-block">English</span>
+                <span class="profile-text font-weight-medium d-none d-md-block">Activity</span>
               </a>
               <div class="dropdown-menu dropdown-menu-left navbar-dropdown py-2" aria-labelledby="LanguageDropdown">
-                <a class="dropdown-item">
-                  <div class="flag-icon-holder">
+                <a class="dropdown-item" href="customer.php">
+                  <!-- <div class="fa fa">
                     <i class="flag-icon flag-icon-us"></i>
-                  </div>English
-                </a>
-                <a class="dropdown-item">
+                  </div> -->
                   <div class="flag-icon-holder">
-                    <i class="flag-icon flag-icon-fr"></i>
-                  </div>French
+                    <i class="mdi mdi-account-box" aria-hidden="true"></i>
+                  </div>Client Creation
                 </a>
-                <a class="dropdown-item">
+                <a class="dropdown-item" href="loan.php">
                   <div class="flag-icon-holder">
-                    <i class="flag-icon flag-icon-ae"></i>
-                  </div>Arabic
+                    <i class="mdi mdi-ballot-outline" aria-hidden="true"></i>
+                  </div>Loan Creation
                 </a>
-                <a class="dropdown-item">
+                <a class="dropdown-item" href="collection.php">
                   <div class="flag-icon-holder">
-                    <i class="flag-icon flag-icon-ru"></i>
-                  </div>Russian
+                    <i class="mdi mdi-account-details" aria-hidden="true"></i>
+                  </div>Debt Collection
+                </a>
+                <a class="dropdown-item" href="center.php">
+                  <div class="flag-icon-holder">
+                    <i class="mdi mdi-bank" aria-hidden="true"></i>
+                  </div>Center Creation
                 </a>
               </div>
-            </li> -->
+            </li>
+
+            <li class="nav-item dropdown language-dropdown">
+              <a class="nav-link dropdown-toggle px-2 d-flex align-items-center" id="LanguageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <div class="d-inline-flex mr-0 mr-md-3">
+                  <div class="flag-icon-holder">
+                    <i class="mdi mdi-file-document"></i>
+                  </div>
+                </div>
+                <span class="profile-text font-weight-medium d-none d-md-block">Report</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-left navbar-dropdown py-2" aria-labelledby="LanguageDropdown">
+                <a class="dropdown-item" href="client_report.php">
+                  <!-- <div class="fa fa">
+                    <i class="flag-icon flag-icon-us"></i>
+                  </div> -->
+                  <div class="flag-icon-holder">
+                    <i class="mdi mdi-account-box-multiple" aria-hidden="true"></i>
+                  </div>Client Report
+                </a>
+                <a class="dropdown-item" href="loan_report.php">
+                  <div class="flag-icon-holder">
+                    <i class="mdi mdi-ballot" aria-hidden="true"></i>
+                  </div>Monthly Loans
+                </a>
+                <a class="dropdown-item" href="collection_report.php">
+                  <div class="flag-icon-holder">
+                    <i class="mdi mdi-animation" aria-hidden="true"></i>
+                  </div> Collection
+                </a>
+              </div>
+            </li>
+
+
+            <li class="nav-item font-weight-semibold d-none d-lg-block">
+              <a class="nav-link px-2 d-flex align-items-center" href="setting.php">
+                <div class="d-inline-flex mr-0 mr-md-3">
+                  <div class="flag-icon-holder">
+                    <i class="mdi mdi-cogs"></i>
+                  </div>
+                </div>
+                <span class="profile-text font-weight-medium d-none d-md-block">Setting</span>
+              </a>
+            </li>
+
           </ul>
           <!-- <form class="ml-auto search-form d-none d-md-block" action="#">
             <div class="form-group">

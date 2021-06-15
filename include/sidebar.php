@@ -90,7 +90,7 @@
               <div class="collapse" id="ui-style">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="borrower_report.php">Client Reports</a>
+                    <a class="nav-link" href="client_report.php">Client Reports</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="loan_report.php">Monthly Loans</a>

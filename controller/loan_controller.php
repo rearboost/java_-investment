@@ -21,7 +21,7 @@
             $loanStep       = $_POST['loanStep'];
 
             // customer details
-            $cust_id      = $_POST['cust_id'];
+            $cust_id       = $_POST['cust_id'];
             $contact1      = $_POST['contact1'];
             $contact2      = $_POST['contact2'];
             $address       = $_POST['address'];
@@ -88,7 +88,7 @@
             }
 
 
-            $insert = mysqli_query($conn,"INSERT INTO loan (branch,centerID,customerID,contractNo,loanAmt,terms,interestRate,rental,inspectionDate,disburseDate,gurantee1,gurantee2,loanStep,status) VALUES ('$branch','$center','$cust_id','$contractNo','$loanAmt','$terms','$intRate','$rental','$inspectionDate','$disburseDate','$gurantee1','$gurantee2','$loanStep',1)");
+            $insert = mysqli_query($conn,"INSERT INTO loan (branch,centerID,customerID,loanType,contractNo,loanAmt,terms,interestRate,rental,inspectionDate,disburseDate,gurantee1,gurantee2,loanStep,status) VALUES ('$branch','$center','$cust_id','$loan_type','$contractNo','$loanAmt','$terms','$intRate','$rental','$inspectionDate','$disburseDate','$gurantee1','$gurantee2','$loanStep',1)");
 
             if($insert){
                 $updateCustomer = mysqli_query($conn, "UPDATE customer SET contact =$contact1, contact2=$contact2, address='$address' WHERE cust_id=$cust_id");

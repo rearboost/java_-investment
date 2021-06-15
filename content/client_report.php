@@ -41,8 +41,30 @@
                     <!-- <p class="card-description"> Horizontal form layout </p> -->
                         <div class="row">
                             <div class="col-md-6">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Choose a Center</label>
+                                <div class="col-sm-8">
+                                <SELECT class="form-control" name="center" id="center" required>
+                                  <option disabled="" selected="">--Choose a  Center--</option>
+                                  <?php
+                                    $custom = "SELECT * FROM center";
+                                    $result = mysqli_query($conn,$custom);
+                                    $numRows = mysqli_num_rows($result); 
+                    
+                                    if($numRows > 0) {
+                                        while($row1 = mysqli_fetch_assoc($result)) {
+                                            echo '<option value ="'.$row1["id"].'">' . $row1["center_code"]. ' | ' .$row1["center_name"];
+                                        }
+                                    }
+                                  ?>
+                                </SELECT>
+                                </div>
+                              </div>
+                              <button type="button" onclick="cancelForm()" class="btn btn-warning btn-fw">Cancel</button>  
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Select Borrower Type</label>
+                                <label class="col-sm-5 col-form-label">Select Client Type</label>
                                     <div class="col-sm-7">
                                         <input list="brow" class="form-control" name="type" id="type" required>
                                           <datalist id="brow">
@@ -51,8 +73,7 @@
                                                <option value ="Deactive">
                                           </datalist> 
                                     </div>
-                                </div>
-                                <button type="button" onclick="cancelForm()" class="btn btn-warning btn-fw">Cancel</button>                        
+                                </div>                      
                             </div>
                         </div>
                   </div>
@@ -60,37 +81,47 @@
             </div>
             <br>
 
-            <?php if (isset($_GET['view_id'])): ?>
+            <?php if (isset($_GET['view_id1']) && isset($_GET['view_id2'])): ?>
             
             <form class="forms-sample" id="report_form">
 
-                <input type="hidden" value ='<?php echo $_GET['view_id']; ?>' name="type">
+                <input type="hidden" value ='<?php echo $_GET['view_id1']; ?>' name="center">
+                <input type="hidden" value ='<?php echo $_GET['view_id2']; ?>' name="type">
 
                 <div class="col-lg-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                        <center><b><h5><?php echo $_GET['view_id']; ?> Borrowers</h5></b></center>
+                        <?php
+                        $center = $_GET['view_id1'];
+                        $type = $_GET['view_id2'];
+
+                          $getName = mysqli_query($conn, "SELECT * FROM center WHERE id=$center ");
+                          $val = mysqli_fetch_assoc($getName);
+                          $centerName = $val['center_name'];
+                          $centerCode = $val['center_code'];
+                        ?>
+                        <center><b><h5><?php echo $_GET['view_id2']; ?>&nbsp; Clients In <?php echo $centerName . ' ['. $centerCode. ']'; ?></h5></b></center>
                         <br>
                         <div class="row">
                     
                         <?php 
 
-                        $type = $_GET['view_id'];
+                        
                         //   $sql_buyerName=mysqli_query($conn,"SELECT * FROM po_entering WHERE status='$poNo'");
                         //   $row_buyerName= mysqli_fetch_assoc($sql_buyerName);
                         //   $bpo_no = $row_buyerName['bpo_no'];
 
                         if($type =='All'){
 
-                          $sql = mysqli_query($conn, "SELECT * FROM customer");
+                          $sql = mysqli_query($conn, "SELECT DISTINCT(C.cust_id) as cust_id, C.memberID AS memberID, name AS name, NIC AS NIC, contact AS contact, contact2 AS contact2, address AS address, C.image AS image FROM customer C INNER JOIN loan L ON C.cust_id=L.customerID WHERE L.centerID='$center' ");
 
                         }else if($type =='Active'){
 
-                          $sql = mysqli_query($conn, "SELECT * FROM customer C INNER JOIN loan L ON C.cust_id=L.customerID WHERE L.status='1'");
+                          $sql = mysqli_query($conn, "SELECT * FROM customer C INNER JOIN loan L ON C.cust_id=L.customerID WHERE L.centerID='$center' AND L.status='1'");
 
                         }else if($type =='Deactive'){
 
-                          $sql = mysqli_query($conn, "SELECT * FROM customer C INNER JOIN loan L ON C.cust_id=L.customerID WHERE L.status='0' AND C.cust_id NOT IN (SELECT customerID FROM loan WHERE status='1')");
+                          $sql = mysqli_query($conn, "SELECT * FROM customer C INNER JOIN loan L ON C.cust_id=L.customerID WHERE  L.centerID='$center' AND L.status='0' AND C.cust_id NOT IN (SELECT customerID FROM loan WHERE status='1')");
                         }
                     
                         ?>
@@ -103,10 +134,10 @@
                                     <tr>
                                     <th> # </th>
                                     <th>Member # </th>
-                                    <th>Center</th>
                                     <th>Name</th>
                                     <th>NIC</th>
-                                    <th>Contact </th>
+                                    <th>Contact 01 </th>
+                                    <th>Contact 02 </th>
                                     <th>Address </th>
                                     </tr>
                                 </thead>
@@ -121,24 +152,26 @@
                                         while($row = mysqli_fetch_assoc($sql)) {
 
                                         $memberID  = $row['memberID'];
-                                        $centerID   = $row['centerID'];
+                                        $image   = $row['image'];
                                         $name = $row['name'];
                                         $NIC = $row['NIC'];
                                         $contact = $row['contact'];
+                                        $contact2 = $row['contact2'];
                                         $address = $row['address'];
 
-                                        $center = mysqli_query($conn, "SELECT * FROM center WHERE id='$centerID'");
-                                        $detail = mysqli_fetch_assoc($center);
+                                        // $center = mysqli_query($conn, "SELECT * FROM center WHERE id='$centerID'");
+                                        // $detail = mysqli_fetch_assoc($center);
 
-                                        $center_name = $detail['center_name'];
+                                        // $center_name = $detail['center_name'];
 
                                         echo ' <tr>';
                                         echo ' <td>'.$i.' </td>';
+                                        echo ' <td> <img src="../upload/'.$image.' "></td>';
                                         echo ' <td>'.$memberID.' </td>';
-                                        echo ' <td>'.$center_name.' </td>';
                                         echo ' <td>'.$name.' </td>';
                                         echo ' <td>'.$NIC.' </td>';
                                         echo ' <td>'.$contact.' </td>';
+                                        echo ' <td>'.$contact2.' </td>';
                                         echo ' <td>'.$address.' </td>';
                                         echo ' </tr>';
                                         $i++;
@@ -187,15 +220,20 @@
     ////////////// status get  ///////////////////////
     $("#type").on('change',function(){
 
+      var center = $('#center').val();
+
       var type = $(this).val();
-      if(type){     
-        window.location.href = "borrower_report.php?view_id=" + type;
+      if(center && type){     
+        window.location.href = "client_report.php?view_id1="+center+"&view_id2="+ type;
+      }else{
+        alert('Please select both Center and Type');
       }
+
     });
 
     function cancelForm(){
 
-        window.location.href = "borrower_report.php";
+        window.location.href = "client_report.php";
     }
 
     function printDiv(divID)
