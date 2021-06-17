@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2021 at 01:55 AM
+-- Generation Time: Jun 16, 2021 at 10:18 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -43,21 +43,25 @@ INSERT INTO `center` (`id`, `center_code`, `center_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cheque`
+-- Table structure for table `collection`
 --
 
-CREATE TABLE `cheque` (
-  `cheque_id` int(7) NOT NULL,
-  `bank` varchar(50) NOT NULL,
-  `cheque_no` varchar(50) NOT NULL,
-  `valid_date` date NOT NULL,
-  `exchange_date` date NOT NULL,
-  `cheque_value` double(10,2) NOT NULL,
-  `interest` int(5) NOT NULL,
-  `exchange_amt` double(10,2) NOT NULL,
-  `status` varchar(20) NOT NULL,
-  `cust_id` varchar(10) NOT NULL
+CREATE TABLE `collection` (
+  `id` int(11) NOT NULL,
+  `centerID` int(11) NOT NULL,
+  `li_date` varchar(50) NOT NULL,
+  `year` varchar(10) NOT NULL,
+  `month` varchar(10) NOT NULL,
+  `tot_collection` decimal(10,2) NOT NULL,
+  `tot_arrears` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `collection`
+--
+
+INSERT INTO `collection` (`id`, `centerID`, `li_date`, `year`, `month`, `tot_collection`, `tot_arrears`) VALUES
+(1, 1, '2021-06-16', '2021', '06', '26450.00', '2958.00');
 
 -- --------------------------------------------------------
 
@@ -81,10 +85,10 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`cust_id`, `memberID`, `name`, `NIC`, `address`, `contact`, `contact2`, `image`) VALUES
-(1, 'JI-00001', 'anne fernando', '984567892V', 'Nuwara road, Kadawatha', '0771234567', '', ''),
-(2, 'JI-00002', 'Imashi Bhagya', '928578954V', 'Bambalapitiya', '9477123400', '', ''),
-(4, 'JI-00003', 'Indunil Sanjeewa', '984567892V', 'No.43/D/4, 3rd Lane, Galwarusa, Korathota, Kaduwela.', '0766652982', '', ''),
-(5, 'JI-00005', 'Janith Lakshan', '964789458V', 'Karathota, Kaduwela.', '0117894562', '0774854854', 'JI-00005.jpg'),
+(1, 'JI-00001', 'anne fernando', '984567892V', 'Nuwara road, Kadawatha', '771234567', '117897897', '100.jpg'),
+(2, 'JI-00002', 'Imashi Bhagya', '928578954V', 'Bambalapitiya', '9477123400', '', '100.jpg'),
+(4, 'JI-00003', 'Indunil Sanjeewa', '988746892V', 'No.43/D/4, 3rd Lane, Galwarusa, Korathota, Kaduwela.', '0766652982', '', '100.jpg'),
+(5, 'JI-00005', 'Janith Lakshan', '964789458V', 'No:01,Karathota, Kaduwela.', '117894568', '774854855', 'JI-00005.jpg'),
 (6, 'JI-00006', 'Sachintha', '936547892V', 'Aluthgama', '0771234567', '', '100.jpg');
 
 -- --------------------------------------------------------
@@ -104,6 +108,7 @@ CREATE TABLE `loan` (
   `terms` int(11) NOT NULL,
   `interestRate` double(10,2) NOT NULL,
   `rental` double(10,2) NOT NULL,
+  `daily_rental` decimal(10,2) NOT NULL,
   `inspectionDate` varchar(20) NOT NULL,
   `disburseDate` varchar(20) NOT NULL,
   `gurantee1` varchar(250) NOT NULL,
@@ -116,11 +121,10 @@ CREATE TABLE `loan` (
 -- Dumping data for table `loan`
 --
 
-INSERT INTO `loan` (`loan_no`, `branch`, `centerID`, `customerID`, `loanType`, `contractNo`, `loanAmt`, `terms`, `interestRate`, `rental`, `inspectionDate`, `disburseDate`, `gurantee1`, `gurantee2`, `loanStep`, `status`) VALUES
-(1, 'Kalutara', 2, 4, 'weekly', 'YT00001', 15000.00, 16, 5.00, 1125.00, '2021-06-02', '2021-06-04', '', '', 1, 1),
-(2, 'Kalutara', 2, 2, 'weekly', 'YT00004', 5000.00, 8, 6.00, 700.00, '2021-04-24', '2021-04-26', '', '', 1, 0),
-(3, 'Colombo', 1, 1, 'weekly', 'CL00003', 10000.00, 16, 9.00, 850.00, '2021-04-30', '2021-05-01', '', '', 1, 1),
-(4, 'Kalutara', 2, 2, 'weekly', 'YT00002', 10000.00, 16, 6.00, 775.00, '2021-06-01', '2021-06-04', '', '', 2, 1);
+INSERT INTO `loan` (`loan_no`, `branch`, `centerID`, `customerID`, `loanType`, `contractNo`, `loanAmt`, `terms`, `interestRate`, `rental`, `daily_rental`, `inspectionDate`, `disburseDate`, `gurantee1`, `gurantee2`, `loanStep`, `status`) VALUES
+(1, 'Nugegoda', 2, 1, 'weekly', 'YT00001', 20000.00, 16, 5.00, 1500.00, '200.00', '2021-05-01', '2021-05-01', 'Sarath,\r\n897845787V,\r\nKarathota', 'Sumanasiri,,\r\n784541741V,\r\nKaduwela', 1, 1),
+(2, 'Nugegoda', 2, 2, 'weekly', 'YT00002', 10000.00, 12, 5.00, 958.00, '128.00', '2021-05-01', '2021-05-02', '', '', 2, 1),
+(3, 'Nugegoda', 1, 4, 'monthly', 'CL00003', 25000.00, 16, 6.00, 7750.00, '258.00', '2021-04-20', '2021-04-21', '', '', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -130,9 +134,8 @@ INSERT INTO `loan` (`loan_no`, `branch`, `centerID`, `customerID`, `loanType`, `
 
 CREATE TABLE `loan_installement` (
   `id` int(7) NOT NULL,
+  `collectionID` int(11) NOT NULL,
   `li_date` varchar(25) NOT NULL,
-  `month` varchar(10) NOT NULL,
-  `year` varchar(10) NOT NULL,
   `paid` double(10,2) NOT NULL DEFAULT '0.00',
   `arrears` double(10,2) NOT NULL,
   `total_paid` double(10,2) NOT NULL,
@@ -144,44 +147,10 @@ CREATE TABLE `loan_installement` (
 -- Dumping data for table `loan_installement`
 --
 
-INSERT INTO `loan_installement` (`id`, `li_date`, `month`, `year`, `paid`, `arrears`, `total_paid`, `outstanding`, `loanNo`) VALUES
-(1, '2021-05-03', '06', '2021', 700.00, 0.00, 700.00, '4900.00', 2),
-(2, '2021-05-10', '06', '2021', 600.00, 100.00, 1300.00, '4300.00', 2),
-(3, '2021-05-24', '06', '2021', 1400.00, 100.00, 2700.00, '2900.00', 2),
-(4, '2021-05-31', '06', '2021', 1000.00, -200.00, 3700.00, '1900.00', 2),
-(5, '2021-06-07', '06', '2021', 500.00, 0.00, 4200.00, '1400.00', 2),
-(6, '2021-06-14', '06', '2021', 700.00, 0.00, 4900.00, '700.00', 2),
-(8, '2021-06-21', '06', '2021', 700.00, 0.00, 5600.00, '0.00', 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `special_days`
---
-
-CREATE TABLE `special_days` (
-  `id` int(11) NOT NULL,
-  `poyaday` varchar(50) NOT NULL,
-  `day_index` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `special_days`
---
-
-INSERT INTO `special_days` (`id`, `poyaday`, `day_index`) VALUES
-(1, '2021-01-28', 4),
-(2, '2021-02-26', 5),
-(3, '2021-03-28', 0),
-(4, '2021-04-26', 1),
-(5, '2021-05-26', 3),
-(6, '2021-06-24', 4),
-(7, '2021-07-23', 5),
-(8, '2021-08-22', 0),
-(9, '2021-09-20', 1),
-(10, '2021-10-20', 3),
-(11, '2021-11-18', 4),
-(12, '2021-12-18', 6);
+INSERT INTO `loan_installement` (`id`, `collectionID`, `li_date`, `paid`, `arrears`, `total_paid`, `outstanding`, `loanNo`) VALUES
+(1, 1, '2021-06-16', 8000.00, 1200.00, 8000.00, '16000.00', 1),
+(2, 1, '2021-06-16', 4000.00, 1760.00, 4000.00, '7496.00', 2),
+(3, 1, '2021-06-16', 14450.00, -2.00, 14450.00, '16550.00', 3);
 
 -- --------------------------------------------------------
 
@@ -203,18 +172,34 @@ CREATE TABLE `summary` (
 --
 
 INSERT INTO `summary` (`id`, `year`, `month`, `loanAMT`, `debtAMT`, `createDate`) VALUES
-(1, '2021', '06', '40000.00', '6300.00', '2021-06-04'),
-(2, '2021', '01', '0.00', '0.00', '2021-06-04'),
-(3, '2021', '02', '0.00', '0.00', '2021-06-04'),
-(4, '2021', '03', '0.00', '0.00', '2021-06-04'),
-(5, '2021', '04', '0.00', '0.00', '2021-06-04'),
-(6, '2021', '05', '0.00', '0.00', '2021-06-04'),
-(7, '2021', '07', '0.00', '0.00', '2021-06-04'),
-(8, '2021', '08', '0.00', '0.00', '2021-06-04'),
-(9, '2021', '09', '0.00', '0.00', '2021-06-04'),
-(10, '2021', '10', '0.00', '0.00', '2021-06-04'),
-(11, '2021', '11', '0.00', '0.00', '2021-06-04'),
-(12, '2021', '12', '0.00', '0.00', '2021-06-04');
+(1, '2021', '06', '55000.00', '26450.00', '2021-06-16'),
+(2, '2021', '01', '0.00', '0.00', '2021-06-16'),
+(3, '2021', '02', '0.00', '0.00', '2021-06-16'),
+(4, '2021', '03', '0.00', '0.00', '2021-06-16'),
+(5, '2021', '04', '0.00', '0.00', '2021-06-16'),
+(6, '2021', '05', '0.00', '0.00', '2021-06-16'),
+(7, '2021', '07', '0.00', '0.00', '2021-06-16'),
+(8, '2021', '08', '0.00', '0.00', '2021-06-16'),
+(9, '2021', '09', '0.00', '0.00', '2021-06-16'),
+(10, '2021', '10', '0.00', '0.00', '2021-06-16'),
+(11, '2021', '11', '0.00', '0.00', '2021-06-16'),
+(12, '2021', '12', '0.00', '0.00', '2021-06-16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `temp_data`
+--
+
+CREATE TABLE `temp_data` (
+  `id` int(7) NOT NULL,
+  `li_date` varchar(25) NOT NULL,
+  `paid` double(10,2) NOT NULL DEFAULT '0.00',
+  `arrears` double(10,2) NOT NULL DEFAULT '0.00',
+  `total_paid` double(10,2) NOT NULL DEFAULT '0.00',
+  `outstanding` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `loanNo` int(7) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -250,10 +235,10 @@ ALTER TABLE `center`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cheque`
+-- Indexes for table `collection`
 --
-ALTER TABLE `cheque`
-  ADD PRIMARY KEY (`cheque_id`);
+ALTER TABLE `collection`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `customer`
@@ -274,15 +259,15 @@ ALTER TABLE `loan_installement`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `special_days`
---
-ALTER TABLE `special_days`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `summary`
 --
 ALTER TABLE `summary`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `temp_data`
+--
+ALTER TABLE `temp_data`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -301,10 +286,10 @@ ALTER TABLE `user`
 ALTER TABLE `center`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `cheque`
+-- AUTO_INCREMENT for table `collection`
 --
-ALTER TABLE `cheque`
-  MODIFY `cheque_id` int(7) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `collection`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `customer`
 --
@@ -314,22 +299,22 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `loan`
 --
 ALTER TABLE `loan`
-  MODIFY `loan_no` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `loan_no` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `loan_installement`
 --
 ALTER TABLE `loan_installement`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT for table `special_days`
---
-ALTER TABLE `special_days`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `summary`
 --
 ALTER TABLE `summary`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `temp_data`
+--
+ALTER TABLE `temp_data`
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `user`
 --

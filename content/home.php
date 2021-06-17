@@ -49,7 +49,7 @@ include('../include/config.php');
                 //////////// card 2 /////////////
                 $year = date('Y');
                 $month = date('m');
-                $insatllements = mysqli_query($conn, "SELECT SUM(paid) as tot_paid FROM loan_installement WHERE year='$year' AND month='$month' GROUP BY month AND year");
+                $insatllements = mysqli_query($conn, "SELECT SUM(tot_collection) as tot_paid FROM collection WHERE year='$year' AND month='$month' GROUP BY month AND year");
                 $data = mysqli_fetch_assoc($insatllements);
                 $card_2 = $data['tot_paid'];
 

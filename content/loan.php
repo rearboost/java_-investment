@@ -179,7 +179,7 @@
                             </div>
                             <div class="col-sm-6">
                               <label>Phone No (01)</label>
-                              <input type="number" class="form-control" name="contact2" id="contact2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  minlength="10" required="" />
+                              <input type="number" class="form-control" name="contact2" id="contact2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  minlength="10"/>
                               <p></p>
                             </div>
 
@@ -229,9 +229,13 @@
                           </div>
                           <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Rental</label>
-                                <div class="col-sm-9">
+                                <label class="col-sm-2 col-form-label">Rental</label>
+                                <div class="col-sm-4">
                                   <input type="text" class="form-control" name="rental" id="rental" required  readonly=""/>
+                                </div>
+                                <label class="col-sm-2 col-form-label">Daily Rental</label>
+                                <div class="col-sm-4">
+                                  <input type="text" class="form-control" name="daily_rental" id="daily_rental" required  readonly=""/>
                                 </div>
                             </div>
                           </div>
@@ -565,9 +569,14 @@
 
             var interest = Number(loanAmt)*Number(intRate/100)*Number(terms/4);
             var tot_amt = (Number(loanAmt)+Number(interest));
-            var rental = (Number(tot_amt)/Number(no)).toFixed(2);
+            var rental = (Math.round(Number(tot_amt)/Number(no))).toFixed(2);
+
+            var month = Number(terms)/4;
+            var monthly_rental = Number(tot_amt) / Number(month);
+            var daily_rental = (Math.round(Number(monthly_rental)/30)).toFixed(2);
 
             $('#rental').val(rental);
+            $('#daily_rental').val(daily_rental);
         }
     });
 

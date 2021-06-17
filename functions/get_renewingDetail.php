@@ -2,19 +2,21 @@
 	error_reporting(0);
 	include("../include/config.php");
 
-	$contractNo = $_POST['contractNo'];
+	$customer = $_POST['customer'];
 
-	// $get_Cid = mysqli_query($conn, "SELECT * FROM customer WHERE name='$customer'");
-	// $cutomData = mysqli_fetch_assoc($get_Cid);
-	// $customer_id = $cutomData['id'];
+	$get_Cid = mysqli_query($conn, "SELECT * FROM customer WHERE NIC='$customer'");
+	$cutomData = mysqli_fetch_assoc($get_Cid);
+	$customer_id = $cutomData['cust_id'];
 
-	$get_paw = mysqli_query($conn,"SELECT * FROM loan WHERE contractNo = '$contractNo'");
+	$get_paw = mysqli_query($conn,"SELECT * FROM loan WHERE customerID = '$customer_id' AND status=1");
 
 	$data = mysqli_fetch_array($get_paw); 
 
 	$loan_no 		= $data['loan_no'];
 	$disburseDate 	= $data['disburseDate'];
 	$rental 	 	= $data['rental'];
+	$loanType 	 	= $data['loanType'];
+	$daily_rental 	= $data['daily_rental'];
 	$loanAmt 	 	= $data['loanAmt'];
 	$terms 	 		= $data['terms'];
 	
@@ -30,7 +32,13 @@
 	
 	if($renewCount==0)
 	{
-		$newAmount  = $rental*$terms;	
+		if($loanType=='weekly'){
+			$newAmount  = $rental*$terms;
+		}else if($loanType=='monthly'){
+			$newAmount  = $rental*($terms/4);
+		}else if($loanType=='yearly'){
+			$newAmount  = $rental*($terms/48);
+		}	
 		$total_paid = 0;	
 		$pre_date 	= $disburseDate;	
 		$arrears 	= 0;	
@@ -45,6 +53,7 @@
 
 	$myObj->loan_no 	= $loan_no;
 	$myObj->rental 		= $rental;
+	$myObj->daily_rental= $daily_rental;
 	$myObj->newAmount 	= $newAmount;
 	$myObj->arrears 	= $arrears;
 	$myObj->total_paid 	= $total_paid;

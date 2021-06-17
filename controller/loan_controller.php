@@ -14,6 +14,7 @@
             $terms          = $_POST['terms'];
             $intRate        = $_POST['intRate'];
             $rental         = $_POST['rental'];
+            $daily_rental   = $_POST['daily_rental'];
             $inspectionDate = $_POST['inspectionDate'];
             $disburseDate   = $_POST['disburseDate'];
             $gurantee1      = $_POST['gurantee1'];
@@ -88,7 +89,7 @@
             }
 
 
-            $insert = mysqli_query($conn,"INSERT INTO loan (branch,centerID,customerID,loanType,contractNo,loanAmt,terms,interestRate,rental,inspectionDate,disburseDate,gurantee1,gurantee2,loanStep,status) VALUES ('$branch','$center','$cust_id','$loan_type','$contractNo','$loanAmt','$terms','$intRate','$rental','$inspectionDate','$disburseDate','$gurantee1','$gurantee2','$loanStep',1)");
+            $insert = mysqli_query($conn,"INSERT INTO loan (branch,centerID,customerID,loanType,contractNo,loanAmt,terms,interestRate,rental,daily_rental,inspectionDate,disburseDate,gurantee1,gurantee2,loanStep,status) VALUES ('$branch','$center','$cust_id','$loan_type','$contractNo','$loanAmt','$terms','$intRate','$rental','$daily_rental','$inspectionDate','$disburseDate','$gurantee1','$gurantee2','$loanStep',1)");
 
             if($insert){
                 $updateCustomer = mysqli_query($conn, "UPDATE customer SET contact =$contact1, contact2=$contact2, address='$address' WHERE cust_id=$cust_id");
