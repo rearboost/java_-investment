@@ -41,14 +41,36 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                    <h3 class="card-title">Collection form</h3>
+                    <h3 class="card-title">Create a receipt</h3>
 
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-3">
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Create Date </label>
+                            <label class="col-sm-4 col-form-label">MSU Code </label>
+                            <div class="col-sm-8">
+                              <input list="brow" class="form-control" name="center" id="center" required>
+                                <datalist id="brow">
+                                <?php
+                                  $center = "SELECT DISTINCT(C.center_code) AS center_code FROM center C INNER JOIN loan L ON C.id=L.centerID AND L.status=1";
+                                  $result = mysqli_query($conn,$center);
+                                  $numRows = mysqli_num_rows($result); 
+                  
+                                  if($numRows > 0) {
+                                      while($dl = mysqli_fetch_assoc($result)) {
+                                          echo '<option value ="'.$dl["center_code"].'">';
+                                      }
+                                  }
+                                ?>
+                                </datalist> 
+                            </div>
+                        </div>
+                      </div>
 
-                            <div class="col-sm-9">
+                      <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Create Date </label>
+
+                            <div class="col-sm-7">
                               <input type="date" class="form-control" name="createDate" id="createDate" value="<?php echo date("Y-m-d"); ?>"/>
                             </div>
 
@@ -67,7 +89,7 @@
               </div>
 
               <div id="show">
-              <?php if (isset($_GET['createDate'])): ?>
+              <?php if (isset($_GET['createDate']) && isset($_GET['center'])): ?>
               <div class="row">
                 <div class="col-lg-12 grid-margin stretch-card">
                   <div class="card">
@@ -77,46 +99,73 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group row">
-                              <input type="hidden" class="form-control" name="li_date" id="li_date" value="<?php echo $_GET['createDate']; ?>" />
-                              <label class="col-sm-1 col-form-label">Customer</label>
-                              <div class="col-sm-2">
-                                <input list="brow" class="form-control" name="customer" id="customer" required>
-                                <datalist id="brow">
-                                <?php
-                                  $custom = "SELECT * FROM customer C INNER JOIN loan L ON C.cust_id=L.customerID AND L.status=1";
-                                  $result = mysqli_query($conn,$custom);
-                                  $numRows = mysqli_num_rows($result); 
-                  
-                                  if($numRows > 0) {
-                                      while($dl = mysqli_fetch_assoc($result)) {
-                                          echo '<option value ="'.$dl["NIC"].'">';
-                                      }
-                                  }
-                                ?>
-                                </datalist> 
-                                <input type="hidden" id="loan_no" name="loan_no">
+                              <?php 
+                              $center_code = $_GET['center']; 
+                              $createDate =  $_GET['createDate'];
+
+                              $getCenter = mysqli_query($conn, "SELECT * FROM center WHERE center_code='$center_code'");
+                              $cd = mysqli_fetch_assoc($getCenter);
+
+                              $center_id   = $cd['id'];
+                              $center_name = $cd['center_name'];
+                              $leader      = $cd['leader'];
+                              $contact     = $cd['contact'];
+
+                              $fetchData = mysqli_query($conn, "SELECT * FROM loan WHERE centerID=$center_id AND status=1");
+                              $count1 = mysqli_num_rows($fetchData);
+                              if($count1>0){
+                                while($row1 = mysqli_fetch_assoc($fetchData)){
+                                    $loan_no      = $row1['loan_no'];
+                                    $contractNo   = $row1['contractNo'];
+                                    $customerID   = $row1['customerID'];
+                                    $loanAmt      = $row1['loanAmt'];
+                                    $daily_rental = $row1['daily_rental'];
+
+                                    $fetchInst = mysqli_query($conn, "SELECT * FROM loan_installement WHERE loan_no='$loan_no' ORDER BY id DESC LIMIT 1");
+                                    $numRows = mysqli_num_rows($fetchInst);
+                                    if($numRows>0){
+                                      $row2 = mysqli_num_rows($fetchInst);
+
+                                      $arrears  = $row2['arrears'];
+                                      $balance  = $row2['outstanding'];
+                                      $bef_date = $row2['li_date'];
+                                    }else{
+                                      $arrears  = 0;
+                                      $balance  = $row1['totalAmt'];
+                                      $bef_date = $row1['disburseDate'];
+                                    }
+
+
+                                    $pre_date   = strtotime($bef_date);
+                                    $now_date   = strtotime($createDate);
+                                    $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
+
+                                    $payable= $daily_rental * $Days;
+                                }
+                              }
+                              
+                              
+
+
+                              ?>
+                              <input type="text" class="form-control" name="center_id" id="center_id" value="<?php echo $center_id; ?>" />
+                              <input type="text" class="form-control" name="li_date" id="li_date" value="<?php echo $createDate; ?>" />
+
+                              <div class="col-md-3">
+                                <label class="col-sm-12 col-form-label"><strong>Formed Date : </strong> <?php echo $createDate; ?> </label>
                               </div>
 
-                              <label class="col-sm-0.5 col-form-label">Payment</label>
-                              <div class="col-sm-2">
-                                <input type="number" class="form-control" name ="payment" id ="payment"  placeholder="LKR.0.00"/>
+                              <div class="col-md-3">
+                                <label class="col-sm-12 col-form-label"><strong>MSU Name : </strong> <?php echo $center_name; ?> </label>
                               </div>
 
-                              <label class="col-sm-0.5 col-form-label">Arrears</label>
-                              <div class="col-sm-2">
-                                <input type="text" class="form-control" name="arrears"  id="arrears" placeholder="LKR.0.00" readonly=""/>
+                              <div class="col-md-4">
+                                <label class="col-sm-12 col-form-label"><strong>MSU Leader : </strong> <?php echo $leader .' [' . $contact . ']' ; ?> </label>
                               </div>
 
-                              <label class="col-sm-1 col-form-label">Outstanding</label>
-                              <div class="col-sm-2">
-                                <input type="text" class="form-control" name="outstanding"  id="outstanding" placeholder="LKR.0.00" readonly=""/>
-                                <input type="hidden" class="form-control" name="totalPaid"  id="totalPaid" placeholder="LKR.0.00"/>
+                              <div class="col-md-2">
+                                <label class="col-sm-12 col-form-label"><strong>Status : </strong> Active</label>
                               </div>
-
-                              <div class="col-sm-1 size">
-                                <i class="fa fa-plus-circle pointer" onclick="AddRow()"></i>   
-                              </div>
-
                           </div>
                         </div>
                       </div>
@@ -275,13 +324,14 @@
     });
 
     function ShowForm(){
+      var center = $('#center').val();
       var createDate = $('#createDate').val();
 
-      if(createDate){
-        window.location.href = "debt_collection.php?createDate="+createDate;
+      if(center&&createDate){
+        window.location.href = "debt_collection.php?center="+center+"&createDate="+createDate;
 
       }else{
-          alert('Selcet Date First');
+          alert('Selcet MSU Code First');
       }
     }
 
