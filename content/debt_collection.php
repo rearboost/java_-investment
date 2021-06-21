@@ -121,10 +121,11 @@
                                     $loanAmt      = $row1['loanAmt'];
                                     $daily_rental = $row1['daily_rental'];
 
-                                    $fetchInst = mysqli_query($conn, "SELECT * FROM loan_installement WHERE loan_no='$loan_no' ORDER BY id DESC LIMIT 1");
-                                    $numRows = mysqli_num_rows($fetchInst);
-                                    if($numRows>0){
-                                      $row2 = mysqli_num_rows($fetchInst);
+                            
+                                    $fetchInst = mysqli_query($conn, "SELECT * FROM loan_installement WHERE loanNo='$loan_no' ORDER BY id DESC LIMIT 1");
+                                    $count2 = mysqli_num_rows($fetchInst);
+                                    if(!$count2==0){
+                                      $row2 = mysqli_fetch_assoc($fetchInst);
 
                                       $arrears  = $row2['arrears'];
                                       $balance  = $row2['outstanding'];
@@ -141,6 +142,21 @@
                                     $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
 
                                     $payable= $daily_rental * $Days;
+
+                                    // echo '<p>'.$loan_no.' | </p>';
+                                    // echo '<p>'.$contractNo.' | </p>';
+                                    // echo '<p>'.$customerID.' | </p>';
+                                    // echo '<p>'.$loanAmt.' | </p>';
+                                    // echo '<p>'.$arrears.' | </p><br>';
+                                    // echo '<p>'.$arrears.' | </p><br>';
+                                    // echo '<p>'.$bef_date.' | </p><br>';
+                                    // echo '<p>'.$payable.' | </p><br>';
+
+                                   $insert = mysqli_query($conn, "INSERT INTO temp_collection( loan_no,contractNo,customerID,loanAmt,Arrears,balance,  payable) VALUES($loan_no,'$contractNo',$customerID,'$loanAmt','$arrears','$balance','$payable')");
+                                   // if($insert){
+                                   //  echo 1;
+                                   // }
+
                                 }
                               }
                               
@@ -148,8 +164,8 @@
 
 
                               ?>
-                              <input type="text" class="form-control" name="center_id" id="center_id" value="<?php echo $center_id; ?>" />
-                              <input type="text" class="form-control" name="li_date" id="li_date" value="<?php echo $createDate; ?>" />
+                              <input type="hidden" class="form-control" name="center_id" id="center_id" value="<?php echo $center_id; ?>" />
+                              <input type="hidden" class="form-control" name="li_date" id="li_date" value="<?php echo $createDate; ?>" />
 
                               <div class="col-md-3">
                                 <label class="col-sm-12 col-form-label"><strong>Formed Date : </strong> <?php echo $createDate; ?> </label>
@@ -182,66 +198,64 @@
                                 <tr>
                                   <th style="text-align:center;">Customer</th>
                                   <th style="text-align:center;">Payment</th>
-                                  <th style="text-align:center;">Total Paid</th>
+                                  <th style="text-align:center;">Payable</th>
                                   <th style="text-align:center;">Arrears</th>
-                                  <th style="text-align:center;">Outstanding</th>
-                                  <th style="text-align:center;">DELETE</th>  
+                                  <th style="text-align:center;">Balance</th>
                                 </tr>
                               </thead>
                               <tbody>
                                   <?php
-                                  $sql=mysqli_query($conn,"SELECT * FROM temp_data");
+                                  $sql=mysqli_query($conn,"SELECT * FROM temp_collection");
                                   
-                                    $numRows = mysqli_num_rows($sql); 
+                                    $row_num = mysqli_num_rows($sql); 
                               
-                                    if($numRows > 0) {
+                                    if($row_num > 0) {
 
-                                      $total_amt = 0;
-                                      $total_arr = 0;
-                                      $total_p = 0;
-                                      $total_out = 0;
+                                      // $total_amt = 0;
+                                      // $total_arr = 0;
+                                      // $total_p = 0;
+                                      // $total_out = 0;
 
                                       while($row = mysqli_fetch_assoc($sql)) {
 
-                                        $loanNo = $row['loanNo'];
+                                        $loanNo = $row['loan_no'];
 
-                                        $cus = mysqli_query($conn, "SELECT C.NIC AS customer FROM customer C INNER JOIN loan L ON C.cust_id = L.customerID WHERE L.loan_no=$loanNo");
+                                        $cus = mysqli_query($conn, "SELECT C.name AS customer FROM customer C INNER JOIN loan L ON C.cust_id = L.customerID WHERE L.loan_no=$loanNo");
                                         $cusRow = mysqli_fetch_assoc($cus);
 
                                         $customer = $cusRow['customer'];
 
                                         $paid       = $row['paid'];
-                                        $arrears    = $row['arrears'];
-                                        $total_paid = $row['total_paid'];
-                                        $outstanding= $row['outstanding'];
+                                        $payable    = $row['payable'];
+                                        $arrears    = $row['Arrears'];
+                                        $balance    = $row['balance'];
 
                                         $id         = $row['id'];
 
                                       echo ' <tr>';
                                       echo ' <td>'.$customer.' </td>';
-                                      echo ' <td style="text-align:right;">'.number_format($paid,2,'.',',').' </td>';
-                                      echo ' <td style="text-align:right;">'.number_format($total_paid,2,'.',',').' </td>';
+                                      echo ' <td style="text-align:right;"> </td>';
+                                      echo ' <td style="text-align:right;">'.number_format($payable,2,'.',',').' </td>';
                                       echo ' <td style="text-align:right;">'.number_format($arrears,2,'.',',').' </td>';
-                                      echo ' <td style="text-align:right;">'.number_format($outstanding,2,'.',',').' </td>';
-                                      echo '<td class="td-center"><button class="btn-edit" id="DeleteButton" onclick="removeForm('.$id.')">Delete</button></td>';
+                                      echo ' <td style="text-align:right;">'.number_format($balance,2,'.',',').' </td>';
                                       echo ' </tr>';
 
                                        
-                                         $total_amt = $total_amt + $paid;
-                                         $total_arr = $total_arr + ($arrears);
-                                         $total_p   = $total_p + $total_paid;
-                                         $total_out = $total_out + $outstanding;
+                                         // $total_amt = $total_amt + $paid;
+                                         // $total_arr = $total_arr + ($arrears);
+                                         // $total_p   = $total_p + $total_paid;
+                                         // $total_out = $total_out + $outstanding;
 
                                       }
-                                      echo ' <tr style="background-color:#DAF7A6;">';
-                                        echo ' <th>Total </th>';
-                                        echo ' <th style="text-align:right;">'.number_format($total_amt,2,'.',',').' </th>';
-                                        echo ' <th style="text-align:right;">'.number_format($total_p,2,'.',',').' </th>';
-                                        echo ' <th style="text-align:right;">'.number_format($total_arr,2,'.',',').' </th>';
-                                        echo ' <th style="text-align:right;">'.number_format($total_out,2,'.',',').' </th>';
-                                        echo ' <th style="text-align:right;"> </th>';
+                                      // echo ' <tr style="background-color:#DAF7A6;">';
+                                      //   echo ' <th>Total </th>';
+                                      //   echo ' <th style="text-align:right;">'.number_format($total_amt,2,'.',',').' </th>';
+                                      //   echo ' <th style="text-align:right;">'.number_format($total_p,2,'.',',').' </th>';
+                                      //   echo ' <th style="text-align:right;">'.number_format($total_arr,2,'.',',').' </th>';
+                                      //   echo ' <th style="text-align:right;">'.number_format($total_out,2,'.',',').' </th>';
+                                      //   echo ' <th style="text-align:right;"> </th>';
                                         
-                                        echo ' </tr>';
+                                      //   echo ' </tr>';
                                     }
                                   ?>
                               </tbody>
@@ -300,28 +314,28 @@
 
     var numberRegex = /^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/;
     
-        $(document).ready(function() {
-           tmpEmpty();
+    //     $(document).ready(function() {
+    //        tmpEmpty();
 
-           $("#customer").focus();
+    //        $("#customer").focus();
 
 
-          $("#customer").keypress(function(e){
-              if (e.which == 13) 
-              {    
-                    $("#payment").focus();
-              };
-          });
+    //       $("#customer").keypress(function(e){
+    //           if (e.which == 13) 
+    //           {    
+    //                 $("#payment").focus();
+    //           };
+    //       });
 
-          $("#payment").keypress(function(e){
-              if (e.which == 13) 
-              {
-                 AddRow();
-              };
-          });
+    //       $("#payment").keypress(function(e){
+    //           if (e.which == 13) 
+    //           {
+    //              AddRow();
+    //           };
+    //       });
 
        
-    });
+    // });
 
     function ShowForm(){
       var center = $('#center').val();

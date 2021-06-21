@@ -32,7 +32,20 @@
                     $name ="100.jpg";
                 }
 
-                $insert = "INSERT INTO customer (memberID,name,NIC,address,contact,contact2,image) VALUES ('$memberID','$client','$nic','$address','$contact','$contact2','$name')";
+                if($_FILES["clientPro2"]["name"] != '')
+                {
+                    $test2 = explode('.', $_FILES["clientPro2"]["name"]);
+                    $ext2 = end($test2);
+                    //$name = rand(100, 999) . '.' . $ext;
+                    $name2 = $memberID . '-2.' . $ext2;
+                
+                    $location2 = '../upload/' . $name2;
+                    move_uploaded_file($_FILES["clientPro2"]["tmp_name"], $location2);
+                }else{
+                    $name2 ="100.jpg";
+                }
+
+                $insert = "INSERT INTO customer (memberID,name,NIC,address,contact,contact2,image,image2) VALUES ('$memberID','$client','$nic','$address','$contact','$contact2','$name','$name2')";
                 $result = mysqli_query($conn,$insert);
                 if($result){
                     echo  1;

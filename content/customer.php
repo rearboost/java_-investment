@@ -59,9 +59,7 @@
                     <div class="card-body">
                     <h4 class="card-title">Client Info</h4>
                         <form class="forms-sample" id="customerForm">
-                          <div class="row">
-                            
-                          </div>
+                          <div class="row"></div>
 
                           <div class="row">
                             <div class="col-md-6">
@@ -143,10 +141,16 @@
                             <div class="col-md-6">
                                 <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Client Profile</label>
-                                <div class="col-sm-9">
+                                <div class="col-sm-4">
                                     <input type="file" style="border: inherit;" name="clientPro" accept="image/*" onchange="document.getElementById('output1').src = window.URL.createObjectURL(this.files[0])" class="form-control" />
                                     <p></p>
                                     <img id="output1" src='<?php  echo '../assets/images/default-image.jpg'; ?>'  width="100" height="100">
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <input type="file" style="border: inherit;" name="clientPro2" accept="image/*" onchange="document.getElementById('output2').src = window.URL.createObjectURL(this.files[0])" class="form-control" />
+                                    <p></p>
+                                    <img id="output2" src='<?php  echo '../assets/images/default-image.jpg'; ?>'  width="100" height="100">
                                 </div>
                                 </div>
                             </div>

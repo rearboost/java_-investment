@@ -38,11 +38,9 @@
             <!-- Page Title Header Ends-->
             <form class="form-sample" id="loanAdd">
               <div class="row">
-                <div class="col-lg-12 grid-margin stretch-card">
+                <div class="col-lg-6 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-
-                        <div class="row">
                         <?php
                           $get_id = mysqli_query($conn, "SELECT loan_no FROM loan ORDER BY loan_no DESC LIMIT 1");
 
@@ -53,7 +51,7 @@
                         <input type="hidden" id="loan_no" value="<?php echo $next_id; ?>">
 
 
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Branch</label>
                                 <div class="col-sm-9">
@@ -62,7 +60,7 @@
                             </div>
                           </div>
 
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Center</label>
                               <div class="col-sm-9">
@@ -83,10 +81,8 @@
                               </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Loan Type</label>
                               <div class="col-sm-9 mt-2">
@@ -105,7 +101,7 @@
                              </div>
                           </div>
 
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Contract No</label>
                               <div class="col-sm-9">
@@ -113,13 +109,11 @@
                               </div>
                              </div>
                           </div>
-                        </div>
 
-                        <hr>
-                        <h4 class="card-title">Customer Details</h4>
+                        <!-- <hr>
+                        <h4 class="card-title">Customer Details</h4> -->
 
-                        <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Customer</label>
                               <div class="col-sm-8">
@@ -140,67 +134,20 @@
                               </div>
 
                               <div class="col-sm-1 size">
-                                  <i class="fa fa-plus-circle pointer" onclick="customerForm()"></i>   
+                                  <i class="fa fa-plus-circle pointer" onclick="customerForm()"></i>
                               </div>
                             </div>
                           </div>
 
-                          <div class="col-md-6">
-                            <!-- <strong><p style="color:red;">* Already this client have a loan.</p></strong> -->
-
-                          <div id="show" class="loan-validtion"></div>
+                          <div class="col-md-12">
+                            <div id="show" class="loan-validtion"></div>
                           </div>
-
-                        </div>
-
-                        <div class="row customer_section" hidden>
-                          <div class="col-md-6">
-                          <div class="form-group row">
-                            <div class="col-sm-5">
-                              <div id="image"></div>
-                            </div>
-                            <div class="col-sm-7">
-                              <label>Member ID</label>
-                              <input type="hidden" class="form-control" name="cust_id" id="cust_id" readonly=""/>
-                              <input type="text" class="form-control" id="ID" readonly=""/>
-                              <p></p>
-                              <label>Name</label>
-                              <input type="text" class="form-control" id="client" readonly=""/>
-                            </div>
-                          </div>
-                          </div>
-
-                          <div class="col-md-6">
-                          <div class="form-group row">
-                            <div class="col-sm-6">
-                              <label>Phone No (01)</label>
-                              <input type="number" class="form-control" name="contact1" id="contact1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  minlength="10" required="" >
-                              <p></p>
-                            </div>
-                            <div class="col-sm-6">
-                              <label>Phone No (01)</label>
-                              <input type="number" class="form-control" name="contact2" id="contact2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  minlength="10"/>
-                              <p></p>
-                            </div>
-
-                            <div class="col-sm-12">
-                              <label>Address</label>
-                              <input type="text" class="form-control" name="address" id="address" required="" />
-
-
-                            <!-- <input type="text" class="form-control" name="customerUpdate" value="customerUpdate" /> -->
-                            <!-- <button type="submit" name="customerUpdate" class="btn btn-primary mt-2 mr-2 fr">Update</button> -->
-                            </div>
-                          </div>
-                          </div>
-                        </div>
 
 
                         <hr>
-                        <h4 class="card-title">Loan Details</h4>
+                        <!-- <h4 class="card-title">Loan Details</h4> -->
 
-                        <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Loan Amount</label>
                               <div class="col-sm-9">
@@ -208,7 +155,7 @@
                               </div>
                              </div>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Interest rate(%)</label>
                                 <div class="col-sm-9">
@@ -216,10 +163,8 @@
                                 </div>
                             </div>
                           </div>
-                        </div>
                         
-                        <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Terms (weeks)</label>
                                 <div class="col-sm-9">
@@ -227,22 +172,21 @@
                                 </div>
                             </div>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Rental</label>
-                                <div class="col-sm-4">
+                                <label class="col-sm-3 col-form-label">Rental</label>
+                                <div class="col-sm-3">
                                   <input type="text" class="form-control" name="rental" id="rental" required  readonly=""/>
                                 </div>
-                                <label class="col-sm-2 col-form-label">Daily Rental</label>
-                                <div class="col-sm-4">
+                                <label class="col-sm-3 col-form-label">Daily Rental</label>
+                                <div class="col-sm-3">
                                   <input type="text" class="form-control" name="daily_rental" id="daily_rental" required  readonly=""/>
+                                  <input type="hidden" class="form-control" name="tot_amt" id="tot_amt" required  readonly=""/>
                                 </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                               <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Inspection Date </label>
                               <div class="col-sm-9">
@@ -250,7 +194,7 @@
                               </div>
                               </div>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                               <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Disburse Date</label>
                               <div class="col-sm-9">
@@ -258,10 +202,8 @@
                               </div>
                               </div>
                           </div>
-                        </div>
                        
-                        <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Gurantee Details (01)</label>
                               <div class="col-sm-9">
@@ -270,7 +212,7 @@
                             </div>
                           </div>
 
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Gurantee Details (02)</label>
                               <div class="col-sm-9">
@@ -278,10 +220,8 @@
                               </div>
                             </div>
                           </div>
-                        </div>
                        
-                        <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-12">
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">loan Step</label>
                               <div class="col-sm-9">
@@ -301,7 +241,6 @@
                               </div>
                             </div>
                           </div>
-                        </div>
 
                         <input type="hidden" class="form-control" name="add" value="add" />
                         <button type="submit" class="btn btn-primary btn-fw">SAVE</button>
@@ -309,6 +248,70 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="col-lg-6 grid-margin stretch-card customer_section" hidden>
+                  <div class="card">
+                    <div class="card-body">
+                      <h3 class="card-title">Customer Details</h3>
+
+                        <div class="col-md-12">
+                          <div class="form-group row">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-5">
+                              <div id="image"></div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Member ID</label>
+                          <div class="col-sm-7">
+                            <input type="hidden" class="form-control" name="cust_id" id="cust_id" readonly=""/>
+                            <input type="text" class="form-control" id="ID" readonly=""/>
+                          </div>
+                        </div>
+                        </div>
+
+                        <div class="col-md-12">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Name</label>
+                          <div class="col-sm-7">
+                            <input type="text" class="form-control" id="client" readonly=""/>
+                          </div>
+                        </div>
+                        </div>
+
+                        <div class="col-md-12">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Phone No (01)</label>
+                            <div class="col-sm-7">
+                              <input type="number" class="form-control" name="contact1" id="contact1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  minlength="10" required="" >
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Phone No (01)</label>
+                            <div class="col-sm-7">
+                                <input type="number" class="form-control" name="contact2" id="contact2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  minlength="10"/>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Address</label>
+                            <div class="col-sm-7">
+                              <input type="text" class="form-control" name="address" id="address" required="" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
               </div>                
             </form>
 
@@ -573,8 +576,12 @@
 
             var month = Number(terms)/4;
             var monthly_rental = Number(tot_amt) / Number(month);
-            var daily_rental = (Math.round(Number(monthly_rental)/30)).toFixed(2);
+            //var daily_rental = (Math.round(Number(monthly_rental)/30)).toFixed(2);
+            var daily_rental = (Math.ceil(Number(monthly_rental)/30)).toFixed(2);
 
+            //var totalLoanAmt = 
+
+            $('#tot_amt').val(tot_amt.toFixed(2));
             $('#rental').val(rental);
             $('#daily_rental').val(daily_rental);
         }
@@ -754,9 +761,14 @@
 
                 <div class="form-group">
                 <label for="exampleInputName1">Client Profile</label>
-                <input type="file" style="border: inherit;" name="clientPro" accept="image/*" onchange="document.getElementById('output1').src = window.URL.createObjectURL(this.files[0])" class="form-control" />
-                <p></p>
-                <img id="output1" src='<?php echo '../assets/images/default-image.jpg'; ?>'  width="100" height="100">
+                  <input type="file" style="border: inherit;" name="clientPro" accept="image/*" onchange="document.getElementById('output1').src = window.URL.createObjectURL(this.files[0])" class="form-control" />
+                  <p></p>
+                  <img id="output1" src='<?php echo '../assets/images/default-image.jpg'; ?>'  width="100" height="100">
+                  <br><br>
+
+                  <input type="file" style="border: inherit;" name="clientPro2" accept="image/*" onchange="document.getElementById('output2').src = window.URL.createObjectURL(this.files[0])" class="form-control" />
+                  <p></p>
+                  <img id="output2" src='<?php  echo '../assets/images/default-image.jpg'; ?>'  width="100" height="100">
                 </div>
 
                 <input type="hidden" class="form-control" name="add" value="add" />

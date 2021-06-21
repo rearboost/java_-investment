@@ -1,29 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-  <?php
+ <?php
     // Database Connection
     require '../include/config.php';
-    
-    // Get Update Form Data
-    if(isset($_GET['edit_id'])){
-
-        $edit_id = $_GET['edit_id'];
-        $sql=mysqli_query($conn,"SELECT A.name as customer, A.address as address, A.NIC as NIC, A.contact as contact, A.memberID as memberID, B.id as id, B.center_code as center_code, B.center_name as center_name FROM customer A LEFT JOIN center B ON B.id=A.centerID WHERE cust_id='$edit_id'");  
-        $numRows = mysqli_num_rows($sql); 
-        if($numRows > 0) {
-          while($row = mysqli_fetch_assoc($sql)) {
-            $centerID     = $row['id'];
-            $center_code  = $row['center_code'];
-            $center_name  = $row['center_name'];
-            $memberID     = $row['memberID'];
-            $customer     = $row['customer'];
-            $address      = $row['address'];
-            $nic          = $row['NIC'];
-            $contact      = $row['contact'];
-          }
-        }
-    }
-
   ?>
   <!-- include head code here -->
   <?php  include('../include/head.php');   ?>
@@ -47,129 +26,256 @@
                   <h4 class="page-title">Dashboard</h4>
                   <div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
                     <ul class="quick-links">
-                      <li><a href="#"> | CLIENT DETAILS</a></li>
+                      <li><a href="#"> CLIENT</a></li>
+                      <li><a href="#"> SEARCH A CLIENT </a></li>
                     </ul>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-12 grid-margin stretch-card">
+            <!-- Page Title Header Ends-->
+            <div class="col-12 stretch-card">
                 <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Search Customer Data</h4>
-                     
-                    <div class="table-responsive">         
-                    <table class="table table-bordered" id="myTable">
-                      <thead>
-                        <tr>
-                          <th style="display:none;"> # </th>
-                          <th> # </th>
-                          <th>Member #</th>
-                          <th>Image</th>
-                          <th>Center</th>
-                          <th>Customer</th>
-                          <th>NIC </th>
-                          <th>Contact 01</th>
-                          <th>Contact 02</th>
-                          <th>Address</th>
+                    <div class="card-body">
+                    <strong><h3><i class="mdi mdi-account" aria-hidden="true"></i>
+                      Client Profile</h3></strong>
+                    <!-- <p class="card-description"> Horizontal form layout </p> -->
+                        <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Client NIC Number</label>
+                                <div class="col-sm-7">
+                                <input list="brow" class="form-control" name="customer" id="customer" required>
+                                  <datalist id="brow">
+                                    <?php
+                                      $custom = "SELECT * FROM customer";
+                                      $result = mysqli_query($conn,$custom);
+                                      $numRows = mysqli_num_rows($result); 
+                      
+                                      if($numRows > 0) {
+                                          while($row1 = mysqli_fetch_assoc($result)) {
+                                              echo '<option value ="'.$row1["NIC"].'">';
+                                          }
+                                      }
+                                    ?>
+                                  </datalist> 
+                                </div>
+                              </div>
+                              <button type="button" onclick="cancelForm()" class="btn btn-warning btn-fw">Cancel</button>  
+                            </div>
+                        </div>
+                  </div>
+                </div>
+            </div>
+            <br>
 
-                          <th>Disburse Date</th>
-                          <th>Loan</th>
-                          <th>Rental</th>
-                          <th>Status</th>
+            <?php if (isset($_GET['view_id'])): ?>
+            
+            <form class="forms-sample" id="report_form">
 
-                          <th>Total Paid</th>
-                          <th>Arrears</th>
-                          <th>Outstanding</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                          $sql=mysqli_query($conn,"SELECT * FROM customer C RIGHT JOIN loan L ON C.cust_id=L.customerID ORDER BY L.loan_no DESC");
-                          
-                          $numRows = mysqli_num_rows($sql); 
+                <input type="hidden" value ='<?php echo $_GET['view_id']; ?>' name="customer">
+                <?php 
+
+                  $NIC = $_GET['view_id'];
+
+                  $getCustomer = mysqli_query($conn, "SELECT * FROM customer WHERE NIC='$NIC'");
+                  $row1 = mysqli_fetch_assoc($getCustomer);
                     
-                          if($numRows > 0) {
-                            $i = 1;
-                            while($row = mysqli_fetch_assoc($sql)) {
-
-                              $loan_no  = $row['loan_no'];
-
-                              $name     = $row['name'];
-                              $memberID = $row['memberID'];
-                              $address  = $row['address'];
-                              $nic      = $row['NIC'];
-                              $contact  = $row['contact'];
-                              $contact2 = $row['contact2'];
-                              $image    = $row['image'];
-
-                              $centerID    = $row['centerID'];
-                              $getCenter = mysqli_query($conn, "SELECT * FROM center WHERE id=$centerID");
-                              $row1 = mysqli_fetch_assoc($getCenter);
-                              $center_name = $row1['center_name'];
-
-                              $loanAmt     = $row['loanAmt'];
-                              $disburseDate= $row['disburseDate'];
-                              $rental      = $row['rental'];
-                              $status      = $row['status'];
-
-
-                              $getPayment = mysqli_query($conn, "SELECT * FROM loan_installement WHERE loanNo=$loan_no ORDER BY id DESC LIMIT 1");
-                              $row2 = mysqli_fetch_assoc($getPayment);
-                              $check = $row2['outstanding'];
-                              if(empty($check)){
-                                $total_paid   = 0;
-                                $arrears      = 0;
-                                $outstanding  = 0;
-                              }else{
-                                $total_paid   = $row2['total_paid'];
-                                $arrears      = $row2['arrears'];
-                                $outstanding  = $row2['outstanding'];
-                              }
-
-                              echo ' <tr>';
-                              echo ' <td style="display:none;">'.$i.' </td>';
-                              echo ' <td>'.$loan_no.' </td>';
-                              echo ' <td>'.$memberID.' </td>';
-                              echo ' <td><img src="../upload/'.$image.' "style="border-radius:0;"></td>';
-                              echo ' <td>'.$center_name.' </td>';
-                              echo ' <td>'.$name.' </td>';
-                              echo ' <td>'.$nic.' </td>';
-                              echo ' <td>'.$contact.' </td>';
-                              echo ' <td>'.$contact2.' </td>';
-                              echo ' <td>'.$address.' </td>';
-
-                              echo ' <td>'.$disburseDate.' </td>';
-                              echo ' <td style="text-align:right;">'.number_format($loanAmt, 2, '.', ',').' </td>';
-                              echo ' <td style="text-align:right;">'.number_format($rental, 2, '.', ',').' </td>';
-
-                              if($status==1){
-                                echo ' <td><label class="badge badge-warning" style="font-size:14px;">'."Active".'</label> </td>';
-                              }else{
-                                echo ' <td><label class="badge badge-danger" style="font-size:14px;">'."Closed".'</label> </td>';
-                              }
-
-                              echo ' <td style="text-align:right;">'.number_format($total_paid, 2, '.', ',').' </td>';
-                              echo ' <td style="text-align:right;">'.number_format($arrears, 2, '.', ',').' </td>';
-                              echo ' <td style="text-align:right;">'.number_format($outstanding, 2, '.', ',').' </td>';
-                              //echo '<td class="td-center"><button type="button" onclick="editForm('.$row["cust_id"].')" class="btn btn-info btn-fw"> Edit</button></td>';
-
-                              //echo '<td class="td-center"><button type="button" onclick="confirmation(event,'.$row["cust_id"].')" class="btn btn-secondary btn-fw">Delete</button></td>';
-                              echo ' </tr>';
-                              $i++;
-                            }
-                          }
+                  $cust_id  = $row1['cust_id'];
+                  $name     = $row1['name'];
+                  $memberID = $row1['memberID'];
+                  $address  = $row1['address'];
+                  $nic      = $row1['NIC'];
+                  $contact  = $row1['contact'];
+                  $contact2 = $row1['contact2'];
+                  $image    = $row1['image'];
+                  $image2   = $row1['image2'];
+              
+                ?>
+                <div class="row">
+                <div class="col-lg-2 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <br>
+                      <h5>  Display Profile </h5> <hr>
+                      <div class="row">
+                        <?php
+                        echo '<img src="../upload/'.$image.'" height="100%" width="100%" alt="'.$image.'">';
                         ?>
-                      </tbody>
-                    </table>
+                      </div>
+                      <p></p>
+                      <div class="row">
+                        <?php
+                        echo '<img src="../upload/'.$image2.'" height="100%" width="100%" alt="'.$image2.'">';
+                        ?>
+                      </div>
                     </div>
                   </div>
                 </div>
+
+                <div class="col-lg-10 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                        <br>
+                        <h5>Client Information </h5> <hr>
+                        <div class="row">
+                          <div class="table-responsive mb-5">
+                          <table class="table" border="0">
+                            <tr>
+                              <th>Member ID  </th>
+                              <td><?php echo ' : ' . $memberID; ?></td>
+                            </tr>
+                            <tr>
+                              <th>Name  </th>
+                              <td><?php echo ' : ' . $name; ?></td>
+                            </tr>
+                            <tr>
+                              <th>NIC  </th>
+                              <td><?php echo ' : ' . $address; ?></td>
+                            </tr>
+                            <tr>
+                              <th>Address  </th>
+                              <td><?php echo ' : ' . $nic; ?></td>
+                            </tr>
+                            <tr>
+                              <th>Contact 01  </th>
+                              <td><?php echo ' : ' . $contact; ?></td>
+                            </tr>
+                            <tr>
+                              <th>Contact 02  </th>
+                              <td><?php echo ' : ' . $contact2; ?></td>
+                            </tr>
+                          </table>
+                          </div>
+                          
+
+                       <!-- loan details of selected customer -->
+                        <div class="table-responsive">
+                            <div id="printablediv">
+                            <table class="table table-bordered" id="loan_table">
+                                <thead>
+                                    <tr>
+                                      <th colspan="6" class="text-center">Loan Summary</th>
+                                    </tr>
+                                    <tr>
+                                    <th style="display: none;"> # </th>
+                                    <th>Loan index </th>
+                                    <th>Loan type</th>
+                                    <th>Contract no</th>
+                                    <th>Disburse Date</th>
+                                    <th>Loan Amount</th>
+                                    <th>Status </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $sql = mysqli_query($conn, "SELECT * FROM loan WHERE customerID ='$cust_id' ");
+                                    $numRows = mysqli_num_rows($sql); 
+                                
+                                    if($numRows > 0) {
+                                        $i = 1;
+
+                                        while($row2 = mysqli_fetch_assoc($sql)) {
+
+                                        $loan_no      = $row2['loan_no'];
+                                        $loanType     = $row2['loanType'];
+                                        $contractNo   = $row2['contractNo'];
+                                        $disburseDate = $row2['disburseDate'];
+                                        $loanAmt      = $row2['loanAmt'];
+                                        $status       = $row2['status'];
+
+                                        echo ' <tr>';
+                                        echo ' <td style="display: none;">'.$i.' </td>';
+                                        echo ' <td>'.$loan_no.' </td>';
+                                        echo ' <td>'.$loanType.' </td>';
+                                        echo ' <td>'.$contractNo.' </td>';
+                                        echo ' <td>'.$disburseDate.' </td>';
+                                        echo ' <td>'.$loanAmt.' </td>';
+                                        if($status==1){
+                                          echo ' <td><label class="badge badge-warning" style="font-size:12px;">'."Active".'</label> </td>';
+                                        }else{
+                                          echo ' <td><label class="badge badge-danger" style="font-size:12px;">'."Closed".'</label> </td>';
+                                        }
+                                        echo ' </tr>';
+                                        $i++;
+                                        }
+                                    }else{
+                                      echo ' <tr>';
+                                      echo ' <td  class="text-center" colspan="6" style="color:red;">'."Loan options are not available under this client".' </td>';
+                                      echo ' </tr>';
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                            </div>
+                            <br>                      
+                        </div> 
+
+                        <!-- payment of selected customer -->
+                        <div class="table-responsive">
+                            <div id="printablediv">
+                            <table class="table table-bordered" id="payment_table">
+                                <thead>
+                                    <tr>
+                                      <th colspan="5" class="text-center">Client Transaction Summary</th>
+                                    </tr>
+                                    <tr>
+                                    <th style="display: none;"> # </th>
+                                    <th>Contract no </th>
+                                    <th>Payment date</th>
+                                    <th>Payment</th>
+                                    <th>Arrears</th>
+                                    <th>Outstanding</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $sql2 = mysqli_query($conn, "SELECT * FROM loan L RIGHT JOIN loan_installement I ON L.loan_no = I.loanNo WHERE L.customerID ='$cust_id' ORDER BY loanNo ASC");
+                                    $numRows2 = mysqli_num_rows($sql2); 
+                                
+                                    if($numRows2 > 0) {
+                                        $i = 1;
+
+                                        while($row3 = mysqli_fetch_assoc($sql2)) {
+
+                                        $contractNo    = $row3['contractNo'];
+                                        $li_date       = $row3['li_date'];
+                                        $paid          = $row3['paid'];
+                                        $arrears       = $row3['arrears'];
+                                        $outstanding   = $row3['outstanding'];
+
+                                        echo ' <tr>';
+                                        echo ' <td style="display: none;">'.$i.' </td>';
+                                        echo ' <td>'.$contractNo.' </td>';
+                                        echo ' <td>'.$li_date.' </td>';
+                                        echo ' <td>'.$paid.' </td>';
+                                        echo ' <td>'.$arrears.' </td>';
+                                        echo ' <td>'.$outstanding.' </td>';
+                                        echo ' </tr>';
+                                        $i++;
+                                        }
+                                    }else{
+                                      echo ' <tr>';
+                                      echo ' <td  class="text-center" colspan="5" style="color:red;">'."No available Payments yet".' </td>';
+                                      echo ' </tr>';
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                            </div>
+                            <br>                      
+                        </div> 
+
+                   </div>
+                 </div>
+               </div>
               </div>
-             
-             
-            </div>
+              </div>
+            </form>
+           <?php else: ?>
+
+           <?php endif ?>
+            
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
@@ -188,11 +294,44 @@
   </body>
 </html>
 
-  <script>
-    $(document).ready( function () {
-      $('#myTable').DataTable();
+
+<script>
+   
+    ////////////// status get  ///////////////////////
+    $("#customer").on('change',function(){
+
+      var customer = $(this).val();
+      if(customer){     
+        window.location.href = "search_client.php?view_id="+ customer;
+      }
+
     });
-  
-    /////////////////////////////////////////////////// Form Submit Add  
+
+    function cancelForm(){
+
+        window.location.href = "search_client.php";
+    }
+
+    // function printDiv(divID)
+    // {
+     
+    //     //Get the HTML of div
+    //     var divElements = document.getElementById(divID).innerHTML;
+    //     //Get the HTML of whole page
+    //     var oldPage = document.body.innerHTML;
+
+    //     //Reset the page's HTML with div's HTML only
+    //     document.body.innerHTML =
+    //         "<html><head><title></title></head><body>" +
+    //         divElements + "</body>";
+
+    //     //Print Page
+    //     window.print();
+
+    //     //Restore orignal HTML
+    //     document.body.innerHTML = oldPage;
+
+    // }
+
 
   </script>
