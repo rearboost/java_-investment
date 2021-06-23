@@ -152,7 +152,7 @@
                                     // echo '<p>'.$bef_date.' | </p><br>';
                                     // echo '<p>'.$payable.' | </p><br>';
 
-                                  // $insert = mysqli_query($conn, "INSERT INTO temp_collection( loan_no,contractNo,customerID,loanAmt,Arrears,balance,  payable) VALUES($loan_no,'$contractNo',$customerID,'$loanAmt','$arrears','$balance','$payable')");
+                                    $insert = mysqli_query($conn, "INSERT INTO temp_collection( loan_no,contractNo,customerID,loanAmt,Arrears,balance,  payable) VALUES($loan_no,'$contractNo',$customerID,'$loanAmt','$arrears','$balance','$payable')");
                                    // if($insert){
                                    //  echo 1;
                                    // }
