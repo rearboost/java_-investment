@@ -75,8 +75,6 @@
                                 ?>
                                 </datalist> 
                             </div>
-
-
                             <!-- <div class="col-sm-1 size">
                               <i class="fa fa-plus-circle pointer" onclick="ShowForm()"></i>   
                             </div> -->
@@ -154,7 +152,7 @@
                                     // echo '<p>'.$bef_date.' | </p><br>';
                                     // echo '<p>'.$payable.' | </p><br>';
 
-                                   $insert = mysqli_query($conn, "INSERT INTO temp_collection( loan_no,contractNo,customerID,loanAmt,Arrears,balance,  payable) VALUES($loan_no,'$contractNo',$customerID,'$loanAmt','$arrears','$balance','$payable')");
+                                  // $insert = mysqli_query($conn, "INSERT INTO temp_collection( loan_no,contractNo,customerID,loanAmt,Arrears,balance,  payable) VALUES($loan_no,'$contractNo',$customerID,'$loanAmt','$arrears','$balance','$payable')");
                                    // if($insert){
                                    //  echo 1;
                                    // }
@@ -223,7 +221,7 @@
 
                                   $cus = mysqli_query($conn, "SELECT C.name AS customer,C.NIC AS NIC FROM customer C INNER JOIN loan L ON C.cust_id = L.customerID WHERE L.loan_no=$loanNo");
                                   $cusRow = mysqli_fetch_assoc($cus);
-
+                                 
                                   $customer = $cusRow['customer'];
                                   $NIC      = $cusRow['NIC'];
 
@@ -237,7 +235,7 @@
                                 echo ' <tr>';
                                 echo ' <td>'.$customer.' ['.$NIC .'] </td>';
                                 echo ' <td style="text-align:right;">
-                                <input type = "number" class="form-control text-right" id="pay'.$id.'">
+                                       <input type = "number" class="form-control text-right check"  name = '.$id.' id="pay'.$id.'">
                                  </td>';
                                 echo ' <td style="text-align:right;">
                                 <input type = "number" class="form-control text-right" id="payable'.$id.'" value="'.$payable.'" readonly>
@@ -267,9 +265,18 @@
                               <label class="col-sm-2 col-form-label">Total Collection</label>
                               <div class="col-sm-2">
                                 <input type="text" class="form-control" name="total_amt"  id="total_amt" value="0" readonly=""/>
-                                <!-- tot arrears -->
-                                <input type="text" id="total_arr" value="0">
-                                <input type="text" id="total_out" value="0">
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label class="col-sm-2 col-form-label">Total Arrears</label>
+                              <div class="col-sm-2">
+                                <input type="text" class="form-control" name="total_arr"  id="total_arr" value="0" readonly=""/>
+                              </div>
+                            </div>
+                             <div class="form-group row">
+                              <label class="col-sm-2 col-form-label">Total Balance</label>
+                              <div class="col-sm-2">
+                                <input type="text" class="form-control" name="total_out"  id="total_out" value="0" readonly=""/>
                               </div>
                             </div>
                          <!--</div>
@@ -307,9 +314,68 @@
   </body>
 </html>
 
-
   <script>
+    //////////////////////// CLEAR THE LOCAL STORAGE ////////////////////////
+    localStorage.clear();
+  
+    //////////////////////////////////////////////////////////// 
+
+    $('.check').keyup(function(event){
+        var this_id = $(this).attr("name");
+        total(this_id);
+    });
+
+    function total(this_id){
+
+        var payment = Number($('#pay'+this_id).val()).toFixed(2);
+        var payable = Number($('#payable'+this_id).val()).toFixed(2);
+        var arrears = Number($('#arrears'+this_id).val()).toFixed(2);
+        var balance = Number($('#balance'+this_id).val()).toFixed(2);   
+
+        if(Number(payment)<=Number(payable)){
+
+           /////// localStorage  ///////
+          if(localStorage.getItem('payable'+this_id)==null){
+           
+            //localStorage.setItem('pay'+this_id, payment);
+            localStorage.setItem('payable'+this_id, payable);
+            localStorage.setItem('arrears'+this_id, arrears);
+            localStorage.setItem('balance'+this_id, balance);
+          }
+
+          //var get_payment   = localStorage.getItem('pay'+this_id);
+          var get_payable   = localStorage.getItem('payable'+this_id);
+          var get_arrears   = localStorage.getItem('arrears'+this_id);
+          var get_balance   = localStorage.getItem('balance'+this_id);
+
+          $('#payable'+this_id).val(Number(get_payable-payment).toFixed(2));
+          if(payment==0){
+            $('#arrears'+this_id).val(Number(Number(get_arrears)+(0)).toFixed(2));
+          }else{
+            $('#arrears'+this_id).val(Number(Number(get_arrears)+(get_payable-payment)).toFixed(2));
+          }
+          $('#balance'+this_id).val(Number(get_balance-payment).toFixed(2));
+
+          //////////////////////// GET TOTALS ////////////////////////
+          var count = '<?php echo $row_num ; ?>';
+          var total_amt = 0;
+          var total_arr = 0;
+          var total_out = 0;
+          for(var i =1;i<=count;i++){
+            total_amt = total_amt + Number($('#pay'+i).val());
+            total_arr = total_arr + Number($('#arrears'+i).val());
+            total_out = total_out + Number($('#balance'+i).val());
+          }
+          $('#total_amt').val(Number(total_amt).toFixed(2));
+          $('#total_arr').val(Number(total_arr).toFixed(2));
+          $('#total_out').val(Number(total_out).toFixed(2));
+        }
+    }
+
+    ////////////////////////////////////////////////////////////  
+
     $(document).ready( function () {
+
       $('#myTable').DataTable();
        //tmpEmpty();
     }); 
