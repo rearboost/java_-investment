@@ -3,82 +3,80 @@
         require '../include/config.php';
         require '../include/check.php';
 
-           // Row Add Function 
-        if(isset($_POST['addrow'])){
+        if(isset($_POST['checkFlag'])){
+            $Availability = mysqli_query($conn, "SELECT * FROM temp_collection");
+            $RowCount = mysqli_num_rows($Availability);
 
-            $li_date     = $_POST['li_date'];
-            $payment     = $_POST['payment'];
-            $arrears     = $_POST['arrears'];
-            $totalPaid   = $_POST['totalPaid'];
-            $outstanding = $_POST['outstanding'];
-            $loan_no     = $_POST['loan_no'];
-
-            $checkSql = mysqli_query($conn, "SELECT * FROM temp_data WHERE li_date='$li_date' AND loanNo=$loan_no ");
-            $count1 = mysqli_num_rows($checkSql);
-
-            if($count1>0){
-                echo 2;
+            if($RowCount==0){
+                echo 1;
             }else{
-                $tempInsert = mysqli_query($conn, "INSERT INTO temp_data(li_date,paid,arrears,total_paid,outstanding,loanNo) VALUES('$li_date','$payment','$arrears','$totalPaid','$outstanding',$loan_no)");
-                
-                if($tempInsert){
-                    echo 1;
-                }else{
-                    echo  mysqli_error($conn);
-                }
+                echo 0;
             }
-            
         }
+
+        // // Row Add Function 
+        // if(isset($_POST['addrow'])){
+
+        //     $li_date     = $_POST['li_date'];
+        //     $payment     = $_POST['payment'];
+        //     $arrears     = $_POST['arrears'];
+        //     $totalPaid   = $_POST['totalPaid'];
+        //     $outstanding = $_POST['outstanding'];
+        //     $loan_no     = $_POST['loan_no'];
+
+        //     $checkSql = mysqli_query($conn, "SELECT * FROM temp_collection WHERE li_date='$li_date' AND loanNo=$loan_no ");
+        //     $count1 = mysqli_num_rows($checkSql);
+
+        //     if($count1>0){
+        //         echo 2;
+        //     }else{
+        //         $tempInsert = mysqli_query($conn, "INSERT INTO temp_collection(li_date,paid,arrears,total_paid,outstanding,loanNo) VALUES('$li_date','$payment','$arrears','$totalPaid','$outstanding',$loan_no)");
+                
+        //         if($tempInsert){
+        //             echo 1;
+        //         }else{
+        //             echo  mysqli_error($conn);
+        //         }
+        //     }
+            
+        // }
 
         /////////Add function from dashboard items
 
         // Table Empty Function 
         if(isset($_POST['tmpEmpty'])){
             
-            $empty_temp = "TRUNCATE temp_data;";
+            $empty_temp = "TRUNCATE temp_collection;";
             mysqli_query($conn,$empty_temp);   
+            
         }
 
-        // Remove  Function 
-        if(isset($_POST['removeRow'])){
-            
-            $id = $_POST['id'];
-            $remove_temp = "DELETE FROM temp_data WHERE id='$id'";
-            mysqli_query($conn,$remove_temp);
-
-            // $sql ="SELECT SUM(amount) AS amount FROM temp_pos";
-            // $result=mysqli_query($conn,$sql);
-            // $row_get = mysqli_fetch_assoc($result);
-            // $amount = $row_get['amount'];
-            
-            // echo $amount;
-    
-        }
-
-        //////////////////////////////////////////////////////////////
+       
 
         // Save Function 
         if(isset($_POST['save'])){
 
-            $li_date = $_POST['li_date'];
+            $li_date   = $_POST['li_date'];
+            $center_id = $_POST['center_id'];
 
             $date_val = explode('-', $li_date);
             $year  = $date_val['0'];
             $month = $date_val['1'];
 
-            $getTot = mysqli_query($conn, "SELECT SUM(paid) AS tot_collection, SUM(arrears) AS tot_arrears FROM temp_data");
+            $getTot = mysqli_query($conn, "SELECT SUM(paid) AS tot_collection, SUM(Arrears) AS tot_arrears, SUM(balance) AS tot_outstanding FROM temp_collection");
             $getData = mysqli_fetch_assoc($getTot);
 
             // $cdate          = $getData['cdate'];
             $tot_collection = $getData['tot_collection'];
             $tot_arrears    = $getData['tot_arrears'];
+            $tot_outstanding= $getData['tot_outstanding'];
 
             $user= $_SESSION['username'];
             $getcenter=mysqli_query($conn,"SELECT * FROM user WHERE username='$user'");
             $centerData = mysqli_fetch_assoc($getcenter);
             $center_id = $centerData['center_id'];
             
-            $sql_collect = mysqli_query($conn,"INSERT INTO collection(centerID,li_date,year,month,tot_collection,tot_arrears) VALUES ($center_id,'$li_date','$year','$month','$tot_collection','$tot_arrears')");
+            $sql_collect = mysqli_query($conn,"INSERT INTO collection(centerID,li_date,year,month,tot_collection,tot_arrears,tot_outstanding) VALUES ($center_id,'$li_date','$year','$month','$tot_collection','$tot_arrears','$tot_outstanding')");
 
 
             //// update Summary ////
@@ -141,25 +139,23 @@
                 }
             }
 
-            //// insert data to the loan installements table from temp_data table
+            //// insert data to the loan installements table from temp_collection table
 
             $sqlMax =mysqli_query($conn,"SELECT id FROM collection ORDER BY id DESC LIMIT 1");
             $row_get = mysqli_fetch_assoc($sqlMax);
             $collectionID = $row_get['id'];
 
-            $sql_temp=mysqli_query($conn,"SELECT * FROM temp_data");
+            $sql_temp=mysqli_query($conn,"SELECT * FROM temp_collection");
             $numRows = mysqli_num_rows($sql_temp); 
 
             if($numRows > 0) {
 
                 while($row = mysqli_fetch_assoc($sql_temp)) {
 
-                    $li_date     =$row['li_date'];
                     $paid        =$row['paid'];
-                    $arrears     =$row['arrears'];
-                    $total_paid  =$row['total_paid'];
-                    $outstanding =$row['outstanding'];
-                    $loanNo      =$row['loanNo'];
+                    $arrears     =$row['Arrears'];
+                    $outstanding =$row['balance'];
+                    $loanNo      =$row['loan_no'];
 
                     // update status when outstandin=0
 
@@ -167,7 +163,7 @@
                         $updateStatus = mysqli_query($conn, "UPDATE loan status=0 WHERE loan_no=$loanNo ");
                     }
                     
-                    $sqlInst = "INSERT INTO loan_installement (collectionID,  li_date,paid,arrears,total_paid,outstanding,loanNo) VALUES ('$collectionID','$li_date','$paid','$arrears','$total_paid','$outstanding','$loanNo')";
+                    $sqlInst = "INSERT INTO loan_installement (collectionID,  li_date,paid,arrears,outstanding,loanNo) VALUES ('$collectionID','$li_date','$paid','$arrears','$outstanding','$loanNo')";
                     mysqli_query($conn,$sqlInst);
                 }
             }

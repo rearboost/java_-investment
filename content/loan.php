@@ -73,7 +73,7 @@
                   
                                   if($numRows > 0) {
                                       while($row1 = mysqli_fetch_assoc($result)) {
-                                          echo '<option value ="'.$row1["id"].'">' . $row1["center_code"]. ' | ' .$row1["center_name"];
+                                          echo '<option value ="'.$row1["id"].'">' . $row1["center_code"]. ' | ' .$row1["center_name"].'</option>';
                                       }
                                   }
                                 ?>

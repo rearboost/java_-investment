@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2021 at 01:47 AM
+-- Generation Time: Jun 24, 2021 at 02:09 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -55,15 +55,16 @@ CREATE TABLE `collection` (
   `year` varchar(10) NOT NULL,
   `month` varchar(10) NOT NULL,
   `tot_collection` decimal(10,2) NOT NULL,
-  `tot_arrears` decimal(10,2) NOT NULL
+  `tot_arrears` decimal(10,2) NOT NULL,
+  `tot_outstanding` decimal(18,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `collection`
 --
 
-INSERT INTO `collection` (`id`, `centerID`, `li_date`, `year`, `month`, `tot_collection`, `tot_arrears`) VALUES
-(1, 1, '2021-06-16', '2021', '06', '26450.00', '2958.00');
+INSERT INTO `collection` (`id`, `centerID`, `li_date`, `year`, `month`, `tot_collection`, `tot_arrears`, `tot_outstanding`) VALUES
+(1, 1, '2021-06-16', '2021', '06', '26450.00', '2958.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -210,15 +211,6 @@ CREATE TABLE `temp_collection` (
   `paid` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `temp_collection`
---
-
-INSERT INTO `temp_collection` (`id`, `loan_no`, `contractNo`, `customerID`, `loanAmt`, `Arrears`, `balance`, `payable`, `paid`) VALUES
-(1, 1, 'YT00001', 1, '20000.00', '1200.00', '16000.00', '1000.00', '0.00'),
-(2, 2, 'YT00002', 2, '10000.00', '1760.00', '7496.00', '640.00', '0.00'),
-(3, 3, 'CL00003', 4, '25000.00', '-2.00', '16550.00', '1290.00', '0.00');
-
 -- --------------------------------------------------------
 
 --
@@ -354,7 +346,7 @@ ALTER TABLE `summary`
 -- AUTO_INCREMENT for table `temp_collection`
 --
 ALTER TABLE `temp_collection`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `temp_data`
 --

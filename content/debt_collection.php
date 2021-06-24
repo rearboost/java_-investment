@@ -44,10 +44,22 @@
                     <h3 class="card-title">Create a receipt</h3>
 
                     <div class="row">
-                      <div class="col-md-3">
+
+                      <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Create Date </label>
+
+                            <div class="col-sm-8">
+                              <input type="date" class="form-control" name="createDate" id="createDate" value="<?php echo date("Y-m-d"); ?>"/>
+                            </div>
+
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">MSU Code </label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-7">
                               <input list="brow" class="form-control" name="center" id="center" required>
                                 <datalist id="brow">
                                 <?php
@@ -63,26 +75,15 @@
                                 ?>
                                 </datalist> 
                             </div>
-                        </div>
-                      </div>
 
-                      <div class="col-md-4">
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Create Date </label>
 
-                            <div class="col-sm-7">
-                              <input type="date" class="form-control" name="createDate" id="createDate" value="<?php echo date("Y-m-d"); ?>"/>
-                            </div>
-
-                            <div class="col-sm-1 size">
+                            <!-- <div class="col-sm-1 size">
                               <i class="fa fa-plus-circle pointer" onclick="ShowForm()"></i>   
-                            </div>
-
+                            </div> -->
                         </div>
                       </div>
-                    </div>
 
-                      
+                    </div>
                     </div>
                   </div>
                 </div>
@@ -96,6 +97,7 @@
                     <div class="card-body">
                       <!-- <h5 class="card-title"></h5>
                       <div class="card-scroll"></div> -->
+                            
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group row">
@@ -187,96 +189,96 @@
                       </div>
                       <hr><br>
 
-
                       <div class="row">
-                        <div class="col-md-12" style="height: 240px; overflow-y: auto;">
-                         <div id="here">
-                                      
-                            <div class="table-responsive">          
-                              <table id="example" class="table table-bordered">
-                              <thead>
-                                <tr>
-                                  <th style="text-align:center;">Customer</th>
-                                  <th style="text-align:center;">Payment</th>
-                                  <th style="text-align:center;">Payable</th>
-                                  <th style="text-align:center;">Arrears</th>
-                                  <th style="text-align:center;">Balance</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                  <?php
-                                  $sql=mysqli_query($conn,"SELECT * FROM temp_collection");
+                        <!-- <div class="col-md-12" style="height: 240px; overflow-y: auto;"> -->
+                        <div class="col-md-12">
+                         <!-- <div id="here"> -->
+                          <div class="table-responsive">          
+                            <table id="example" class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th style="text-align:center;">Customer</th>
+                                <th style="text-align:center;">Payment</th>
+                                <th style="text-align:center;">Payable</th>
+                                <th style="text-align:center;">Arrears</th>
+                                <th style="text-align:center;">Balance</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $sql=mysqli_query($conn,"SELECT * FROM temp_collection");
+                            
+                              $row_num = mysqli_num_rows($sql); 
+                        
+                              if($row_num > 0) {
+
+                                // $total_amt = 0;
+                                // $total_arr = 0;
+                                // $total_p = 0;
+                                // $total_out = 0;
+
+                                while($row = mysqli_fetch_assoc($sql)) {
+
+                                  $loanNo = $row['loan_no'];
+
+                                  $cus = mysqli_query($conn, "SELECT C.name AS customer,C.NIC AS NIC FROM customer C INNER JOIN loan L ON C.cust_id = L.customerID WHERE L.loan_no=$loanNo");
+                                  $cusRow = mysqli_fetch_assoc($cus);
+
+                                  $customer = $cusRow['customer'];
+                                  $NIC      = $cusRow['NIC'];
+
+                                  $id       = $row['id'];
+                                  $paid     = $row['paid'];
+                                  $payable  = $row['payable'];
+                                  $arrears  = $row['Arrears'];
+                                  $balance  = $row['balance'];
+
+
+                                echo ' <tr>';
+                                echo ' <td>'.$customer.' ['.$NIC .'] </td>';
+                                echo ' <td style="text-align:right;">
+                                <input type = "number" class="form-control text-right" id="pay'.$id.'">
+                                 </td>';
+                                echo ' <td style="text-align:right;">
+                                <input type = "number" class="form-control text-right" id="payable'.$id.'" value="'.$payable.'" readonly>
+                                </td>';
+                                echo ' <td style="text-align:right;">
+                                <input type = "number" class="form-control text-right" id="arrears'.$id.'" value="'.$arrears.'" readonly>
+                                </td>';
+                                echo ' <td style="text-align:right;">
+                                <input type = "number" class="form-control text-right" id="balance'.$id.'" value="'.$balance.'" readonly>
+                                </td>';
+                                echo ' </tr>';
+
+                                }
+                              }else{
+                                echo ' <tr style="background-color:#DAF7A6;">';
+                                  echo ' <th colspan ="5">No data </th>';
                                   
-                                    $row_num = mysqli_num_rows($sql); 
-                              
-                                    if($row_num > 0) {
-
-                                      // $total_amt = 0;
-                                      // $total_arr = 0;
-                                      // $total_p = 0;
-                                      // $total_out = 0;
-
-                                      while($row = mysqli_fetch_assoc($sql)) {
-
-                                        $loanNo = $row['loan_no'];
-
-                                        $cus = mysqli_query($conn, "SELECT C.name AS customer FROM customer C INNER JOIN loan L ON C.cust_id = L.customerID WHERE L.loan_no=$loanNo");
-                                        $cusRow = mysqli_fetch_assoc($cus);
-
-                                        $customer = $cusRow['customer'];
-
-                                        $paid       = $row['paid'];
-                                        $payable    = $row['payable'];
-                                        $arrears    = $row['Arrears'];
-                                        $balance    = $row['balance'];
-
-                                        $id         = $row['id'];
-
-                                      echo ' <tr>';
-                                      echo ' <td>'.$customer.' </td>';
-                                      echo ' <td style="text-align:right;"> </td>';
-                                      echo ' <td style="text-align:right;">'.number_format($payable,2,'.',',').' </td>';
-                                      echo ' <td style="text-align:right;">'.number_format($arrears,2,'.',',').' </td>';
-                                      echo ' <td style="text-align:right;">'.number_format($balance,2,'.',',').' </td>';
-                                      echo ' </tr>';
-
-                                       
-                                         // $total_amt = $total_amt + $paid;
-                                         // $total_arr = $total_arr + ($arrears);
-                                         // $total_p   = $total_p + $total_paid;
-                                         // $total_out = $total_out + $outstanding;
-
-                                      }
-                                      // echo ' <tr style="background-color:#DAF7A6;">';
-                                      //   echo ' <th>Total </th>';
-                                      //   echo ' <th style="text-align:right;">'.number_format($total_amt,2,'.',',').' </th>';
-                                      //   echo ' <th style="text-align:right;">'.number_format($total_p,2,'.',',').' </th>';
-                                      //   echo ' <th style="text-align:right;">'.number_format($total_arr,2,'.',',').' </th>';
-                                      //   echo ' <th style="text-align:right;">'.number_format($total_out,2,'.',',').' </th>';
-                                      //   echo ' <th style="text-align:right;"> </th>';
-                                        
-                                      //   echo ' </tr>';
-                                    }
-                                  ?>
-                              </tbody>
-                              </table>
-                            </div>
-                            <br><br>
-                            <!-- <div class="form-group row">
+                                  
+                                  echo ' </tr>';
+                              }
+                            ?>
+                            </tbody>
+                            </table>
+                          </div>
+                          <br><br>
+                            <div class="form-group row">
                               <label class="col-sm-2 col-form-label">Total Collection</label>
                               <div class="col-sm-2">
-                                <input type="text" class="form-control" name="total_amt"  id="total_amt" placeholder="LKR.0.00" value="<?php // echo number_format($total_amt,2,'.',',') ;?>" readonly=""/>
+                                <input type="text" class="form-control" name="total_amt"  id="total_amt" value="0" readonly=""/>
+                                <!-- tot arrears -->
+                                <input type="text" id="total_arr" value="0">
+                                <input type="text" id="total_out" value="0">
                               </div>
-                              <label class="col-sm-2 col-form-label">Total Arrears</label>
-                              <div class="col-sm-2">
-                                <input type="text" class="form-control" name="total_arr"  id="total_arr" placeholder="LKR.0.00" value="<?php // echo number_format($total_arr,2,'.',',') ;?>" readonly=""/>
-                              </div>
-                            </div> -->
-                         </div>
+                            </div>
+                         <!--</div>
 
-                          <input type="hidden" class="form-control" name="add" value="add" />
+                           <input type="hidden" class="form-control" name="add" value="add" /> -->
+
+                          <!-- <input type="number" name="" id="test" value="0"> -->
                           <button type="submit" class="btn btn-primary btn-fw" onclick="saveForm()">FINISH</button>
-                          <button type="button" onclick="cancelForm()" class="btn btn-danger btn-fw">Cancel</button>
+                          <button type="button" onclick="tmpEmpty()" class="btn btn-danger btn-fw">Cancel</button>
                         </div>
                       </div><!-- end 2nd row-->
 
@@ -309,33 +311,38 @@
   <script>
     $(document).ready( function () {
       $('#myTable').DataTable();
+       //tmpEmpty();
     }); 
-
-
-    var numberRegex = /^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/;
     
-    //     $(document).ready(function() {
-    //        tmpEmpty();
+    $('#center').on('change',function(){
+      var flag = this.value;
 
-    //        $("#customer").focus();
+      var checkFlag  ="checkFlag";
 
+      if(flag!=''){
 
-    //       $("#customer").keypress(function(e){
-    //           if (e.which == 13) 
-    //           {    
-    //                 $("#payment").focus();
-    //           };
-    //       });
+       $.ajax({
+            type: 'post',
+            url: '../controller/debt_collection_controller.php',
+            data: {checkFlag:checkFlag,flag:flag},
+            success: function (data) {
 
-    //       $("#payment").keypress(function(e){
-    //           if (e.which == 13) 
-    //           {
-    //              AddRow();
-    //           };
-    //       });
+                if(data==0){
 
-       
-    // });
+                   swal({
+                      title: "Another user access this page. Please try again later !",
+                      text: "Access Denied",
+                      icon: "error",
+                      button: "Ok !",
+                    });
+
+                }else{
+                   ShowForm();
+                }            
+              } 
+        });     
+      }
+    });
 
     function ShowForm(){
       var center = $('#center').val();
@@ -349,135 +356,39 @@
       }
     }
 
-    $('#customer').on('change',function(){
-        var currentDate = $('#li_date').val();
+    $('#pay2').on('keyup',function(){ // when unique 
 
-        $.ajax({
-            type: 'post',
-            url: '../functions/get_renewingDetail.php',
-            data: {customer:this.value},
-            success: function (response) {
-
-                var obj = JSON.parse(response);
-
-                var rental      = obj.rental
-                var newAmount   = obj.newAmount
-                var old_arrears = obj.arrears
-                var total_paid  = obj.total_paid
-                var pre_date    = obj.pre_date
-                var loan_no     = obj.loan_no
-
-                $('#loan_no').val(loan_no);
-
-                const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-
-                const firstDate = new Date(pre_date);
-                const secondDate = new Date(currentDate);
-
-                const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay)); 
-                //var weeks = Math.round(Number(diffDays)/7);
-
-                // alert(months)
-                var tot_arrears = Number(old_arrears).toFixed(2);
-                var outstanding = Number(newAmount).toFixed(2);
-                $('#arrears').val(tot_arrears);
-                $('#outstanding').val(outstanding);
-
-            }
-        });
-     });
-
-    ///// calculate the renew amount /////////////////
-    $('#payment').on('keyup',function(){
-
-      var customer = $('#customer').val();
+      var id = $('#id').val(); // get unique id for each record
       var payment = this.value;
-      var currentDate = $('#li_date').val();
-
+      
       $.ajax({
             type: 'post',
-            url: '../functions/get_renewingDetail.php',
-            data: {customer:customer},
+            url: '../functions/get_tempDetail.php',
+            data: {id:id},
             success: function (response) {
 
-                var obj = JSON.parse(response);
+              var obj = JSON.parse(response);
 
-                var rental      = obj.rental
-                var daily_rental= obj.daily_rental
-                var newAmount   = obj.newAmount
-                var old_arrears = obj.arrears
-                var total_paid  = obj.total_paid
-                var pre_date    = obj.pre_date
-//alert(old_arrears)
-                const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+              var arrears  = obj.arrears
+              var payable  = obj.payable
+              var balance  = obj.balance
 
-                const firstDate = new Date(pre_date);
-                const secondDate = new Date(currentDate);
+              var new_payable=(Number(payable)-Number(payment)).toFixed(2);
+              var new_arrears=((Number(arrears)+Number(payable))-Number(payment)).toFixed(2);
+              var new_balance=(Number(balance)-Number(payment)).toFixed(2);
 
-                const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay)); 
-                //var weeks = Math.round(Number(diffDays)/7);
-//alert(diffDays)
-//alert(daily_rental)
-                var tot_amount = Number(daily_rental)*Number(diffDays);
-//alert(tot_amount)
-                var tot_arrears = ((Number(old_arrears)+Number(tot_amount))-Number(payment)).toFixed(2);
+             
+              $('#payable').val(new_payable);// values for each unique records 
+              $('#arrears').val(new_arrears);// values for each unique records
+              $('#balance').val(new_balance);// values for each unique records
 
-                var outstanding = (Number(newAmount)-Number(payment)).toFixed(2);
-                var totalPaid = (Number(total_paid)+Number(payment)).toFixed(2);
-//alert(tot_arrears)
-                $('#arrears').val(tot_arrears);
-                $('#outstanding').val(outstanding);
-                $('#totalPaid').val(totalPaid);
+              $('#total_amt').val(); // calculate total of each column 
+              $('#total_arr').val(); // calculate total of each column 
+              $('#total_out').val(); // calculate total of each column 
 
             }
         });
     });
-
-    function AddRow(){
-      var addrow  ="addrow";
-
-      var loan_no= $('#loan_no').val();
-      var li_date= $('#li_date').val();
-      var payment= $('#payment').val();
-      var arrears= $('#arrears').val();
-      var totalPaid= $('#totalPaid').val();
-      var outstanding= $('#outstanding').val();
-
-      if(loan_no!='' && li_date !='' && numberRegex.test(payment) && arrears!='' && totalPaid!='' && outstanding!=''){
-
-       $.ajax({
-            type: 'post',
-            url: '../controller/debt_collection_controller.php',
-            data: {addrow:addrow,li_date:li_date,payment:payment,arrears:arrears,totalPaid:totalPaid,outstanding:outstanding,loan_no:loan_no},
-            success: function (data) {
-
-                if(data==2){
-
-                   swal({
-                      title: "This customer is already exist !",
-                      text: "Duplicate",
-                      icon: "error",
-                      button: "Ok !",
-                    });
-
-                }else{
-
-                    $('#customer').val("")
-                    $('#loan_no').val("")
-                    $('#payment').val("")
-                    $('#arrears').val("")
-                    $('#totalPaid').val("")
-                    $('#outstanding').val("")
-
-                    $( "#here" ).load(window.location.href + " #here" );
-                    //$("#gross").val(data);
-                    //$("#total").val(data);
-                    $("#customer").focus();
-                }            
-              } 
-        });     
-      }
-    }
 
 
     function tmpEmpty() {
@@ -489,25 +400,7 @@
             url: '../controller/debt_collection_controller.php',
             data: {tmpEmpty:tmpEmpty},
             success: function (data) {
-
-                 $( "#here" ).load(window.location.href + " #here" );
-              } 
-        });
-    }
-
-     /////////// Remove the Row 
-    function removeForm(id){
-
-        var removeRow  ="removeRow";
-
-         $.ajax({
-            type: 'post',
-            url: '../controller/debt_collection_controller.php',
-            data: {removeRow:removeRow,id:id},
-            success: function (data) {
-                $( "#here" ).load(window.location.href + " #here" );
-                // $("#gross").val(data);
-                // $("#total").val(data)
+                 //$( "#show" ).load(window.location.href + " #show" );
               } 
         });
     }
@@ -516,12 +409,13 @@
 
         var save  ="save";
     
-        var li_date= $('#li_date').val();
+        var li_date   = $('#li_date').val();
+        var center_id = $('#center_id').val();
 
           $.ajax({
               type: 'post',
               url: '../controller/debt_collection_controller.php',
-              data: {save:save,li_date:li_date},
+              data: {save:save,li_date:li_date,center_id:center_id},
               success: function (data) {
                 
                   swal({
@@ -535,38 +429,6 @@
 
           });  
     }
-
-    ////////////////////// Form Submit Add  /////////////////////////////
-
-
-    // $(function () {
-
-    //     $('#collectionForm').on('submit', function (e) {
-
-    //       e.preventDefault();
-
-    //         $.ajax({
-    //           type: 'post',
-    //           url: '../controller/debt_collection_controller.php',
-    //           data: $('#collectionForm').serialize(),
-    //           success: function (data) {
-
-    //             swal({
-    //               title: "Good job !",
-    //               text: "Successfully Submited",
-    //               icon: "success",
-    //               button: "Ok !",
-    //               });
-
-    //               setTimeout(function(){ location.reload(); }, 2500);
-                  
-    //           }
-    //         });
-
-
-    //     });
-    // });
-
 
     function cancelForm(){
         window.location.href = "debt_collection.php";
