@@ -114,6 +114,11 @@
 
                               $fetchData = mysqli_query($conn, "SELECT * FROM loan WHERE centerID=$center_id AND status=1");
                               $count1 = mysqli_num_rows($fetchData);
+
+                              ///TRUNCATE TABLE FIRST
+                              $sql ="TRUNCATE TABLE temp_collection";
+                              $result=mysqli_query($conn,$sql);
+
                               if($count1>0){
                                 while($row1 = mysqli_fetch_assoc($fetchData)){
                                     $loan_no      = $row1['loan_no'];
@@ -152,14 +157,9 @@
                                     // echo '<p>'.$arrears.' | </p><br>';
                                     // echo '<p>'.$bef_date.' | </p><br>';
                                     // echo '<p>'.$payable.' | </p><br>';
-
-                                    $sql ="SELECT * FROM temp_collection";
-                                    $result=mysqli_query($conn,$sql);
-                                    $count =mysqli_num_rows($result); 
-
-                                    if($count==0){
-                                      $insert = mysqli_query($conn, "INSERT INTO temp_collection(loan_no,contractNo,customerID,loanAmt,Arrears,balance,payable) VALUES($loan_no,'$contractNo',$customerID,'$loanAmt','$arrears','$balance','$payable')");
-                                    }
+                                
+                                    $insert = mysqli_query($conn, "INSERT INTO temp_collection(loan_no,contractNo,customerID,loanAmt,Arrears,balance,payable) VALUES($loan_no,'$contractNo',$customerID,'$loanAmt','$arrears','$balance','$payable')");
+                               
                                    // if($insert){
                                    //  echo 1;
                                    // }
