@@ -63,8 +63,8 @@
             </div>
             <!-- Page Title Header Ends-->
             <form class="form-sample" id="reportForm">
-              <!-- <div class="row">
-                <div class="col-lg-3 grid-margin stretch-card"> -->
+              <div class="row">
+               <!--  <div class="col-lg-3 grid-margin stretch-card"> -->
               <div class="col-md-3" style="height: 405px; overflow-y: auto;">
                 <button type="button" class="collapsible">Repayment Report</button>
                 <div class="content">
@@ -212,14 +212,19 @@
                   <button type="button" onclick="generatePortfolio()" class="btn btn-primary btn-fw">Generate</button>
                 </div><br>
               </div>
-
-
-              <div id="show">
-              <?php if (isset($_GET['createDate']) && isset($_GET['center'])): ?>
               
-              <?php else: ?>
-              <?php endif ?>
+            <div class="col-lg-9 grid-margin stretch-card">
+              <div id="show">
+              <?php //if (isset($_GET['center1']) && isset($_GET['fdate1'])): ?>
+              
+              <?php //else: ?>
+              <?php //endif ?>
+              
               </div> 
+            </div> 
+
+            </div> 
+            
             </form>
             <!-- content-wrapper ends -->
             <!-- partial:../../partials/_footer.html -->
@@ -271,6 +276,99 @@
         $('.MSU3').prop('hidden', false);
       }
     });
+
+    function generateRepayment(){
+      var center1 = $('#center1').val();
+      var fdate1  = $('#fromDate1').val();
+      var tdate1  = $('#ToDate1').val();
+
+      if(center1 && fdate1 && tdate1){ 
+          $.ajax({
+              url:"Repayment_report.php",
+              method:"POST",
+              data:{"center1":center1,"fdate1":fdate1,"tdate1":tdate1},
+              success:function(data){
+                $('#show').html(data);
+              }
+          });
+      }else{
+         alert("Please select date range with Your center");
+      }
+
+    }
+
+
+    function generateInvestment(){
+      var center2 = $('#center2').val();
+      var fdate2  = $('#fromDate2').val();
+      var tdate2  = $('#ToDate2').val();
+
+      if(center2 && fdate2 && tdate2){ 
+          $.ajax({
+              url:"investment_report.php",
+              method:"POST",
+              data:{"center2":center2,"fdate2":fdate2,"tdate2":tdate2},
+              success:function(data){
+                $('#show').html(data);
+              }
+          });
+      }else{
+         alert("Please select date range with Your center");
+      }
+
+    }
+
+
+    function generateReceipt(){
+      var level3  = $('#level3').val();
+      var center3;
+
+      if(level3=='Branch'){
+        center3 = "all";
+      }else if(level3=='MSU'){
+        center3 = $('#center3').val();
+      }
+
+      var fdate3  = $('#fromDate3').val();
+      var tdate3  = $('#ToDate3').val();
+
+
+      if(center3 && fdate3 && tdate3){ 
+
+          $.ajax({
+              url:"Receipt_report.php",
+              method:"POST",
+              data:{"center3":center3,"fdate3":fdate3,"tdate3":tdate3},
+              success:function(data){
+                $('#show').html(data);
+              }
+          });
+      }else{
+         alert("Please select date range with Your center");
+      }
+
+    }
+
+
+    function generatePortfolio(){
+      var center4 = $('#center4').val();
+      var fdate4  = $('#fromDate4').val();
+      var tdate4  = $('#ToDate4').val();
+
+      if(center4 && fdate4 && tdate4){ 
+          $.ajax({
+              url:"portfolio_report.php",
+              method:"POST",
+              data:{"center4":center4,"fdate4":fdate4,"tdate4":tdate4},
+              success:function(data){
+                $('#show').html(data);
+              }
+          });
+      }else{
+         alert("Please select date range with Your center");
+      }
+
+    }
 
 
 

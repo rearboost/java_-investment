@@ -3,6 +3,7 @@
   <?php
     // Database Connection
     require '../include/config.php';
+     $row_num = 0;
 
   ?>
   <!-- include head code here -->
@@ -75,9 +76,9 @@
                                 ?>
                                 </datalist> 
                             </div>
-                            <!-- <div class="col-sm-1 size">
+                            <div class="col-sm-1 size">
                               <i class="fa fa-plus-circle pointer" onclick="ShowForm()"></i>   
-                            </div> -->
+                            </div>
                         </div>
                       </div>
 
@@ -152,7 +153,7 @@
                                     // echo '<p>'.$bef_date.' | </p><br>';
                                     // echo '<p>'.$payable.' | </p><br>';
 
-                                    $insert = mysqli_query($conn, "INSERT INTO temp_collection( loan_no,contractNo,customerID,loanAmt,Arrears,balance,  payable) VALUES($loan_no,'$contractNo',$customerID,'$loanAmt','$arrears','$balance','$payable')");
+                                    $insert = mysqli_query($conn, "INSERT INTO temp_collection(loan_no,contractNo,customerID,loanAmt,Arrears,balance,payable) VALUES($loan_no,'$contractNo',$customerID,'$loanAmt','$arrears','$balance','$payable')");
                                    // if($insert){
                                    //  echo 1;
                                    // }
@@ -164,8 +165,8 @@
 
 
                               ?>
-                              <input type="hidden" class="form-control" name="center_id" id="center_id" value="<?php echo $center_id; ?>" />
-                              <input type="hidden" class="form-control" name="li_date" id="li_date" value="<?php echo $createDate; ?>" />
+                              <input type="text" class="form-control" name="center_id" id="center_id" value="<?php echo $center_id; ?>" />
+                              <input type="text" class="form-control" name="li_date" id="li_date" value="<?php echo $createDate; ?>" />
 
                               <div class="col-md-3">
                                 <label class="col-sm-12 col-form-label"><strong>Formed Date : </strong> <?php echo $createDate; ?> </label>
@@ -191,10 +192,13 @@
                         <!-- <div class="col-md-12" style="height: 240px; overflow-y: auto;"> -->
                         <div class="col-md-12">
                          <!-- <div id="here"> -->
+
+                          <input type="text" id="myitemjson" name="myitemjson"/>
                           <div class="table-responsive">          
                             <table id="example" class="table table-bordered">
                             <thead>
                               <tr>
+                                <th style="text-align:center;">Loan Index</th>
                                 <th style="text-align:center;">Customer</th>
                                 <th style="text-align:center;">Payment</th>
                                 <th style="text-align:center;">Payable</th>
@@ -204,6 +208,7 @@
                             </thead>
                             <tbody>
                             <?php
+
                             $sql=mysqli_query($conn,"SELECT * FROM temp_collection");
                             
                               $row_num = mysqli_num_rows($sql); 
@@ -233,6 +238,7 @@
 
 
                                 echo ' <tr>';
+                                echo ' <td>'.$loanNo.'</td>';
                                 echo ' <td>'.$customer.' ['.$NIC .'] </td>';
                                 echo ' <td style="text-align:right;">
                                        <input type = "number" class="form-control text-right check"  name = '.$id.' id="pay'.$id.'">
@@ -252,9 +258,7 @@
                               }else{
                                 echo ' <tr style="background-color:#DAF7A6;">';
                                   echo ' <th colspan ="5">No data </th>';
-                                  
-                                  
-                                  echo ' </tr>';
+                                echo ' </tr>';
                               }
                             ?>
                             </tbody>
@@ -285,7 +289,7 @@
 
                           <!-- <input type="number" name="" id="test" value="0"> -->
                           <button type="submit" class="btn btn-primary btn-fw" onclick="saveForm()">FINISH</button>
-                          <button type="button" onclick="tmpEmpty()" class="btn btn-danger btn-fw">Cancel</button>
+                          <button type="button" onclick="cancelForm()" class="btn btn-danger btn-fw">Cancel</button>
                         </div>
                       </div><!-- end 2nd row-->
 
@@ -323,6 +327,7 @@
     $('.check').keyup(function(event){
         var this_id = $(this).attr("name");
         total(this_id);
+        store();
     });
 
     function total(this_id){
@@ -332,7 +337,7 @@
         var arrears = Number($('#arrears'+this_id).val()).toFixed(2);
         var balance = Number($('#balance'+this_id).val()).toFixed(2);   
 
-        if(Number(payment)<=Number(payable)){
+        //if(Number(payment)<=Number(payable)){
 
            /////// localStorage  ///////
           if(localStorage.getItem('payable'+this_id)==null){
@@ -348,16 +353,21 @@
           var get_arrears   = localStorage.getItem('arrears'+this_id);
           var get_balance   = localStorage.getItem('balance'+this_id);
 
-          $('#payable'+this_id).val(Number(get_payable-payment).toFixed(2));
+          if(Number(payment)<=Number(payable)){
+            $('#payable'+this_id).val(Number(get_payable-payment).toFixed(2));
+          }else{
+            $('#payable'+this_id).val(Number(0).toFixed(2));
+          }
           if(payment==0){
             $('#arrears'+this_id).val(Number(Number(get_arrears)+(0)).toFixed(2));
+            $('#balance'+this_id).val(Number(Number(get_balance)+(0)).toFixed(2));
           }else{
             $('#arrears'+this_id).val(Number(Number(get_arrears)+(get_payable-payment)).toFixed(2));
           }
           $('#balance'+this_id).val(Number(get_balance-payment).toFixed(2));
 
           //////////////////////// GET TOTALS ////////////////////////
-          var count = '<?php echo $row_num ; ?>';
+          var count = "<?php echo $row_num; ?>";
           var total_amt = 0;
           var total_arr = 0;
           var total_out = 0;
@@ -369,22 +379,47 @@
           $('#total_amt').val(Number(total_amt).toFixed(2));
           $('#total_arr').val(Number(total_arr).toFixed(2));
           $('#total_out').val(Number(total_out).toFixed(2));
-        }
+        //}
+        
+    }
+
+     function store(){
+
+      alert('here');
+      var array=[];
+      var table = $("#myTable");
+
+      //table.find('tr:gt(0)').each(function (i) {
+
+      var $tds = $(this).find('td'),
+      loanNo   = $tds.eq(0).text();
+      paid     = $tds.eq(2).text();
+      arrears  = $tds.eq(4).text();
+      balance  = $tds.eq(5).text();
+
+      var z={"loanNo":loanNo,"paid":paid,"arrears":arrears,"balance":balance};
+
+      array.push({loanNo:loanNo,paid:paid,arrears:arrears,balance:balance});
+
+      //});
+
+      console.log(JSON.stringify(array, null, 1));
+      $('#myitemjson').val(JSON.stringify(array));
+
     }
 
     ////////////////////////////////////////////////////////////  
 
     $(document).ready( function () {
-
+      //tmpEmpty();
       $('#myTable').DataTable();
-       //tmpEmpty();
     }); 
     
     $('#center').on('change',function(){
+
       var flag = this.value;
 
       var checkFlag  ="checkFlag";
-
       if(flag!=''){
 
        $.ajax({
@@ -405,7 +440,7 @@
                 }else{
                    ShowForm();
                 }            
-              } 
+            }
         });     
       }
     });
@@ -422,41 +457,6 @@
       }
     }
 
-    $('#pay2').on('keyup',function(){ // when unique 
-
-      var id = $('#id').val(); // get unique id for each record
-      var payment = this.value;
-      
-      $.ajax({
-            type: 'post',
-            url: '../functions/get_tempDetail.php',
-            data: {id:id},
-            success: function (response) {
-
-              var obj = JSON.parse(response);
-
-              var arrears  = obj.arrears
-              var payable  = obj.payable
-              var balance  = obj.balance
-
-              var new_payable=(Number(payable)-Number(payment)).toFixed(2);
-              var new_arrears=((Number(arrears)+Number(payable))-Number(payment)).toFixed(2);
-              var new_balance=(Number(balance)-Number(payment)).toFixed(2);
-
-             
-              $('#payable').val(new_payable);// values for each unique records 
-              $('#arrears').val(new_arrears);// values for each unique records
-              $('#balance').val(new_balance);// values for each unique records
-
-              $('#total_amt').val(); // calculate total of each column 
-              $('#total_arr').val(); // calculate total of each column 
-              $('#total_out').val(); // calculate total of each column 
-
-            }
-        });
-    });
-
-
     function tmpEmpty() {
 
       var tmpEmpty  ="tmpEmpty";
@@ -466,8 +466,8 @@
             url: '../controller/debt_collection_controller.php',
             data: {tmpEmpty:tmpEmpty},
             success: function (data) {
-                 //$( "#show" ).load(window.location.href + " #show" );
-              } 
+                 //$( "#here" ).load(window.location.href + " #here" );
+            } 
         });
     }
 
@@ -478,10 +478,16 @@
         var li_date   = $('#li_date').val();
         var center_id = $('#center_id').val();
 
+        var total_amt = $('#total_amt').val();
+        var total_arr = $('#total_arr').val();
+        var total_out = $('#total_out').val();
+
+        var AllData = $('#myitemjson').val();
+
           $.ajax({
               type: 'post',
               url: '../controller/debt_collection_controller.php',
-              data: {save:save,li_date:li_date,center_id:center_id},
+              data: {save:save,li_date:li_date,center_id:center_id,total_amt:total_amt,total_arr:total_arr,total_out:total_out,AllData:AllData},
               success: function (data) {
                 
                   swal({
