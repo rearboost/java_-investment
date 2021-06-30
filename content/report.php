@@ -179,7 +179,9 @@
                 </div><br>
                 
                 <button type="button" class="collapsible">Portfolio</button>
-                <div class="content">
+                <div class="content"><br>
+                  <button type="button" class="btn btn-outline-primary btn-fw" onclick="newPortfolio()">
+                      <i class="mdi mdi-plus"></i>Add New Portfolio</button>
                   <div class="form-group">
                       <label class="col-form-label">MSU</label>
                       <input list="brow4" class="form-control" name="center4" id="center4" required>
@@ -215,10 +217,6 @@
               
             <div class="col-lg-9 grid-margin stretch-card">
               <div id="show">
-              <?php //if (isset($_GET['center1']) && isset($_GET['fdate1'])): ?>
-              
-              <?php //else: ?>
-              <?php //endif ?>
               
               </div> 
             </div> 
@@ -347,6 +345,19 @@
          alert("Please select date range with Your center");
       }
 
+    }
+
+    function newPortfolio(){
+      var newPortfolio = "newPortfolio";
+
+      $.ajax({
+          url:"portfolio.php",
+          method:"POST",
+          data:{"newPortfolio":newPortfolio},
+          success:function(data){
+            $('#show').html(data);
+          }
+      });
     }
 
 

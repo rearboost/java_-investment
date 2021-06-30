@@ -391,7 +391,7 @@
 
      function store(){
 
-      alert('here');
+      //alert('here');
       var array=[];
       var table = $("#myTable");
 

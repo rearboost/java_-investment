@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2021 at 02:09 AM
+-- Generation Time: Jun 30, 2021 at 02:04 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.30
 
@@ -64,7 +64,9 @@ CREATE TABLE `collection` (
 --
 
 INSERT INTO `collection` (`id`, `centerID`, `li_date`, `year`, `month`, `tot_collection`, `tot_arrears`, `tot_outstanding`) VALUES
-(1, 1, '2021-06-16', '2021', '06', '26450.00', '2958.00', '0.00');
+(1, 1, '2021-06-16', '2021', '06', '26450.00', '2958.00', '0.00'),
+(2, 2, '2021-06-25', '2021', '06', '2752.00', '3160.00', '20744.00'),
+(3, 1, '2021-06-29', '2021', '06', '5760.00', '3000.00', '152790.00');
 
 -- --------------------------------------------------------
 
@@ -146,7 +148,6 @@ CREATE TABLE `loan_installement` (
   `li_date` varchar(25) NOT NULL,
   `paid` double(10,2) NOT NULL DEFAULT '0.00',
   `arrears` double(10,2) NOT NULL,
-  `total_paid` double(10,2) NOT NULL,
   `outstanding` decimal(10,2) NOT NULL DEFAULT '0.00',
   `loanNo` int(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -155,10 +156,35 @@ CREATE TABLE `loan_installement` (
 -- Dumping data for table `loan_installement`
 --
 
-INSERT INTO `loan_installement` (`id`, `collectionID`, `li_date`, `paid`, `arrears`, `total_paid`, `outstanding`, `loanNo`) VALUES
-(1, 1, '2021-06-16', 8000.00, 1200.00, 8000.00, '16000.00', 1),
-(2, 1, '2021-06-16', 4000.00, 1760.00, 4000.00, '7496.00', 2),
-(3, 1, '2021-06-16', 14450.00, -2.00, 14450.00, '16550.00', 3);
+INSERT INTO `loan_installement` (`id`, `collectionID`, `li_date`, `paid`, `arrears`, `outstanding`, `loanNo`) VALUES
+(1, 1, '2021-06-16', 8000.00, 1200.00, '16000.00', 1),
+(2, 1, '2021-06-16', 4000.00, 1760.00, '7496.00', 2),
+(3, 1, '2021-06-16', 14450.00, -2.00, '16550.00', 3),
+(4, 2, '2021-06-25', 500.00, 0.00, '0.00', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `portfolio`
+--
+
+CREATE TABLE `portfolio` (
+  `id` int(11) NOT NULL,
+  `date` varchar(50) NOT NULL,
+  `center_id` int(11) NOT NULL,
+  `outstanding` double(10,2) NOT NULL,
+  `bank` double(10,2) NOT NULL,
+  `other1` double(10,2) NOT NULL,
+  `other2` double(10,2) NOT NULL,
+  `total` double(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `portfolio`
+--
+
+INSERT INTO `portfolio` (`id`, `date`, `center_id`, `outstanding`, `bank`, `other1`, `other2`, `total`) VALUES
+(1, '2021-06-29', 1, 152790.00, 10000.00, 5000.00, 0.00, 167790.00);
 
 -- --------------------------------------------------------
 
@@ -180,7 +206,7 @@ CREATE TABLE `summary` (
 --
 
 INSERT INTO `summary` (`id`, `year`, `month`, `loanAMT`, `debtAMT`, `createDate`) VALUES
-(1, '2021', '06', '155000.00', '26450.00', '2021-06-16'),
+(1, '2021', '06', '155000.00', '34962.00', '2021-06-16'),
 (2, '2021', '01', '0.00', '0.00', '2021-06-16'),
 (3, '2021', '02', '0.00', '0.00', '2021-06-16'),
 (4, '2021', '03', '0.00', '0.00', '2021-06-16'),
@@ -210,6 +236,14 @@ CREATE TABLE `temp_collection` (
   `payable` decimal(10,2) NOT NULL,
   `paid` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `temp_collection`
+--
+
+INSERT INTO `temp_collection` (`id`, `loan_no`, `contractNo`, `customerID`, `loanAmt`, `Arrears`, `balance`, `payable`, `paid`) VALUES
+(1, 3, 'CL00003', 4, '25000.00', '-2.00', '16550.00', '3354.00', '0.00'),
+(2, 4, 'CL00004', 7, '100000.00', '0.00', '142000.00', '5408.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -285,6 +319,12 @@ ALTER TABLE `loan_installement`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `portfolio`
+--
+ALTER TABLE `portfolio`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `summary`
 --
 ALTER TABLE `summary`
@@ -321,7 +361,7 @@ ALTER TABLE `center`
 -- AUTO_INCREMENT for table `collection`
 --
 ALTER TABLE `collection`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `customer`
 --
@@ -336,7 +376,12 @@ ALTER TABLE `loan`
 -- AUTO_INCREMENT for table `loan_installement`
 --
 ALTER TABLE `loan_installement`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `portfolio`
+--
+ALTER TABLE `portfolio`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `summary`
 --
@@ -346,7 +391,7 @@ ALTER TABLE `summary`
 -- AUTO_INCREMENT for table `temp_collection`
 --
 ALTER TABLE `temp_collection`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `temp_data`
 --
