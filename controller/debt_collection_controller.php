@@ -4,14 +4,15 @@
         require '../include/check.php';
 
         if(isset($_POST['checkFlag'])){
-            $Availability = mysqli_query($conn, "SELECT * FROM temp_collection");
-            $RowCount = mysqli_num_rows($Availability);
+            // $Availability = mysqli_query($conn, "SELECT * FROM temp_collection");
+            // $RowCount = mysqli_num_rows($Availability);
 
-            if($RowCount==0){
-                echo 1;
-            }else{
-                echo 0;
-            }
+            // if($RowCount==0){
+            //     echo 1;
+            // }else{
+            //     echo 0;
+            // }
+            echo 1;
         }
 
         // // Row Add Function 
@@ -50,8 +51,6 @@
             mysqli_query($conn,$empty_temp);   
             
         }
-
-       
 
         // Save Function 
         if(isset($_POST['save'])){
@@ -148,7 +147,7 @@
               $arrears  =$x[$i]['arrears'];
               $balance  =$x[$i]['balance'];
 
-              $insert_data = mysqli_query($conn,"INSERT INTO loan_installement (    collectionID,li_date,paid,arrears,outstanding,loanNo) VALUES ('$collectionID','$li_date','$paid','$arrears','$balance',$loanNo)");
+              $insert_data = mysqli_query($conn,"INSERT INTO loan_installement (collectionID,li_date,paid,arrears,outstanding,loanNo) VALUES ('$collectionID','$li_date','$paid','$arrears','$balance',$loanNo)");
 
               // update loan status when outstanding balance = 0
               if($balance<=0){

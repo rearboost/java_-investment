@@ -294,7 +294,7 @@
                            <input type="hidden" class="form-control" name="add" value="add" /> -->
 
                           <!-- <input type="number" name="" id="test" value="0"> -->
-                          <button type="submit" class="btn btn-primary btn-fw" onclick="saveForm()">FINISH</button>
+                          <button type="button" class="btn btn-primary btn-fw" onclick="saveForm()">FINISH</button>
                           <button type="button" onclick="cancelForm()" class="btn btn-danger btn-fw">Cancel</button>
                         </div>
                       </div><!-- end 2nd row-->
@@ -333,7 +333,6 @@
     $('.check').keyup(function(event){
         var this_id = $(this).attr("name");
         total(this_id);
-        store();
     });
 
     function total(this_id){
@@ -391,23 +390,22 @@
 
      function store(){
 
-      //alert('here');
       var array=[];
-      var table = $("#myTable");
+      var table = $("#example");
 
-      //table.find('tr:gt(0)').each(function (i) {
+      table.find('tr:gt(0)').each(function (i) {
 
-      var $tds = $(this).find('td'),
-      loanNo   = $tds.eq(0).text();
-      paid     = $tds.eq(2).text();
-      arrears  = $tds.eq(4).text();
-      balance  = $tds.eq(5).text();
+          var $tds = $(this).find('td'),
+          loanNo   = $tds.eq(0).text();
+          paid     = $tds.eq(2).find("input").val();
+          arrears  = $tds.eq(4).find("input").val();
+          balance  = $tds.eq(5).find("input").val();
 
-      var z={"loanNo":loanNo,"paid":paid,"arrears":arrears,"balance":balance};
+          var z={"loanNo":loanNo,"paid":paid,"arrears":arrears,"balance":balance};
 
-      array.push({loanNo:loanNo,paid:paid,arrears:arrears,balance:balance});
+          array.push({loanNo:loanNo,paid:paid,arrears:arrears,balance:balance});
 
-      //});
+      });
 
       console.log(JSON.stringify(array, null, 1));
       $('#myitemjson').val(JSON.stringify(array));
@@ -479,6 +477,8 @@
 
     function saveForm(){
 
+        store();
+
         var save  ="save";
     
         var li_date   = $('#li_date').val();
@@ -502,7 +502,7 @@
                   icon: "success",
                   button: "Ok !",
                   });
-                  setTimeout(function(){ location.reload(); }, 2500);
+                  setTimeout(function(){ cancelForm(); }, 2500);
               }
 
           });  
