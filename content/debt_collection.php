@@ -171,8 +171,8 @@
 
 
                               ?>
-                              <input type="text" class="form-control" name="center_id" id="center_id" value="<?php echo $center_id; ?>" />
-                              <input type="text" class="form-control" name="li_date" id="li_date" value="<?php echo $createDate; ?>" />
+                              <input type="hidden" class="form-control" name="center_id" id="center_id" value="<?php echo $center_id; ?>" />
+                              <input type="hidden" class="form-control" name="li_date" id="li_date" value="<?php echo $createDate; ?>" />
 
                               <div class="col-md-3">
                                 <label class="col-sm-12 col-form-label"><strong>Formed Date : </strong> <?php echo $createDate; ?> </label>
@@ -199,7 +199,7 @@
                         <div class="col-md-12">
                          <!-- <div id="here"> -->
 
-                          <input type="text" id="myitemjson" name="myitemjson"/>
+                          <input type="hidden" id="myitemjson" name="myitemjson"/>
                           <div class="table-responsive">          
                             <table id="example" class="table table-bordered">
                             <thead>
