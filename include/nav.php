@@ -39,11 +39,11 @@
                     <i class="mdi mdi-account-search" aria-hidden="true"></i>
                   </div>Search Clients
                 </a>
-                <!-- <a class="dropdown-item" href="center.php">
+                <a class="dropdown-item" href="center.php">
                   <div class="flag-icon-holder">
                     <i class="mdi mdi-bank" aria-hidden="true"></i>
                   </div>Center Creation
-                </a> -->
+                </a>
               </div>
             </li>
             <li class="nav-item dropdown language-dropdown">

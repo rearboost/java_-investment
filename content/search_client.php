@@ -131,11 +131,11 @@
                             </tr>
                             <tr>
                               <th>NIC  </th>
-                              <td><?php echo ' : ' . $address; ?></td>
+                              <td><?php echo ' : ' . $nic; ?></td>
                             </tr>
                             <tr>
                               <th>Address  </th>
-                              <td><?php echo ' : ' . $nic; ?></td>
+                              <td><?php echo ' : ' . $address; ?></td>
                             </tr>
                             <tr>
                               <th>Contact 01  </th>
