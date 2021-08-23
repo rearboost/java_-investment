@@ -53,7 +53,7 @@
                         ?>
                         <input type="hidden" id="loan_no" value="<?php echo $next_id; ?>">
                         <input type="hidden" name="loanID" value="<?php echo $loanID; ?>">
-                        <b><label class="col-sm-12 col-form-label" style="font-size: small;">MEMBER ID - <?php  
+                        <b><label class="col-sm-12 col-form-label" style="font-size: small;">LOAN ID - <?php  
                         echo $loanID; ?></label></b>
 
 

@@ -14,6 +14,8 @@ include('../include/config.php');
       while($row = mysqli_fetch_assoc($sql)) {
         $center_code   = $row['center_code'];
         $center_name   = $row['center_name'];
+        $leader   = $row['leader'];
+        $contact   = $row['contact'];
       }
     }
   }
@@ -55,7 +57,6 @@ include('../include/config.php');
                     <div class="col-md-6">
                       <h3 class="card-title">Add new center</h3>
                       <form class="form-sample" id="addCenter">
-
                         <?php
 
                           $sql ="SELECT id FROM center ORDER BY id DESC LIMIT 1";
@@ -69,15 +70,14 @@ include('../include/config.php');
                             $nextID =$row_get['id']+1;
                           }
 
-                        ?>
+                           $nextID = sprintf('ANG%03d', $nextID);
 
-                        <b><label class="col-sm-12">Center no - <?php echo $nextID; ?></label></b>
+                        ?>
 
                         <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Center Code</label>
                         <div class="col-sm-9">
                           <?php
-
                                 $sql ="SELECT * FROM center ORDER BY id DESC LIMIT 1";
                                 $result=mysqli_query($conn,$sql);
                                 $row_get = mysqli_fetch_assoc($result);
@@ -89,22 +89,41 @@ include('../include/config.php');
                                   $nextNo =$row_get['id']+1;
                                 }
                                  $nextcode = sprintf('ANG%03d', $nextNo);
-                              ?>
-                          
-
+                            ?>
+                        
                             <input type="text" class="form-control" name="code" id="code" value="<?php echo $nextcode; ?>" readonly="" required>
                         </div>
                         </div>
 
                         <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Center Name</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Enter center name here.." required>
+                          <label class="col-sm-3 col-form-label">Center Name</label>
+                          <div class="col-sm-9">
+                              <input type="text" class="form-control" name="name" id="name" placeholder="Enter center name here.." value='<?php if(!empty($edit_id)){ echo $name; } ?>' required>
+                          </div>
                         </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Center Leader</label>
+                          <div class="col-sm-9">
+                              <input type="text" class="form-control" name="leader" id="leader" placeholder="Enter leader name here.." value='<?php if(!empty($edit_id)){ echo $leader; } ?>' required>
+                          </div>
+                        </div>
+                         <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Center Contact</label>
+                          <div class="col-sm-9">
+                              <input type="text" class="form-control" name="contact" id="contact" placeholder="Enter contact no here.." value='<?php if(!empty($edit_id)){ echo $contact; } ?>' required>
+                          </div>
                         </div>
 
-                        <input type="hidden" class="form-control" name="add" value="add" />
-                        <button type="submit" class="btn btn-primary btn-fw">SAVE</button>    
+                          <?php if (isset($_GET['edit_id'])): ?>
+                              <input type="hidden" class="form-control" name="edit_id" value='<?php if(!empty($edit_id)){ echo $edit_id; } ?>' />
+                              <input type="hidden" class="form-control" name="update" value="update" />
+                              <button type="submit" class="btn btn-info btn-fw">Update</button>
+                          <?php else: ?>
+                              <input type="hidden" class="form-control" name="add" value="add" />
+                              <button type="submit" class="btn btn-success mr-2">Save</button>
+                          <?php endif ?>
+
+                          <button type="button" onclick="cancelForm()" class="btn btn-primary mr-2">Cancel</button>
                       </form>
                       </div><!-- end column1-->
 
@@ -127,6 +146,9 @@ include('../include/config.php');
                           <th> # </th>
                           <th>Center Code </th>
                           <th>Center Name </th>
+                          <th>Center Leader </th>
+                          <th>Center Contact </th>
+                          <th> </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -141,14 +163,16 @@ include('../include/config.php');
 
                               $center_code     = $row['center_code'];
                               $center_name  = $row['center_name'];
+                              $leader     = $row['leader'];
+                              $contact  = $row['contact'];
 
                               echo ' <tr>';
                               echo ' <td>'.$i.' </td>';
                               echo ' <td>'.$center_code.' </td>';
                               echo ' <td>'.$center_name.' </td>';
-                              //echo '<td class="td-center"><button type="button" onclick="editForm('.$row["id"].')" class="btn btn-info btn-fw">Edit</button></td>';
-
-                              //echo '<td class="td-center"><button type="button" onclick="confirmation(event,'.$row["id"].')" class="btn btn-secondary btn-fw">Delete</button></td>';
+                              echo ' <td>'.$leader.' </td>';
+                              echo ' <td>'.$contact.' </td>';
+                              echo '<td class="td-center"><button type="button" onclick="editForm('.$row["id"].')" class="btn btn-info btn-fw">Edit</button></td>';
                               echo ' </tr>';
                               $i++;
                             }
@@ -206,7 +230,18 @@ $(function () {
                       button: "Ok !",
                     });
 
-                }else{
+                }else if(data==2){
+
+                    swal({
+                    title: "Good job !",
+                    text: "Successfully Updated",
+                    icon: "success",
+                    button: "Ok !",
+                    });
+                    setTimeout(function(){ window.location.href = "center.php";; }, 2500);
+                    
+                }
+                else{
 
                     swal({
                       title: "Good job !",
@@ -214,16 +249,20 @@ $(function () {
                       icon: "success",
                       button: "Ok !",
                       });
-
                       setTimeout(function(){ location.reload(); }, 2500);
                 }
             }
           });
-
-
     });
   });
 
+  function editForm(id){
+      window.location.href = "center.php?edit_id=" + id;
+  }
+
+  function cancelForm(){
+      window.location.href = "center.php";
+  }
 
 
 </script>

@@ -73,10 +73,10 @@
             $contact   = $_POST['contact'];
             $contact2  = $_POST['contact2']; 
 
-            $check= mysqli_query($conn, "SELECT * FROM customer WHERE id='$id'");
+            $check= mysqli_query($conn, "SELECT * FROM customer WHERE cust_id='$id'");
 		    $count = mysqli_num_rows($check);
 
-            if($count==0){
+            if($count>0){
 
                 $edit = "UPDATE customer 
                                     SET name   ='$client',

@@ -16,13 +16,6 @@
 
             $memberID     = $row['memberID'];
             $center_id  = $row['center_id'];
-            ////////////
-            $sql_get=mysqli_query($conn,"SELECT * FROM center WHERE id ='$center_id'");
-            $row_get = mysqli_fetch_assoc($sql_get);
-            $center_code  = $row_get['center_code'];
-            $center_name     = $row_get['center_name'];
-
-            //////////////////////
             $cname     = $row['name'];
             $nic     = $row['NIC'];
             $addLine1      = $row['addLine1'];
@@ -112,14 +105,20 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" name="center" id="center" required>
                                         <?php
+                                          
+                                            if(isset($_GET['edit_id'])){
+
+                                                $sql_get=mysqli_query($conn,"SELECT * FROM center WHERE id ='$center_id'");
+                                                $row_get = mysqli_fetch_assoc($sql_get);
+                                                $center_code  = $row_get['center_code'];
+                                                $center_name     = $row_get['center_name'];
+                                                echo '<option value ="'.$center_id.'">' . $center_code. ' | ' .$center_name.'</option>';
+                                            }
+                                            echo "<option value=''>--Select Center--</option>";
                                             $custom = "SELECT * FROM  center";
                                             $result = mysqli_query($conn,$custom);
                                             $numRows = mysqli_num_rows($result); 
 
-                                            if(isset($_GET['edit_id'])){
-                                               echo '<option value ="'.$center_id.'">' . $center_code. ' | ' .$center_name.'</option>';
-                                            }
-                                            echo "<option value=''>--Select Center--</option>";
                                             if($numRows > 0) {
                                               while($row = mysqli_fetch_assoc($result)) {
                                                 if(isset($_GET['edit_id'])){
