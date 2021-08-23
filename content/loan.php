@@ -47,8 +47,14 @@
                           $data = mysqli_fetch_assoc($get_id);
 
                           $next_id = $data['loan_no']+1;
+
+                          $loanID = sprintf('LON-%05d', $next_id);
+
                         ?>
                         <input type="hidden" id="loan_no" value="<?php echo $next_id; ?>">
+                        <input type="hidden" name="loanID" value="<?php echo $loanID; ?>">
+                        <b><label class="col-sm-12 col-form-label" style="font-size: small;">MEMBER ID - <?php  
+                        echo $loanID; ?></label></b>
 
 
                           <div class="col-md-12">

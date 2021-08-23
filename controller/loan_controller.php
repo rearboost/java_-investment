@@ -5,6 +5,7 @@
         // Update Function 
         if(isset($_POST['add'])){
 
+            $loanID         = $_POST['loanID'];
             $branch         = $_POST['branch'];
             $center         = $_POST['center'];
             $customer       = $_POST['customer'];
@@ -91,8 +92,8 @@
                     }
                 }
             }
-
-            $insert = mysqli_query($conn,"INSERT INTO loan (branch,centerID,customerID,loanType,contractNo,loanAmt,terms,interestRate,rental,daily_rental,totalAmt,inspectionDate,disburseDate,gurantee1Name,gurantee1NIC,gurantee1ContactNo,gurantee2Name,gurantee2NIC,gurantee2ContactNo,loanStep,status) VALUES ('$branch','$center','$cust_id','$loan_type','$contractNo','$loanAmt','$terms','$intRate','$rental','$daily_rental','$tot_amt','$inspectionDate','$disburseDate','$gurantee1Name','$gurantee1NIC','$gurantee1ContactNo','$gurantee2Name','$gurantee2NIC','$gurantee2ContactNo','$loanStep',1)");
+            
+            $insert = mysqli_query($conn,"INSERT INTO loan (loanID,branch,centerID,customerID,loanType,contractNo,loanAmt,terms,interestRate,rental,daily_rental,totalAmt,inspectionDate,disburseDate,gurantee1Name,gurantee1NIC,gurantee1ContactNo,gurantee2Name,gurantee2NIC,gurantee2ContactNo,loanStep,status) VALUES ('$loanID','$branch','$center','$cust_id','$loan_type','$contractNo','$loanAmt','$terms','$intRate','$rental','$daily_rental','$tot_amt','$inspectionDate','$disburseDate','$gurantee1Name','$gurantee1NIC','$gurantee1ContactNo','$gurantee2Name','$gurantee2NIC','$gurantee2ContactNo','$loanStep',1)");
 
             if($insert){
                 $updateCustomer = mysqli_query($conn, "UPDATE customer SET contact =$contact1, contact2=$contact2, address='$address' WHERE cust_id=$cust_id");

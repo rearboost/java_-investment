@@ -8,26 +8,28 @@
     if(isset($_GET['edit_id'])){
 
         $edit_id = $_GET['edit_id'];
-        $sql=mysqli_query($conn,"SELECT A.* ,b.center_code , b.center_name 
-                          FROM customer A
-                          INNER JOIN center B
-                          ON A.center_id = B.id WHERE A.cust_id ='$edit_id'");  
-
+        $sql=mysqli_query($conn,"SELECT * FROM customer WHERE cust_id ='$edit_id'");
+                          
         $numRows = mysqli_num_rows($sql); 
         if($numRows > 0) {
           while($row = mysqli_fetch_assoc($sql)) {
 
             $memberID     = $row['memberID'];
             $center_id  = $row['center_id'];
-            $center_code  = $row['center_code'];
-            $center_name     = $row['center_name'];
+            ////////////
+            $sql_get=mysqli_query($conn,"SELECT * FROM center WHERE id ='$center_id'");
+            $row_get = mysqli_fetch_assoc($sql_get);
+            $center_code  = $row_get['center_code'];
+            $center_name     = $row_get['center_name'];
+
+            //////////////////////
             $cname     = $row['name'];
             $nic     = $row['NIC'];
             $addLine1      = $row['addLine1'];
             $addLine2      = $row['addLine2'];
             $addLine3      = $row['addLine3'];
-            $contact       = $row['contact'];
-            $contact2      = $row['contact2'];
+            $contact       = str_replace('-', '', $row['contact']);
+            $contact2       = str_replace('-', '', $row['contact2']);
           }
         }
     }

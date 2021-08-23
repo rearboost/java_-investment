@@ -7,7 +7,7 @@
     session_start();
     $email= $_SESSION['username'];
     if(!isset($_SESSION['username'])){
-    header('Location: ../index');
+    header('Location: ../index.php');
     }
 
 

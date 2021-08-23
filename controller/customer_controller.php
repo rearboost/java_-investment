@@ -84,7 +84,7 @@
                                         NIC  ='$nic',
                                         addLine1  ='$addLine1',
                                         addLine2  ='$addLine2',
-                                        addLine2  ='$addLine2',
+                                        addLine3  ='$addLine3',
                                         contact  ='$contact',
                                         contact2  ='$contact2'
                                     WHERE cust_id=$id";
