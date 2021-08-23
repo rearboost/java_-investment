@@ -51,7 +51,7 @@ include('../include/config.php');
               <div class="col-md-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
+                  <div class="row">
                     <div class="col-md-6">
                       <h3 class="card-title">Add new center</h3>
                       <form class="form-sample" id="addCenter">
@@ -88,8 +88,7 @@ include('../include/config.php');
                                 }else{
                                   $nextNo =$row_get['id']+1;
                                 }
-                                $nextcode = sprintf('C%03d', $nextNo);
-
+                                 $nextcode = sprintf('ANG%03d', $nextNo);
                               ?>
                           
 

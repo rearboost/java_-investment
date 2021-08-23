@@ -207,7 +207,9 @@
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Gurantee Details (01)</label>
                               <div class="col-sm-9">
-                                <textarea class="form-control" name="gurantee1" rows="3" placeholder="Name | NIC No | Contact No"></textarea>
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1Name" placeholder="Gurantee 01 Name" required/>
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1NIC" placeholder="Gurantee 01 NIC No" required/>
+                                <input type="text" class="form-control" name="gurantee1ContactNo" placeholder="Gurantee 01 Contact No" required/>
                               </div>
                             </div>
                           </div>
@@ -216,7 +218,9 @@
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Gurantee Details (02)</label>
                               <div class="col-sm-9">
-                                <textarea class="form-control" name="gurantee2" rows="3" placeholder="Name | NIC No | Contact No"></textarea>
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2Name" placeholder="Gurantee 02 Name" required/>
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2NIC" placeholder="Gurantee 02 NIC No" required/>
+                                <input type="text" class="form-control" name="gurantee2ContactNo" placeholder="Gurantee 02 Contact No" required/>
                               </div>
                             </div>
                           </div>
