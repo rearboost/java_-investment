@@ -98,7 +98,7 @@ include('../include/config.php');
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Center Name</label>
                           <div class="col-sm-9">
-                              <input type="text" class="form-control" name="name" id="name" placeholder="Enter center name here.." value='<?php if(!empty($edit_id)){ echo $name; } ?>' required>
+                              <input type="text" class="form-control" name="name" id="name" placeholder="Enter center name here.." value='<?php if(!empty($edit_id)){ echo $center_name; } ?>' required>
                           </div>
                         </div>
                         <div class="form-group row">
