@@ -143,7 +143,7 @@
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Name</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control" name="name" placeholder="customer name here.." value='<?php if(!empty($edit_id)){ echo $cname; } ?>' required>
+                                  <input type="text" class="form-control" name="name" placeholder="customer name here.." value='<?php if(isset($edit_id)){ echo $cname; } ?>' required>
                                 </div>
                               </div>
                             </div>
@@ -152,7 +152,7 @@
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">NIC No</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control" name="nic" value='<?php if(!empty($edit_id)){ echo $nic; } ?>' required>
+                                  <input type="text" class="form-control" name="nic" value='<?php if(isset($edit_id)){ echo $nic; } ?>' required>
                                 </div>
                               </div>
                             </div>
@@ -163,7 +163,7 @@
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Phone No (01)</label>
                                 <div class="col-sm-9">
-                                  <input type="number" class="form-control" name="contact" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  minlength="10" placeholder="xxx xxx xxxx"  value='<?php if(!empty($edit_id)){ echo $contact; } ?>' required>
+                                  <input type="number" class="form-control" name="contact" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  minlength="10" placeholder="xxx xxx xxxx"  value='<?php if(isset($edit_id)){ echo $contact; } ?>' required>
                                 </div>
                               </div>
                             </div>
@@ -172,7 +172,7 @@
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Phone No (02)</label>
                                 <div class="col-sm-9">
-                                  <input type="number" class="form-control" name="contact2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  minlength="10" value='<?php if(!empty($edit_id)){ echo $contact2; } ?>' placeholder="xxx xxx xxxx">
+                                  <input type="number" class="form-control" name="contact2" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10"  minlength="10" value='<?php if(isset($edit_id)){ echo $contact2; } ?>' placeholder="xxx xxx xxxx">
                                 </div>
                               </div>
                             </div>
@@ -183,11 +183,11 @@
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Address</label>
                                 <div class="col-sm-9">
-                                  <input type="text" class="form-control" style="margin-bottom: 20px;" name="addLine1" placeholder="address line 01 .." value='<?php if(!empty($edit_id)){ echo $addLine1; } ?>' required>
+                                  <input type="text" class="form-control" style="margin-bottom: 20px;" name="addLine1" placeholder="address line 01 .." value='<?php if(isset($edit_id)){ echo $addLine1; } ?>' required>
                                   
-                                  <input type="text" class="form-control" style="margin-bottom: 20px;" name="addLine2" placeholder="address line 02 .." value='<?php if(!empty($edit_id)){ echo $addLine2; } ?>' >
+                                  <input type="text" class="form-control" style="margin-bottom: 20px;" name="addLine2" placeholder="address line 02 .." value='<?php if(isset($edit_id)){ echo $addLine2; } ?>' >
 
-                                  <input type="text" class="form-control" name="addLine3" placeholder="address line 03 .." value='<?php if(!empty($edit_id)){ echo $addLine3; } ?>' >
+                                  <input type="text" class="form-control" name="addLine3" placeholder="address line 03 .." value='<?php if(isset($edit_id)){ echo $addLine3; } ?>' >
                                   <!-- <textarea class="form-control" name="address" rows="2" placeholder="Address here.."></textarea> -->
                                 </div>
                               </div>
@@ -218,7 +218,7 @@
 
 
                           <?php if (isset($_GET['edit_id'])): ?>
-                              <input type="hidden" class="form-control" name="edit_id" value='<?php if(!empty($edit_id)){ echo $edit_id; } ?>' />
+                              <input type="hidden" class="form-control" name="edit_id" value='<?php if(isset($edit_id)){ echo $edit_id; } ?>' />
                               <input type="hidden" class="form-control" name="update" value="update" />
                               <button type="submit" class="btn btn-info btn-fw">Update</button>
                           <?php else: ?>

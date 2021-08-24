@@ -13,7 +13,7 @@ include('../include/config.php');
     if($numRows > 0) {
       while($row = mysqli_fetch_assoc($sql)) {
         $center_code   = $row['center_code'];
-        $center_name   = $row['center_name'];
+        $centernName   = $row['center_name'];
         $leader   = $row['leader'];
         $contact   = $row['contact'];
       }
@@ -57,65 +57,60 @@ include('../include/config.php');
                     <div class="col-md-6">
                       <h3 class="card-title">Add new center</h3>
                       <form class="form-sample" id="addCenter">
-                        <?php
-
-                          $sql ="SELECT id FROM center ORDER BY id DESC LIMIT 1";
-                          $result=mysqli_query($conn,$sql);
-                          $row_get = mysqli_fetch_assoc($result);
-                          $count =mysqli_num_rows($result);
-
-                          if($count==0){
-                            $nextID = 1;
-                          }else{
-                            $nextID =$row_get['id']+1;
-                          }
-
-                           $nextID = sprintf('ANG%03d', $nextID);
-
-                        ?>
-
                         <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Center Code</label>
                         <div class="col-sm-9">
-                          <?php
-                                $sql ="SELECT * FROM center ORDER BY id DESC LIMIT 1";
-                                $result=mysqli_query($conn,$sql);
-                                $row_get = mysqli_fetch_assoc($result);
-                                $count =mysqli_num_rows($result);
 
-                                if($count==0){
-                                  $nextNo = 1;
-                                }else{
-                                  $nextNo =$row_get['id']+1;
-                                }
-                                 $nextcode = sprintf('ANG%03d', $nextNo);
-                            ?>
+                            <?php
+                              ///////////////////////////
+                               if (isset($_GET['edit_id'])){
+                                  $nextcode = $center_code;
+
+                                  echo '<input type="text" class="form-control" name="code" id="code" value='.$nextcode.' readonly="" required>';
+
+                               }else{
+
+                                  $sql1 ="SELECT * FROM center ORDER BY id DESC LIMIT 1";
+                                  $result=mysqli_query($conn,$sql1);
+                                  $row_get = mysqli_fetch_assoc($result);
+                                  $count =mysqli_num_rows($result);
+
+                                  if($count==0){
+                                    $nextNo = 1;
+                                  }else{
+                                    $nextNo =$row_get['id']+1;
+                                  }
+                                  $nextcode = sprintf('ANG%03d', $nextNo);
+
+                                  echo '<input type="text" class="form-control" name="code" id="code" value='.$nextcode.' readonly="" required>';
+                               }
+                               ///////////////////////////
+                              ?>
                         
-                            <input type="text" class="form-control" name="code" id="code" value="<?php echo $nextcode; ?>" readonly="" required>
                         </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Center Name</label>
                           <div class="col-sm-9">
-                              <input type="text" class="form-control" name="name" id="name" placeholder="Enter center name here.." value='<?php if(!empty($edit_id)){ echo $center_name; } ?>' required>
+                              <input type="text" class="form-control" name="name" id="name" placeholder="Enter center name here.." value='<?php if(isset($edit_id)){ echo $centernName; } ?>' required>
                           </div>
                         </div>
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Center Leader</label>
                           <div class="col-sm-9">
-                              <input type="text" class="form-control" name="leader" id="leader" placeholder="Enter leader name here.." value='<?php if(!empty($edit_id)){ echo $leader; } ?>' required>
+                              <input type="text" class="form-control" name="leader" id="leader" placeholder="Enter leader name here.." value='<?php if(isset($edit_id)){ echo $leader; } ?>' required>
                           </div>
                         </div>
                          <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Center Contact</label>
                           <div class="col-sm-9">
-                              <input type="text" class="form-control" name="contact" id="contact" placeholder="Enter contact no here.." value='<?php if(!empty($edit_id)){ echo $contact; } ?>' required>
+                              <input type="text" class="form-control" name="contact" id="contact" placeholder="Enter contact no here.." value='<?php if(isset($edit_id)){ echo $contact; } ?>' required>
                           </div>
                         </div>
 
                           <?php if (isset($_GET['edit_id'])): ?>
-                              <input type="hidden" class="form-control" name="edit_id" value='<?php if(!empty($edit_id)){ echo $edit_id; } ?>' />
+                              <input type="hidden" class="form-control" name="edit_id" value='<?php if(isset($edit_id)){ echo $edit_id; } ?>' />
                               <input type="hidden" class="form-control" name="update" value="update" />
                               <button type="submit" class="btn btn-info btn-fw">Update</button>
                           <?php else: ?>
