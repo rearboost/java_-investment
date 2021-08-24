@@ -213,9 +213,9 @@
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Gurantee Details (01)</label>
                               <div class="col-sm-9">
-                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1Name" placeholder="Gurantee 01 Name" required/>
-                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1NIC" placeholder="Gurantee 01 NIC No" required/>
-                                <input type="text" class="form-control" name="gurantee1ContactNo" placeholder="Gurantee 01 Contact No" required/>
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1Name" placeholder="Gurantee 01 Name" />
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1NIC" placeholder="Gurantee 01 NIC No" />
+                                <input type="text" class="form-control" name="gurantee1ContactNo" placeholder="Gurantee 01 Contact No" />
                               </div>
                             </div>
                           </div>
@@ -224,9 +224,9 @@
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Gurantee Details (02)</label>
                               <div class="col-sm-9">
-                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2Name" placeholder="Gurantee 02 Name" required/>
-                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2NIC" placeholder="Gurantee 02 NIC No" required/>
-                                <input type="text" class="form-control" name="gurantee2ContactNo" placeholder="Gurantee 02 Contact No" required/>
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2Name" placeholder="Gurantee 02 Name" />
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2NIC" placeholder="Gurantee 02 NIC No" />
+                                <input type="text" class="form-control" name="gurantee2ContactNo" placeholder="Gurantee 02 Contact No" />
                               </div>
                             </div>
                           </div>
@@ -314,7 +314,12 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Address</label>
                             <div class="col-sm-7">
-                              <input type="text" class="form-control" name="address" id="address" required="" />
+                              <!-- <input type="text" class="form-control" name="address" id="address"  readonly="" /> -->
+                               <input type="text" class="form-control" style="margin-bottom: 20px;" id="addLine1" name="addLine1" placeholder="address line 01 .." >
+                                  
+                               <input type="text" class="form-control" style="margin-bottom: 20px;" id="addLine2" name="addLine2" placeholder="address line 02 ..">
+
+                              <input type="text" class="form-control" id="addLine3" name="addLine3" placeholder="address line 03 .." >
                             </div>
                           </div>
                         </div>
@@ -503,7 +508,9 @@
               $('#client').val(obj.name);
               $('#contact1').val(obj.contact);
               $('#contact2').val(obj.contact2);
-              $('#address').val(obj.address);
+              $('#addLine1').val(obj.addLine1);
+              $('#addLine2').val(obj.addLine2);
+              $('#addLine3').val(obj.addLine3);
             }
         });
 

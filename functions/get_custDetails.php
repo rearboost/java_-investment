@@ -12,14 +12,18 @@ error_reporting(0);
 	$name 		= $get['name'];
 	$contact 	= $get['contact'];
 	$contact2 	= $get['contact2'];
-	$address 	= $get['address'];
+	$addLine1 	= $get['addLine1'];
+	$addLine2 	= $get['addLine2'];
+	$addLine3 	= $get['addLine3'];
 
 	$myObj->cust_id  	= $cust_id;
 	$myObj->memberID  	= $memberID;
 	$myObj->name  		= $name;
 	$myObj->contact  	= $contact;
 	$myObj->contact2  	= $contact2;
-	$myObj->address  	= $address;
+	$myObj->addLine1  	= $addLine1;
+	$myObj->addLine2  	= $addLine2;
+	$myObj->addLine3  	= $addLine3;
 	
 	$myJSON = json_encode($myObj);
 

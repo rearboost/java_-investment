@@ -31,7 +31,9 @@
             $cust_id       = $_POST['cust_id'];
             $contact1      = $_POST['contact1'];
             $contact2      = $_POST['contact2'];
-            $address       = $_POST['address'];
+            $addLine1       = $_POST['addLine1'];
+            $addLine2       = $_POST['addLine2'];
+            $addLine3       = $_POST['addLine3'];
 
             $year =  date("Y");
             $month = date("m");
@@ -96,12 +98,13 @@
             $insert = mysqli_query($conn,"INSERT INTO loan (loanID,branch,centerID,customerID,loanType,contractNo,loanAmt,terms,interestRate,rental,daily_rental,totalAmt,inspectionDate,disburseDate,gurantee1Name,gurantee1NIC,gurantee1ContactNo,gurantee2Name,gurantee2NIC,gurantee2ContactNo,loanStep,status) VALUES ('$loanID','$branch','$center','$cust_id','$loan_type','$contractNo','$loanAmt','$terms','$intRate','$rental','$daily_rental','$tot_amt','$inspectionDate','$disburseDate','$gurantee1Name','$gurantee1NIC','$gurantee1ContactNo','$gurantee2Name','$gurantee2NIC','$gurantee2ContactNo','$loanStep',1)");
 
             if($insert){
-                $updateCustomer = mysqli_query($conn, "UPDATE customer SET contact =$contact1, contact2=$contact2, address='$address' WHERE cust_id=$cust_id");
-                if($updateCustomer){ 
-                    echo  1;
-                }else{
-                    echo  0;
-                }
+                 echo  1;
+                // $updateCustomer = mysqli_query($conn, "UPDATE customer SET contact =$contact1, contact2=$contact2, address='$address' WHERE cust_id=$cust_id");
+                // if($updateCustomer){ 
+                   
+                // }else{
+                //     echo  0;
+                // }
             }else{
                 echo  mysqli_error($conn);		
             }

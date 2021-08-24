@@ -84,7 +84,9 @@
                   $cust_id  = $row1['cust_id'];
                   $name     = $row1['name'];
                   $memberID = $row1['memberID'];
-                  $address  = $row1['address'];
+                  $addLine1  = $row1['addLine1'];
+                  $addLine2  = $row1['addLine2'];
+                  $addLine3  = $row1['addLine3'];
                   $nic      = $row1['NIC'];
                   $contact  = $row1['contact'];
                   $contact2 = $row1['contact2'];
@@ -135,7 +137,7 @@
                             </tr>
                             <tr>
                               <th>Address  </th>
-                              <td><?php echo ' : ' . $address; ?></td>
+                              <td><?php echo ' : ' . $addLine1.", ".$addLine2.", ".$addLine3; ?></td>
                             </tr>
                             <tr>
                               <th>Contact 01  </th>
