@@ -670,24 +670,32 @@
                 data: $('#loanAdd').serialize(),
                 success: function (data) {
 
+                    if(data==0){
                         swal({
-                          title: "Good job !",
-                          text: "Successfully Submited",
-                          icon: "success",
+                          title: "Can't Duplication !",
+                          text: "Client Already Exist.",
+                          icon: "error",
                           button: "Ok !",
-                          });
-                          //setTimeout(function(){ location.reload(); }, 2500);
-                          //setTimeout(function(){window.open('receipt?id='+mid, '_blank'); }, 100);
+                        });
 
-                          setTimeout(function(){ location.reload(); }, 2500);
-                    //}
+                    }else{
+                      swal({
+                      title: "Good job !",
+                      text: "Successfully Submited",
+                      icon: "success",
+                      button: "Ok !",
+                      });
+                      //setTimeout(function(){ location.reload(); }, 2500);
+                      //setTimeout(function(){window.open('receipt?id='+mid, '_blank'); }, 100);
+                      setTimeout(function(){ location.reload(); }, 2500);
+
+                    }
                 }
               });
 
           }else{
             alert('Required Field is Empty');
           }
-
 
         });
       });

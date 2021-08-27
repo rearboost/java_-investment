@@ -1,8 +1,8 @@
 <?php
 	$severname = "localhost";
 	$username = "root";
-	$password = "";
-	$db = "java_db";
+	$password = "root";
+	$db = "jayamag1_db";
 
 	$conn = mysqli_connect($severname,$username,$password);
 	mysqli_select_db($conn,$db);

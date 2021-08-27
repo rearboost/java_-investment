@@ -147,7 +147,8 @@
                                 </div>
                               </div>
                             </div>
-
+                          </div>
+                          <div class="row">
                             <div class="col-md-6">
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">NIC No</label>
@@ -167,7 +168,9 @@
                                 </div>
                               </div>
                             </div>
+                          </div>
 
+                          <div class="row">
                             <div class="col-md-6">
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Phone No (02)</label>
@@ -215,7 +218,6 @@
                             <?php endif ?>
 
                           </div>
-
 
                           <?php if (isset($_GET['edit_id'])): ?>
                               <input type="hidden" class="form-control" name="edit_id" value='<?php if(isset($edit_id)){ echo $edit_id; } ?>' />

@@ -39,11 +39,6 @@
                     <i class="mdi mdi-account-search" aria-hidden="true"></i>
                   </div>Search Clients
                 </a>
-                <a class="dropdown-item" href="center.php">
-                  <div class="flag-icon-holder">
-                    <i class="mdi mdi-bank" aria-hidden="true"></i>
-                  </div>Center Creation
-                </a>
               </div>
             </li>
             <li class="nav-item dropdown language-dropdown">
@@ -100,6 +95,17 @@
                   </div>
                 </div>
                 <span class="profile-text font-weight-medium d-none d-md-block">Transaction</span>
+              </a>
+            </li>
+
+            <li class="nav-item dropdown language-dropdown">
+              <a class="nav-link px-2 d-flex align-items-center" href="center.php">
+                <div class="d-inline-flex mr-0 mr-md-3">
+                  <div class="flag-icon-holder">
+                    <i class="mdi mdi-bank" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <span class="profile-text font-weight-medium d-none d-md-block">Center Creation</span>
               </a>
             </li>
 

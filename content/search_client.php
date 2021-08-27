@@ -71,7 +71,7 @@
 
             <?php if (isset($_GET['view_id'])): ?>
             
-            <form class="forms-sample" id="report_form">
+            <form class="forms-sample" id="report_form" style="margin: 0 0.7%;">
 
                 <input type="hidden" value ='<?php echo $_GET['view_id']; ?>' name="customer">
                 <?php 
@@ -102,13 +102,13 @@
                       <h5>  Display Profile </h5> <hr>
                       <div class="row">
                         <?php
-                        echo '<img src="../upload/'.$image.'" height="100%" width="100%" alt="'.$image.'">';
+                        echo '<img src="../upload/'.$image.'" height="60%" width="60%" alt="'.$image.'">';
                         ?>
                       </div>
                       <p></p>
                       <div class="row">
                         <?php
-                        echo '<img src="../upload/'.$image2.'" height="100%" width="100%" alt="'.$image2.'">';
+                        echo '<img src="../upload/'.$image2.'" height="60%" width="60%" alt="'.$image2.'">';
                         ?>
                       </div>
                     </div>
@@ -180,6 +180,7 @@
                                         while($row2 = mysqli_fetch_assoc($sql)) {
 
                                         $loan_no      = $row2['loan_no'];
+                                        $loanID      = $row2['loanID'];
                                         $loanType     = $row2['loanType'];
                                         $contractNo   = $row2['contractNo'];
                                         $disburseDate = $row2['disburseDate'];
@@ -188,7 +189,7 @@
 
                                         echo ' <tr>';
                                         echo ' <td style="display: none;">'.$i.' </td>';
-                                        echo ' <td>'.$loan_no.' </td>';
+                                        echo ' <td>'.$loanID.' </td>';
                                         echo ' <td>'.$loanType.' </td>';
                                         echo ' <td>'.$contractNo.' </td>';
                                         echo ' <td>'.$disburseDate.' </td>';
@@ -270,7 +271,7 @@
 
                    </div>
                  </div>
-               </div>
+                </div>
               </div>
               </div>
             </form>
