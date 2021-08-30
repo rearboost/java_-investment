@@ -125,7 +125,7 @@
                                     $contractNo   = $row1['contractNo'];
                                     $customerID   = $row1['customerID'];
                                     $loanAmt      = $row1['loanAmt'];
-                                    $daily_rental = $row1['daily_rental'];
+                                    $rental = $row1['rental'];
 
                             
                                     $fetchInst = mysqli_query($conn, "SELECT * FROM loan_installement WHERE loanNo='$loan_no' ORDER BY id DESC LIMIT 1");
@@ -147,7 +147,8 @@
                                     $now_date   = strtotime($createDate);
                                     $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
 
-                                    $payable= $daily_rental * $Days;
+                                    //$payable= $daily_rental * $Days;
+                                    $payable= $rental;
 
                                     // echo '<p>'.$loan_no.' | </p>';
                                     // echo '<p>'.$contractNo.' | </p>';
@@ -166,9 +167,6 @@
 
                                 }
                               }
-                              
-                              
-
 
                               ?>
                               <input type="hidden" class="form-control" name="center_id" id="center_id" value="<?php echo $center_id; ?>" />
@@ -204,12 +202,16 @@
                             <table id="example" class="table table-bordered">
                             <thead>
                               <tr>
-                                <th style="text-align:center;">Loan Index</th>
+                                <th style="text-align:center;">L Index</th>
+                                <th style="text-align:center;">Contract No</th>
                                 <th style="text-align:center;">Customer</th>
+                                <th style="text-align:center;">Contact</th>
+                                <th style="text-align:center;">NIC</th>
                                 <th style="text-align:center;">Payment</th>
-                                <th style="text-align:center;">Payable</th>
+                                <th style="text-align:center;">Rental</th>
                                 <th style="text-align:center;">Arrears</th>
                                 <th style="text-align:center;">Balance</th>
+                                <th style="text-align:center;">Loan Amount</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -221,7 +223,7 @@
                         
                               if($row_num > 0) {
 
-                                // $total_amt = 0;
+                                 $total_due = 0;
                                 // $total_arr = 0;
                                 // $total_p = 0;
                                 // $total_out = 0;
@@ -230,22 +232,31 @@
 
                                   $loanNo = $row['loan_no'];
 
-                                  $cus = mysqli_query($conn, "SELECT C.name AS customer,C.NIC AS NIC FROM customer C INNER JOIN loan L ON C.cust_id = L.customerID WHERE L.loan_no=$loanNo");
+                                  $cus = mysqli_query($conn, "SELECT C.name AS customer,C.NIC AS NIC , C.contact FROM customer C INNER JOIN loan L ON C.cust_id = L.customerID WHERE L.loan_no=$loanNo");
                                   $cusRow = mysqli_fetch_assoc($cus);
+                                 
                                  
                                   $customer = $cusRow['customer'];
                                   $NIC      = $cusRow['NIC'];
+                                  $contact      = $cusRow['contact'];
 
                                   $id       = $row['id'];
                                   $paid     = $row['paid'];
+                                  $pacontractNoid     = $row['contractNo'];
                                   $payable  = $row['payable'];
                                   $arrears  = $row['Arrears'];
                                   $balance  = $row['balance'];
+                                  $loanAmt  = $row['loanAmt'];
+
+                                  $total_due = $total_due + $payable;
 
 
                                 echo ' <tr>';
                                 echo ' <td>'.$loanNo.'</td>';
-                                echo ' <td>'.$customer.' ['.$NIC .'] </td>';
+                                echo ' <td>'.$contractNo.'</td>';
+                                echo ' <td>'.$customer.'</td>';
+                                echo ' <td>'.$contact.'</td>';
+                                echo ' <td>'.$NIC.'</td>';
                                 echo ' <td style="text-align:right;">
                                        <input type = "number" class="form-control text-right check"  name = '.$id.' id="pay'.$id.'">
                                  </td>';
@@ -258,6 +269,7 @@
                                 echo ' <td style="text-align:right;">
                                 <input type = "number" class="form-control text-right" id="balance'.$id.'" value="'.$balance.'" readonly>
                                 </td>';
+                                echo ' <td>'.number_format($loanAmt, 2, '.', ',').'</td>';
                                 echo ' </tr>';
 
                                 }
@@ -271,6 +283,7 @@
                             </table>
                           </div>
                           <br><br>
+                           <b><p>Total Count : <?php if(isset($row_num)){echo $row_num;}else{ echo "0";} ?></p></b>
                             <div class="form-group row">
                               <label class="col-sm-2 col-form-label">Total Collection</label>
                               <div class="col-sm-2">
@@ -287,6 +300,12 @@
                               <label class="col-sm-2 col-form-label">Total Balance</label>
                               <div class="col-sm-2">
                                 <input type="text" class="form-control" name="total_out"  id="total_out" value="0" readonly=""/>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label class="col-sm-2 col-form-label">Total Due</label>
+                              <div class="col-sm-2">
+                                <input type="text" class="form-control" name="total_due"  id="total_due" value='<?php if(isset($total_due)){echo number_format($total_due, 2, '.', ',');}else{echo "0";} ?>' readonly=""/>
                               </div>
                             </div>
                          <!--</div>
@@ -490,25 +509,38 @@
 
         var AllData = $('#myitemjson').val();
 
-          $.ajax({
-              type: 'post',
-              url: '../controller/debt_collection_controller.php',
-              data: {save:save,li_date:li_date,center_id:center_id,total_amt:total_amt,total_arr:total_arr,total_out:total_out,AllData:AllData},
-              success: function (data) {
-                
-                  swal({
-                  title: "Good job !",
-                  text: "Successfully Submited",
-                  icon: "success",
-                  button: "Ok !",
-                  });
-                  setTimeout(function(){ cancelForm(); }, 2500);
-              }
+        var answer = confirm("Are you sure, you want to submit this record ?")
+        if (!answer){
+          e.preventDefault();
+          return false;
+        }else{
+          if(total_amt!=0&&total_arr!=0&&total_out!=0){
 
-          });  
+            $.ajax({
+                type: 'post',
+                url: '../controller/debt_collection_controller.php',
+                data: {save:save,li_date:li_date,center_id:center_id,total_amt:total_amt,total_arr:total_arr,total_out:total_out,AllData:AllData},
+                success: function (data) {
+                  
+                    swal({
+                    title: "Good job !",
+                    text: "Successfully Submited",
+                    icon: "success",
+                    button: "Ok !",
+                    });
+                    setTimeout(function(){ cancelForm(); }, 2500);
+                }
+
+            });  
+
+          }else{
+              alert('Required Field is Empty');
+          }
+        }
     }
 
     function cancelForm(){
+        tmpEmpty();
         window.location.href = "debt_collection.php";
     }
 

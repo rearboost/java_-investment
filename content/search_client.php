@@ -92,6 +92,20 @@
                   $contact2 = $row1['contact2'];
                   $image    = $row1['image'];
                   $image2   = $row1['image2'];
+
+                  //////////////
+                  $getCustomerLoan = mysqli_query($conn, "SELECT * FROM loan WHERE customerID='$cust_id' AND status =1");
+                  $row2 = mysqli_fetch_assoc($getCustomerLoan);
+                  $countLoan =mysqli_num_rows($getCustomerLoan); 
+                  if($countLoan>0){
+
+                    $gurantee1Name  = $row2['gurantee1Name'];
+                    $gurantee1NIC = $row2['gurantee1NIC'];
+                    $gurantee1ContactNo  = $row2['gurantee1ContactNo'];
+                    $gurantee2Name   = $row2['gurantee2Name'];
+                    $gurantee2NIC   = $row2['gurantee2NIC'];
+                    $gurantee2ContactNo   = $row2['gurantee2ContactNo'];
+                  }
               
                 ?>
                 <div class="row">
@@ -147,8 +161,46 @@
                               <th>Contact 02  </th>
                               <td><?php echo ' : ' . $contact2; ?></td>
                             </tr>
+
+                            <?php if ($countLoan>0): ?>
+                              <tr>
+                                <th> </th>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <th>Gurantee 01 Name  </th>
+                                <td><?php echo ' : ' . $gurantee1Name; ?></td>
+                              </tr>
+                              <tr>
+                                <th>Gurantee 01 NIC No  </th>
+                                <td><?php echo ' : ' . $gurantee1NIC; ?></td>
+                              </tr>
+                              <tr>
+                                <th>Gurantee 01 Contact No  </th>
+                                <td><?php echo ' : ' . $gurantee1ContactNo; ?></td>
+                              </tr>
+
+                              <tr>
+                                <th>Gurantee 02 Name  </th>
+                                <td><?php echo ' : ' . $gurantee2Name; ?></td>
+                              </tr>
+                              <tr>
+                                <th>Gurantee 02 NIC No  </th>
+                                <td><?php echo ' : ' . $gurantee2NIC; ?></td>
+                              </tr>
+                              <tr>
+                                <th>Gurantee 02 Contact No  </th>
+                                <td><?php echo ' : ' . $gurantee2ContactNo; ?></td>
+                              </tr>
+
+                            <?php else: ?>
+
+                            <?php endif ?>
+
+                             
+
                           </table>
-                          </div>
+                      </div>
                           
 
                        <!-- loan details of selected customer -->
@@ -193,7 +245,7 @@
                                         echo ' <td>'.$loanType.' </td>';
                                         echo ' <td>'.$contractNo.' </td>';
                                         echo ' <td>'.$disburseDate.' </td>';
-                                        echo ' <td>'.$loanAmt.' </td>';
+                                        echo ' <td>'.number_format($loanAmt, 2, '.', ',').' </td>';
                                         if($status==1){
                                           echo ' <td><label class="badge badge-warning" style="font-size:12px;">'."Active".'</label> </td>';
                                         }else{
@@ -251,9 +303,9 @@
                                         echo ' <td style="display: none;">'.$i.' </td>';
                                         echo ' <td>'.$contractNo.' </td>';
                                         echo ' <td>'.$li_date.' </td>';
-                                        echo ' <td>'.$paid.' </td>';
-                                        echo ' <td>'.$arrears.' </td>';
-                                        echo ' <td>'.$outstanding.' </td>';
+                                        echo ' <td>'.number_format($paid, 2, '.', ',').' </td>';
+                                        echo ' <td>'.number_format($arrears, 2, '.', ',').' </td>';
+                                        echo ' <td>'.number_format($outstanding, 2, '.', ',').' </td>';
                                         echo ' </tr>';
                                         $i++;
                                         }

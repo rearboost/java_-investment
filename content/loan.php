@@ -425,6 +425,9 @@
     <!-- include footer coe here -->
     <?php include('../include/footer-js.php');   ?>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+
+
   </body>
 </html>
 
@@ -612,10 +615,7 @@
         $('#customerAdd').on('submit', function (e) {
 
           e.preventDefault();
-
-
           var data = new FormData($("#customerAdd")[0]);
-
           $.ajax({
             type: 'post',
             url: '../controller/customer_controller.php',
@@ -645,8 +645,9 @@
                   }
                }
           });
-        });
-      });
+
+       });
+    });
 
     ///////////////////////////////////////////////////
 
@@ -658,48 +659,51 @@
           var customer = $('#customer').val();
           var loanStep = $('#loanStep').val();
 
-          if(center!='' || customer!='' || loanStep!=''){
-          
-          e.preventDefault();
-
-          var loan_no= $('#loan_no').val();
-
-              $.ajax({
-                type: 'post',
-                url: '../controller/loan_controller.php',
-                data: $('#loanAdd').serialize(),
-                success: function (data) {
-
-                    if(data==0){
-                        swal({
-                          title: "Can't Duplication !",
-                          text: "Client Already Exist.",
-                          icon: "error",
-                          button: "Ok !",
-                        });
-
-                    }else{
-                      swal({
-                      title: "Good job !",
-                      text: "Successfully Submited",
-                      icon: "success",
-                      button: "Ok !",
-                      });
-                      //setTimeout(function(){ location.reload(); }, 2500);
-                      //setTimeout(function(){window.open('receipt?id='+mid, '_blank'); }, 100);
-                      setTimeout(function(){ location.reload(); }, 2500);
-
-                    }
-                }
-              });
-
+          var answer = confirm("Are you sure, you want to submit this record ?")
+          if (!answer){
+            e.preventDefault();
+            return false;
           }else{
-            alert('Required Field is Empty');
+
+            if(center!='' || customer!='' || loanStep!='')
+            {
+                e.preventDefault();
+                var loan_no= $('#loan_no').val();
+                $.ajax({
+                  type: 'post',
+                  url: '../controller/loan_controller.php',
+                  data: $('#loanAdd').serialize(),
+                  success: function (data) {
+
+                      if(data==0){
+                          swal({
+                            title: "Can't Duplication !",
+                            text: "Client Already Exist.",
+                            icon: "error",
+                            button: "Ok !",
+                          });
+
+                      }else{
+                        swal({
+                        title: "Good job !",
+                        text: "Successfully Submited",
+                        icon: "success",
+                        button: "Ok !",
+                        });
+                        //setTimeout(function(){ location.reload(); }, 2500);
+                        //setTimeout(function(){window.open('receipt?id='+mid, '_blank'); }, 100);
+                        setTimeout(function(){ location.reload(); }, 2500);
+
+                      }
+                  }
+                });
+
+            }else{
+              alert('Required Field is Empty');
+            }
           }
-
         });
-      });
-
+    });
 
     function cancelForm(){
         window.location.href = "loan.php";
@@ -710,8 +714,6 @@
       //window.open('receipt?id='+id, '_blank');
       window.location.href = "loan.php";
     }
-
-
 
     function customerForm(){
         $('#myModal').modal('show');
