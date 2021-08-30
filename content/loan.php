@@ -330,7 +330,7 @@
               </div>                
             </form>
 
-           <!--  <div class="row">
+           <div class="row">
               <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
@@ -353,56 +353,55 @@
                           <th>Print</th>
                         </tr>
                       </thead>
-                      <tbody> -->
+                      <tbody>
                         <?php
-                          // $sql=mysqli_query($conn,"SELECT * FROM customer C INNER JOIN loan L ON C.cust_id=L.customerID WHERE L.status=1 ORDER BY L.loan_no DESC");
+                          $sql=mysqli_query($conn,"SELECT * FROM customer C INNER JOIN loan L ON C.cust_id=L.customerID WHERE L.status=1 ORDER BY L.loan_no DESC");
                           
-                          // $numRows = mysqli_num_rows($sql); 
+                          $numRows = mysqli_num_rows($sql); 
                     
-                          // if($numRows > 0) {
-                          //   $i = 1;
-                          //   while($row = mysqli_fetch_assoc($sql)) {
+                          if($numRows > 0) {
+                            $i = 1;
+                            while($row = mysqli_fetch_assoc($sql)) {
 
-                          //   $name   = $row['name'];
+                            $name   = $row['name'];
 
-                          //   // $custom = myswqli_query($conn, "SELECT * FROM customer WHERE cust_id='$customerID' ");
-                          //   // $customData = mysqli_fetch_assoc($custom);
-                          //   // $name = $customData['name'];
+                            // $custom = myswqli_query($conn, "SELECT * FROM customer WHERE cust_id='$customerID' ");
+                            // $customData = mysqli_fetch_assoc($custom);
+                            // $name = $customData['name'];
 
-                          //   $centerID     = $row['centerID'];
+                            $centerID     = $row['centerID'];
 
-                          //   $center = mysqli_query($conn, "SELECT * FROM center WHERE id='$centerID' ");
-                          //   $centerData = mysqli_fetch_assoc($center);
-                          //   $centername = $centerData['center_name'];
+                            $center = mysqli_query($conn, "SELECT * FROM center WHERE id='$centerID' ");
+                            $centerData = mysqli_fetch_assoc($center);
+                            $centername = $centerData['center_name'];
 
-                          //   $loan_no      = $row['loan_no'];   
-                          //   $contractNo   = $row['contractNo'];   
-                          //   $loanAmt      = $row['loanAmt'];
-                          //   $terms        = $row['terms'];
-                          //   $interestRate = $row['interestRate'];
-                          //   $rental       = $row['rental'];
-                          //   $disburseDate = $row['disburseDate'];
+                            $loanID      = $row['loanID'];   
+                            $contractNo   = $row['contractNo'];   
+                            $loanAmt      = $row['loanAmt'];
+                            $terms        = $row['terms'];
+                            $interestRate = $row['interestRate'];
+                            $rental       = $row['rental'];
+                            $disburseDate = $row['disburseDate'];
 
-                          //     echo ' <tr>';
-                          //     echo ' <td style="display: none;">'.$i.' </td>';
-                          //     echo ' <td>'.$loan_no.' </td>';
-                          //     echo ' <td>'.$name.' </td>';
-                          //     echo ' <td>'.$centername.' </td>';
-                          //     echo ' <td>'.$contractNo.' </td>';
-                          //     echo ' <td>'.$loanAmt.' </td>';
-                          //     echo ' <td>'.$terms.' </td>';
-                          //     echo ' <td>'.$interestRate.' </td>';
-                          //     echo ' <td>'.$rental.' </td>';
-                          //     echo ' <td>'.$disburseDate.' </td>';
+                              echo ' <tr>';
+                              echo ' <td style="display: none;">'.$i.' </td>';
+                              echo ' <td>'.$loanID.' </td>';
+                              echo ' <td>'.$name.' </td>';
+                              echo ' <td>'.$centername.' </td>';
+                              echo ' <td>'.$contractNo.' </td>';
+                              echo ' <td>'.number_format($loanAmt, 2, '.', ',').' </td>';
+                              echo ' <td>'.$terms.' </td>';
+                              echo ' <td>'.$interestRate.' </td>';
+                              echo ' <td>'.number_format($rental, 2, '.', ',') .' </td>';
+                              echo ' <td>'.$disburseDate.' </td>';
+                              echo '<td class="td-center"><button type="button" onclick="viewForm('.$row["loan_no"].')" name="print" class="btn btn-primary btn-fw">View</button></td>';
                               
-                          //     echo '<td class="td-center"><button type="button" onclick="printForm('.$row["loan_no"].')" name="print" class="btn btn-primary btn-fw">PRINT</button></td>';
-                              
-                          //     echo ' </tr>';
-                          //     $i++;
-                          //   }
-                          // }
+                              echo ' </tr>';
+                              $i++;
+                            }
+                          }
                         ?>
-                      <!-- </tbody>
+                      </tbody>
                     </table>
                     </div>
                   </div>
@@ -410,7 +409,7 @@
               </div>
              
              
-            </div> -->
+            </div>
             <!-- content-wrapper ends -->
             <!-- partial:../../partials/_footer.html -->
             <!-- include footer coe here -->
@@ -714,6 +713,12 @@
       //window.open('receipt?id='+id, '_blank');
       window.location.href = "loan.php";
     }
+
+    function viewForm(id){
+      //window.open('loan_view.php?id='+id);
+      window.location.href = 'loan_view.php?loan_id='+id;
+    }
+
 
     function customerForm(){
         $('#myModal').modal('show');
