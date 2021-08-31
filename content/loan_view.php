@@ -37,7 +37,7 @@
             if($numRows_customer > 0) {
                 $row_customer = mysqli_fetch_assoc($sql_customer);
                 $memberID   = $row_customer['memberID'];
-                $name   = $row_customer['name'];
+                $cname   = $row_customer['name'];
                 $NIC   = $row_customer['NIC'];
                 $addLine1   = $row_customer['addLine1'];
                 $addLine2   = $row_customer['addLine2'];
@@ -122,7 +122,7 @@
                                     <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Center</label>
                                     <div class="col-sm-9">
-                                        <b>                                        <label class="col-sm-8 col-form-label"><?php if(isset($center_code)){echo $center_code.' ( '.$centernName.' )';} ?></label></b>
+                                        <b><label class="col-sm-8 col-form-label"><?php if(isset($center_code)){echo $center_code.' ( '.$centernName.' )';} ?></label></b>
                                     </div>
                                     </div>
                                 </div>
@@ -302,7 +302,7 @@
                                 <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Name</label>
                                 <div class="col-sm-7">
-                                    <b><label class="col-sm-8 col-form-label"><?php if(isset($name)){echo $name;} ?></label></b>
+                                    <b><label class="col-sm-8 col-form-label"><?php if(isset($cname)){echo $cname;} ?></label></b>
                                 </div>
                                 </div>
                                 </div>
