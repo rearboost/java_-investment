@@ -4,7 +4,7 @@
     // Database Connection
     require '../include/config.php';
      
-    // // Get Update Form Data
+    // // Get View Form Data
     if(isset($_GET['loan_id'])){
 
         $edit_id = $_GET['loan_id'];
@@ -62,6 +62,7 @@
             $gurantee2ContactNo  = $row_loan['gurantee2ContactNo'];
             $loanStep  = $row_loan['loanStep'];
             $status  = $row_loan['status'];
+            $reason  = $row_loan['reason'];
           
           }
         }
@@ -261,11 +262,21 @@
 
                                             if($status==1){
                                                 echo ' <label class="badge badge-warning" style="font-size:12px;">'."Active".'</label> ';
-                                            }else{
+                                            }else if($status==0){
                                                 echo ' <label class="badge badge-danger" style="font-size:12px;">'."Closed".'</label> ';
+                                            }else{
+                                                echo ' <label class="badge badge-dark" style="font-size:12px;">'."Rejected".'</label> ';
                                             }
                                          }
                                          ?>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Reason</label>
+                                    <div class="col-sm-9">
+                                        <b><label class="col-sm-8 col-form-label"><?php if(isset($reason)){echo $reason;} ?></label></b>
                                     </div>
                                     </div>
                                 </div>

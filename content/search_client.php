@@ -247,9 +247,11 @@
                                         echo ' <td>'.$disburseDate.' </td>';
                                         echo ' <td>'.number_format($loanAmt, 2, '.', ',').' </td>';
                                         if($status==1){
-                                          echo ' <td><label class="badge badge-warning" style="font-size:12px;">'."Active".'</label> </td>';
+                                            echo ' <label class="badge badge-warning" style="font-size:12px;">'."Active".'</label> ';
+                                        }else if($status==0){
+                                            echo ' <label class="badge badge-danger" style="font-size:12px;">'."Closed".'</label> ';
                                         }else{
-                                          echo ' <td><label class="badge badge-danger" style="font-size:12px;">'."Closed".'</label> </td>';
+                                            echo ' <label class="badge badge-dark" style="font-size:12px;">'."Rejected".'</label> ';
                                         }
                                         echo ' </tr>';
                                         $i++;

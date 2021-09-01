@@ -350,12 +350,13 @@
                           <th>Interest Rate(%)</th>
                           <th>Rental</th>
                           <th>Disburse Date</th>
-                          <th>Print</th>
+                          <th></th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php
-                          $sql=mysqli_query($conn,"SELECT * FROM customer C INNER JOIN loan L ON C.cust_id=L.customerID WHERE L.status=1 ORDER BY L.loan_no DESC");
+                          $sql=mysqli_query($conn,"SELECT * FROM customer C INNER JOIN loan L ON C.cust_id=L.customerID ORDER BY L.loan_no DESC");
                           
                           $numRows = mysqli_num_rows($sql); 
                     
@@ -395,6 +396,7 @@
                               echo ' <td>'.number_format($rental, 2, '.', ',') .' </td>';
                               echo ' <td>'.$disburseDate.' </td>';
                               echo '<td class="td-center"><button type="button" onclick="viewForm('.$row["loan_no"].')" name="print" class="btn btn-primary btn-fw">View</button></td>';
+                              echo '<td class="td-center"><button type="button" onclick="editForm('.$row["loan_no"].')" name="print" class="btn btn-secondary btn-fw">Edit</button></td>';
                               
                               echo ' </tr>';
                               $i++;
@@ -719,6 +721,10 @@
       window.location.href = 'loan_view.php?loan_id='+id;
     }
 
+    function editForm(id){
+      //window.open('loan_view.php?id='+id);
+      window.location.href = 'loan_edit.php?loan_id='+id;
+    }
 
     function customerForm(){
         $('#myModal').modal('show');
