@@ -56,10 +56,14 @@
             $disburseDate = $row_loan['disburseDate'];
             $gurantee1Name = $row_loan['gurantee1Name'];
             $gurantee1NIC  = $row_loan['gurantee1NIC'];
+            $gurantee1ad1 = $row_loan['gurantee1ad1'];
+            $gurantee1ad2 = $row_loan['gurantee1ad2'];
             $gurantee1ContactNo = $row_loan['gurantee1ContactNo'];
             $gurantee2Name  = $row_loan['gurantee2Name'];
             $gurantee2NIC  = $row_loan['gurantee2NIC'];
             $gurantee2ContactNo  = $row_loan['gurantee2ContactNo'];
+            $gurantee2ad1 = $row_loan['gurantee2ad1'];
+            $gurantee2ad2 = $row_loan['gurantee2ad2'];
             $loanStep  = $row_loan['loanStep'];
             $status  = $row_loan['status'];
             $reason  = $row_loan['reason'];
@@ -271,7 +275,9 @@
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1Name" value='<?php if(isset($gurantee1Name)){echo $gurantee1Name;} ?>'  placeholder="Gurantee 01 Name" />
                                     <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1NIC" value='<?php if(isset($gurantee1NIC)){echo $gurantee1NIC;} ?>'  placeholder="Gurantee 01 NIC No" />
-                                    <input type="text" class="form-control" name="gurantee1ContactNo" value='<?php if(isset($gurantee1ContactNo)){echo $gurantee1ContactNo;} ?>'  placeholder="Gurantee 01 Contact No" />
+                                    <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1ContactNo" value='<?php if(isset($gurantee1ContactNo)){echo $gurantee1ContactNo;} ?>'  placeholder="Gurantee 01 Contact No" />
+                                    <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1ad1" value='<?php if(isset($gurantee1ad1)){echo $gurantee1ad1;} ?>'  placeholder="Gurantee 01 Address Line 1" />
+                                    <input type="text" class="form-control"  name="gurantee1ad2" value='<?php if(isset($gurantee1ad2)){echo $gurantee1ad2;} ?>'  placeholder="Gurantee 01 Address Line 2" />
                                 </div>
                                 </div>
                             </div>
@@ -282,7 +288,9 @@
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2Name" value='<?php if(isset($gurantee2Name)){echo $gurantee2Name;} ?>'  placeholder="Gurantee 02 Name" />
                                     <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2NIC" value='<?php if(isset($gurantee2NIC)){echo $gurantee2NIC;} ?>'  placeholder="Gurantee 02 NIC No" />
-                                    <input type="text" class="form-control" name="gurantee2ContactNo" value='<?php if(isset($gurantee2ContactNo)){echo $gurantee2ContactNo;} ?>'  placeholder="Gurantee 02 Contact No" />
+                                    <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2ContactNo" value='<?php if(isset($gurantee2ContactNo)){echo $gurantee2ContactNo;} ?>'  placeholder="Gurantee 02 Contact No" />
+                                    <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2ad1" value='<?php if(isset($gurantee2ad1)){echo $gurantee2ad1;} ?>' placeholder="Gurantee 02 Address Line 1" />
+                                    <input type="text" class="form-control" name="gurantee2ad2" value='<?php if(isset($gurantee2ad2)){echo $gurantee2ad2;} ?>' placeholder="Gurantee 02 Address Line 2" />
                                 </div>
                                 </div>
                             </div>

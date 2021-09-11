@@ -57,9 +57,13 @@
             $gurantee1Name = $row_loan['gurantee1Name'];
             $gurantee1NIC  = $row_loan['gurantee1NIC'];
             $gurantee1ContactNo = $row_loan['gurantee1ContactNo'];
+            $gurantee1ad1 = $row_loan['gurantee1ad1'];
+            $gurantee1ad2 = $row_loan['gurantee1ad2'];
             $gurantee2Name  = $row_loan['gurantee2Name'];
             $gurantee2NIC  = $row_loan['gurantee2NIC'];
             $gurantee2ContactNo  = $row_loan['gurantee2ContactNo'];
+            $gurantee2ad1 = $row_loan['gurantee2ad1'];
+            $gurantee2ad2 = $row_loan['gurantee2ad2'];
             $loanStep  = $row_loan['loanStep'];
             $status  = $row_loan['status'];
             $reason  = $row_loan['reason'];
@@ -218,7 +222,9 @@
                                     <div class="col-sm-9">
                                         <b><label class="col-sm-8 col-form-label" style="margin-bottom: 20px;"><?php if(isset($gurantee1Name)){echo $gurantee1Name;} ?></label></b>
                                         <b><label class="col-sm-8 col-form-label" style="margin-bottom: 20px;"><?php if(isset($gurantee1NIC)){echo $gurantee1NIC;} ?></label></b>
-                                        <b><label class="col-sm-8 col-form-label"><?php if(isset($gurantee1ContactNo)){echo $gurantee1ContactNo;} ?></label></b>
+                                        <b><label class="col-sm-8 col-form-label" style="margin-bottom: 20px;"><?php if(isset($gurantee1ContactNo)){echo $gurantee1ContactNo;} ?></label></b>
+                                        <b><label class="col-sm-8 col-form-label" style="margin-bottom: 20px;"><?php if(isset($gurantee1ad1)){echo $gurantee1ad1;} ?></label></b>
+                                        <b><label class="col-sm-8 col-form-label" ><?php if(isset($gurantee1ad2)){echo $gurantee1ad2;} ?></label></b>
                                     </div>
                                     </div>
                                 </div>
@@ -235,7 +241,9 @@
                                     <div class="col-sm-9">
                                         <b><label class="col-sm-8 col-form-label" style="margin-bottom: 20px;"><?php if(isset($gurantee2Name)){echo $gurantee2Name;} ?></label></b>
                                         <b><label class="col-sm-8 col-form-label" style="margin-bottom: 20px;"><?php if(isset($gurantee2NIC)){echo $gurantee2NIC;} ?></label></b>
-                                        <b><label class="col-sm-8 col-form-label"><?php if(isset($gurantee2ContactNo)){echo $gurantee2ContactNo;} ?></label></b>
+                                        <b><label class="col-sm-8 col-form-label" style="margin-bottom: 20px;"><?php if(isset($gurantee2ContactNo)){echo $gurantee2ContactNo;} ?></label></b>
+                                        <b><label class="col-sm-8 col-form-label" style="margin-bottom: 20px;"><?php if(isset($gurantee2ad1)){echo $gurantee2ad1;} ?></label></b>
+                                        <b><label class="col-sm-8 col-form-label" ><?php if(isset($gurantee2ad2)){echo $gurantee2ad2;} ?></label></b>
                                     </div>
                                     </div>
                                 </div>

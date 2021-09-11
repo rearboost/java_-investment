@@ -215,7 +215,9 @@
                               <div class="col-sm-9">
                                 <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1Name" placeholder="Gurantee 01 Name" />
                                 <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1NIC" placeholder="Gurantee 01 NIC No" />
-                                <input type="text" class="form-control" name="gurantee1ContactNo" placeholder="Gurantee 01 Contact No" />
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1ContactNo" placeholder="Gurantee 01 Contact No" />
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1ad1" placeholder="Gurantee 01 Address Line 1" />
+                                <input type="text" class="form-control"  name="gurantee1ad2" placeholder="Gurantee 01 Address Line 2" />
                               </div>
                             </div>
                           </div>
@@ -226,7 +228,9 @@
                               <div class="col-sm-9">
                                 <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2Name" placeholder="Gurantee 02 Name" />
                                 <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2NIC" placeholder="Gurantee 02 NIC No" />
-                                <input type="text" class="form-control" name="gurantee2ContactNo" placeholder="Gurantee 02 Contact No" />
+                                <input type="text" class="form-control" style="margin-bottom: 20px;"name="gurantee2ContactNo" placeholder="Gurantee 02 Contact No" />
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2ad1" placeholder="Gurantee 02 Address Line 1" />
+                                <input type="text" class="form-control" name="gurantee2ad2" placeholder="Gurantee 02 Address Line 2" />
                               </div>
                             </div>
                           </div>
@@ -235,19 +239,7 @@
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">loan Step</label>
                               <div class="col-sm-9">
-                                <SELECT class="form-control" name="loanStep" id="loanStep" required="This field is required">
-                                  <option selected="" disabled="">--Select Loan Step--</option>
-                                  <option value="1">Step 01</option>
-                                  <option value="2">Step 02</option>
-                                  <option value="3">Step 03</option>
-                                  <option value="4">Step 04</option>
-                                  <option value="5">Step 05</option>
-                                  <option value="6">Step 06</option>
-                                  <option value="7">Step 07</option>
-                                  <option value="8">Step 08</option>
-                                  <option value="9">Step 09</option>
-                                  <option value="10">Step 10</option>
-                                </SELECT>
+                                 <input type="text" class="form-control" id="loanCount" name="loanStep" readonly="" />
                               </div>
                             </div>
                           </div>
@@ -515,6 +507,7 @@
               $('#addLine1').val(obj.addLine1);
               $('#addLine2').val(obj.addLine2);
               $('#addLine3').val(obj.addLine3);
+              $('#loanCount').val(obj.loanCount);
             }
         });
 

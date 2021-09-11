@@ -7,7 +7,67 @@
 
   ?>
   <!-- include head code here -->
-  <?php  include('../include/head.php');   ?>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Jayamaga Investments</title>
+    <!-- plugins:css -->
+    <!-- <link rel="stylesheet" href="../assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../assets/vendors/iconfonts/ionicons/dist/css/ionicons.css">
+    <link rel="stylesheet" href="../assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.addons.css"> -->
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- <link rel="stylesheet" href="../assets/css/shared/style.css"> -->
+    <!-- endinject -->
+    <!-- <link rel="stylesheet" href="../assets/css/shared/demo.css"> -->
+    <!-- Layout styles -->
+    <!-- <link rel="stylesheet" href="../assets/css/demo_1/style.css"> -->
+    <!-- End Layout styles -->
+    <!-- <link rel="shortcut icon" href="../assets/images/favicon.ico" /> -->
+     <!-- Data Tables styles -->
+    <link rel="shortcut icon" href="../assets/css/jquery.dataTables.css" />
+
+    <link rel="stylesheet" href="../assets/css/jquery.dataTables.css">
+
+    <!-- chart links -->
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+    <!-- include check the session is logedor not redrect to login code here -->
+    <?php  include('../include/check.php');   ?>
+
+    <style>
+      .main-panel {
+        width: 100% !important;
+      }
+
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+           background-color: #dddddd;
+        }
+
+    </style>
+    
+  </head>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <body>
@@ -121,19 +181,19 @@
                                   <input type="hidden" class="form-control" name="center_id" id="center_id" value="<?php echo $center_id; ?>" />
                                   <input type="hidden" class="form-control" name="li_date" id="li_date" value="<?php echo $createDate; ?>" />
 
-                                  <div class="col-md-3">
+                                  <div class="col-md-3" style="margin-bottom: 4px;">
                                     <label class="col-sm-12 col-form-label"><strong>Formed Date : </strong> <?php echo $createDate; ?> </label>
                                   </div>
 
-                                  <div class="col-md-3">
+                                  <div class="col-md-3" style="margin-bottom: 4px;">
                                     <label class="col-sm-12 col-form-label"><strong>MSU Name : </strong> <?php echo $center_name; ?> </label>
                                   </div>
 
-                                  <div class="col-md-4">
+                                  <div class="col-md-4" style="margin-bottom: 4px;">
                                     <label class="col-sm-12 col-form-label"><strong>MSU Leader : </strong> <?php echo $leader .' [' . $contact . ']' ; ?> </label>
                                   </div>
 
-                                  <div class="col-md-2">
+                                  <div class="col-md-2" style="margin-bottom: 4px;">
                                     <label class="col-sm-12 col-form-label"><strong>Status : </strong> Active</label>
                                   </div>
                               </div>
@@ -151,16 +211,16 @@
                                 <table id="example" class="table table-bordered">
                                 <thead>
                                   <tr>
-                                    <th style="text-align:center; font-size: 0.677rem;">#</th>
-                                    <th style="text-align:center; font-size: 0.677rem;">Contract No</th>
-                                    <th style="text-align:center; font-size: 0.677rem;">Customer</th>
-                                    <th style="text-align:center; font-size: 0.677rem;">Contact</th>
-                                    <th style="text-align:center; font-size: 0.677rem;">NIC</th>
-                                    <th style="text-align:center; font-size: 0.677rem;">Payment</th>
-                                    <th style="text-align:center; font-size: 0.677rem;">Rental</th>
-                                    <th style="text-align:center; font-size: 0.677rem;">Arrears</th>
-                                    <th style="text-align:center; font-size: 0.677rem;">Balance</th>
-                                    <th style="text-align:center; font-size: 0.677rem;">Loan Amount</th>
+                                    <th style="text-align:center; font-size: 0.877rem;">#</th>
+                                    <th style="text-align:center; font-size: 0.877rem;">Contract No</th>
+                                    <th style="text-align:center; font-size: 0.877rem;">Customer</th>
+                                    <th style="text-align:center; font-size: 0.877rem;">Contact</th>
+                                    <th style="text-align:center; font-size: 0.877rem;">NIC</th>
+                                    <th style="text-align:center; font-size: 0.877rem;">Payment</th>
+                                    <th style="text-align:center; font-size: 0.877rem;">Rental</th>
+                                    <th style="text-align:center; font-size: 0.877rem;">Arrears</th>
+                                    <th style="text-align:center; font-size: 0.877rem;">Balance</th>
+                                    <th style="text-align:center; font-size: 0.877rem;">Loan Amount</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -201,24 +261,24 @@
 
 
                                     echo ' <tr>';
-                                    echo ' <td style="font-size: 0.677rem;">'.$loanNo.'</td>';
-                                    echo ' <td style="font-size: 0.677rem;">'.$contractNo.'</td>';
-                                    echo ' <td style="font-size: 0.677rem;">'.$customer.'</td>';
-                                    echo ' <td style="font-size: 0.677rem;">'.$contact.'</td>';
-                                    echo ' <td style="font-size: 0.677rem;">'.$NIC.'</td>';
+                                    echo ' <td style="font-size: 0.877rem;">'.$loanNo.'</td>';
+                                    echo ' <td style="font-size: 0.877rem;">'.$contractNo.'</td>';
+                                    echo ' <td style="font-size: 0.877rem;">'.$customer.'</td>';
+                                    echo ' <td style="font-size: 0.877rem;">'.$contact.'</td>';
+                                    echo ' <td style="font-size: 0.877rem;">'.$NIC.'</td>';
                                     echo ' <td style="text-align:right;">
                                          
                                     </td>';
-                                    echo ' <td style="text-align:right; font-size: 0.677rem;">
+                                    echo ' <td style="text-align:right; font-size: 0.877rem;">
                                      '.number_format($payable, 2, '.', ',').'
                                     </td>';
-                                    echo ' <td style="text-align:right; font-size: 0.677rem;">
+                                    echo ' <td style="text-align:right; font-size: 0.877rem;">
                                      '.number_format($arrears, 2, '.', ',').'
                                     </td>';
-                                    echo ' <td style="text-align:right; font-size: 0.677rem;">
+                                    echo ' <td style="text-align:right; font-size: 0.877rem;">
                                     '.number_format($balance, 2, '.', ',').'
                                     </td>';
-                                    echo ' <td style="text-align:right; font-size: 0.677rem;">'.number_format($loanAmt, 2, '.', ',').'</td>';
+                                    echo ' <td style="text-align:right; font-size: 0.877rem;">'.number_format($loanAmt, 2, '.', ',').'</td>';
                                     echo ' </tr>';
 
                                     }
@@ -234,17 +294,13 @@
                               <br><br>
                               <b><p>Total Count : <?php if(isset($row_num)){echo $row_num;}else{ echo "0";} ?></p></b>
 
-                                <div class="form-group row">
-                                  <label class="col-sm-2 col-form-label">Total Due</label>
-                                  <div class="col-sm-2">
-                                    <b><span><?php if(isset($total_due)){echo number_format($total_due, 2, '.', ',');}else{echo "0";} ?></span></b>
-                                  </div>
+                                <div class="form-group row" style="margin-bottom: 7px;">
+                                  <label class="col-sm-2 col-form-label">Total Due      : <b><span><?php if(isset($total_due)){echo number_format($total_due, 2, '.', ',');}else{echo "0";} ?></span></b></label>
                                 </div>
-
                                  <div class="form-group row">
                                   <label class="col-sm-2 col-form-label">Total Collection</label>
-                                  <div class="col-sm-2">
-                                    <span>..................</span>
+                                  <div class="col-sm-2" style="margin-top: 15px;">
+                                    <span>............................</span>
                                   </div>
                                 </div>
                             <!--</div>
@@ -282,7 +338,7 @@
     ///////////////////////////////////////  Print  
     $(document).ready(function(){
         setTimeout(function(){ window.print(); }, 1500);
-        // setTimeout(window.close, 3000);
+        setTimeout(window.close, 3000);
     });
     ///////////////////////////////////////////
 

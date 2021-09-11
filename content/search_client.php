@@ -102,9 +102,13 @@
                     $gurantee1Name  = $row2['gurantee1Name'];
                     $gurantee1NIC = $row2['gurantee1NIC'];
                     $gurantee1ContactNo  = $row2['gurantee1ContactNo'];
+                    $gurantee1ad1 = $row_loan['gurantee1ad1'];
+                    $gurantee1ad2 = $row_loan['gurantee1ad2'];
                     $gurantee2Name   = $row2['gurantee2Name'];
                     $gurantee2NIC   = $row2['gurantee2NIC'];
                     $gurantee2ContactNo   = $row2['gurantee2ContactNo'];
+                    $gurantee2ad1 = $row_loan['gurantee2ad1'];
+                    $gurantee2ad2 = $row_loan['gurantee2ad2'];
                   }
               
                 ?>
@@ -179,7 +183,19 @@
                                 <th>Gurantee 01 Contact No  </th>
                                 <td><?php echo ' : ' . $gurantee1ContactNo; ?></td>
                               </tr>
-
+                               <tr>
+                                <th>Gurantee 01 Address Line 1  </th>
+                                <td><?php echo ' : ' . $gurantee1ad1; ?></td>
+                              </tr>
+                               <tr>
+                                <th>Gurantee 01 Address Line 2  </th>
+                                <td><?php echo ' : ' . $gurantee1ad2; ?></td>
+                              </tr>
+                               <tr>
+                                <th> </th>
+                                <td></td>
+                              </tr>
+                            
                               <tr>
                                 <th>Gurantee 02 Name  </th>
                                 <td><?php echo ' : ' . $gurantee2Name; ?></td>
@@ -191,6 +207,14 @@
                               <tr>
                                 <th>Gurantee 02 Contact No  </th>
                                 <td><?php echo ' : ' . $gurantee2ContactNo; ?></td>
+                              </tr>
+                               <tr>
+                                <th>Gurantee 02 Address Line 1  </th>
+                                <td><?php echo ' : ' . $gurantee2ad1; ?></td>
+                              </tr>
+                               <tr>
+                                <th>Gurantee 02 Address Line 2  </th>
+                                <td><?php echo ' : ' . $gurantee2ad2; ?></td>
                               </tr>
 
                             <?php else: ?>
@@ -246,6 +270,7 @@
                                         echo ' <td>'.$contractNo.' </td>';
                                         echo ' <td>'.$disburseDate.' </td>';
                                         echo ' <td>'.number_format($loanAmt, 2, '.', ',').' </td>';
+                                        echo ' <td>';
                                         if($status==1){
                                             echo ' <label class="badge badge-warning" style="font-size:12px;">'."Active".'</label> ';
                                         }else if($status==0){
@@ -253,6 +278,7 @@
                                         }else{
                                             echo ' <label class="badge badge-dark" style="font-size:12px;">'."Rejected".'</label> ';
                                         }
+                                        echo ' </td>';
                                         echo ' </tr>';
                                         $i++;
                                         }

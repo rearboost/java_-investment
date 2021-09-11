@@ -27,9 +27,13 @@
                 $gurantee1Name      = $_POST['gurantee1Name'];
                 $gurantee1NIC       = $_POST['gurantee1NIC'];
                 $gurantee1ContactNo = $_POST['gurantee1ContactNo'];
+                $gurantee1ad1 = $_POST['gurantee1ad1'];
+                $gurantee1ad2 = $_POST['gurantee1ad2'];
                 $gurantee2Name      = $_POST['gurantee2Name'];
                 $gurantee2NIC       = $_POST['gurantee2NIC'];
                 $gurantee2ContactNo = $_POST['gurantee2ContactNo'];
+                $gurantee2ad1 = $_POST['gurantee2ad1'];
+                $gurantee2ad2 = $_POST['gurantee2ad2'];
                 $loanStep       = $_POST['loanStep'];
 
                 // customer details
@@ -100,7 +104,7 @@
                     }
                 }
                 
-                $insert = mysqli_query($conn,"INSERT INTO loan (loanID,branch,centerID,customerID,loanType,contractNo,loanAmt,terms,interestRate,rental,daily_rental,totalAmt,inspectionDate,disburseDate,gurantee1Name,gurantee1NIC,gurantee1ContactNo,gurantee2Name,gurantee2NIC,gurantee2ContactNo,loanStep,status) VALUES ('$loanID','$branch','$center','$cust_id','$loan_type','$contractNo','$loanAmt','$terms','$intRate','$rental','$daily_rental','$tot_amt','$inspectionDate','$disburseDate','$gurantee1Name','$gurantee1NIC','$gurantee1ContactNo','$gurantee2Name','$gurantee2NIC','$gurantee2ContactNo','$loanStep',1)");
+                $insert = mysqli_query($conn,"INSERT INTO loan (loanID,branch,centerID,customerID,loanType,contractNo,loanAmt,terms,interestRate,rental,daily_rental,totalAmt,inspectionDate,disburseDate,gurantee1Name,gurantee1NIC,gurantee1ContactNo,gurantee1ad1,gurantee1ad2,gurantee2Name,gurantee2NIC,gurantee2ContactNo,gurantee2ad1,gurantee2ad2,loanStep,status) VALUES ('$loanID','$branch','$center','$cust_id','$loan_type','$contractNo','$loanAmt','$terms','$intRate','$rental','$daily_rental','$tot_amt','$inspectionDate','$disburseDate','$gurantee1Name','$gurantee1NIC','$gurantee1ContactNo','$gurantee1ad1','$gurantee1ad2','$gurantee2Name','$gurantee2NIC','$gurantee2ContactNo','$gurantee2ad1','$gurantee2ad2','$loanStep',1)");
 
                 if($insert){
                     echo  1;
@@ -147,9 +151,13 @@
                 $gurantee1Name   = $_POST['gurantee1Name'];
                 $gurantee1NIC    = $_POST['gurantee1NIC'];
                 $gurantee1ContactNo = $_POST['gurantee1ContactNo'];
+                $gurantee1ad1 = $_POST['gurantee1ad1'];
+                $gurantee1ad2 = $_POST['gurantee1ad2'];
                 $gurantee2Name  = $_POST['gurantee2Name'];
                 $gurantee2NIC   = $_POST['gurantee2NIC'];
                 $gurantee2ContactNo = $_POST['gurantee2ContactNo'];
+                $gurantee2ad1 = $_POST['gurantee2ad1'];
+                $gurantee2ad2 = $_POST['gurantee2ad2'];
                 $loanStep  = $_POST['loanStep'];
                 $status    = $_POST['status'];
                 $reason    = $_POST['reason'];
@@ -219,7 +227,7 @@
                     }
                 }
                 
-                $update = mysqli_query($conn,"UPDATE loan SET branch='$branch',centerID ='$center',loanType ='$loan_type',contractNo = '$contractNo',loanAmt = '$loanAmt',terms = '$terms',interestRate = '$intRate',rental = '$rental',daily_rental ='$daily_rental',totalAmt = '$tot_amt',inspectionDate = '$inspectionDate',disburseDate = '$disburseDate',gurantee1Name = '$gurantee1Name',gurantee1NIC = '$gurantee1NIC',gurantee1ContactNo ='$gurantee1ContactNo',gurantee2Name = '$gurantee2Name',gurantee2NIC = '$gurantee2NIC',gurantee2ContactNo = '$gurantee2ContactNo',loanStep = '$loanStep',status = '$status',reason = '$reason' WHERE loan_no = '$loan_no'");
+                $update = mysqli_query($conn,"UPDATE loan SET branch='$branch',centerID ='$center',loanType ='$loan_type',contractNo = '$contractNo',loanAmt = '$loanAmt',terms = '$terms',interestRate = '$intRate',rental = '$rental',daily_rental ='$daily_rental',totalAmt = '$tot_amt',inspectionDate = '$inspectionDate',disburseDate = '$disburseDate',gurantee1Name = '$gurantee1Name',gurantee1NIC = '$gurantee1NIC',gurantee1ContactNo ='$gurantee1ContactNo', gurantee1ad1 ='$gurantee1ad1', gurantee1ad2='$gurantee1ad2',gurantee2Name = '$gurantee2Name',gurantee2NIC = '$gurantee2NIC',gurantee2ContactNo = '$gurantee2ContactNo', gurantee2ad1 = '$gurantee2ad1', gurantee2ad2='$gurantee2ad2',loanStep = '$loanStep',status = '$status',reason = '$reason' WHERE loan_no = '$loan_no'");
 
                 if($update){
                     echo  1;
