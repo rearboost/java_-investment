@@ -14,6 +14,8 @@ require '../include/config.php';
 
               $fdate  = $_POST['fdate3'];
               $tdate  = $_POST['tdate3'];
+              $level3  = $_POST['level3'];
+                
 
               if($_POST['center3']=="all"){
                 $center = "Nugegoda";
@@ -30,7 +32,7 @@ require '../include/config.php';
                 $centerID   = $val['id'];
             ?>
 
-                <center><b><h5> <?php echo $_POST['fdate3']; ?> &nbsp; to &nbsp; <?php echo $_POST['tdate3'] . ' In ' . $centerName . ' ['. $center. ']'; ?></h5></b></center>
+                <center><b><h5> <?php echo $_POST['fdate3']; ?> &nbsp; to &nbsp; <?php echo $_POST['tdate3'] . ' In ' . $centerName . ' [ '. $center. ' ]'; ?></h5></b></center>
             <?php
               }
               
@@ -42,12 +44,16 @@ require '../include/config.php';
         
             <?php 
 
-            if($_POST['center3']=="all"){
+            if($level3=="all"){
 
               $sql = mysqli_query($conn, "SELECT * FROM loan WHERE (disburseDate BETWEEN '$fdate' AND '$tdate') AND branch='$center'");
-            }else{
-
+            }else if($level3=="MSU"){
               $sql = mysqli_query($conn, "SELECT * FROM loan WHERE (disburseDate BETWEEN '$fdate' AND '$tdate') AND centerId=$centerID");
+            }
+            else if($level3=="Contract"){
+
+              $contractNo = $_POST['center3'];
+              $sql = mysqli_query($conn, "SELECT * FROM loan WHERE (disburseDate BETWEEN '$fdate' AND '$tdate') AND contractNo='$contractNo'");
             }
         
             ?>
@@ -72,6 +78,8 @@ require '../include/config.php';
                         $numRows = mysqli_num_rows($sql); 
                         if($numRows > 0) {
                             $i = 1;
+                            $toatLoanAmt = 0;
+                            $toatPaid = 0;
 
                             while($row = mysqli_fetch_assoc($sql)) {
 
@@ -82,13 +90,13 @@ require '../include/config.php';
 
                             $NIC      = $cus_data['NIC'];
                             $customer = $cus_data['name'];
-
                             $contractNo = $row['contractNo'];
                             $loanAmt    = $row['loanAmt'];
-
                             $loan_no    = $row['loan_no'];
 
-                            $getpayment = mysqli_query($conn, "SELECT * FROM loan_installement WHERE loanNo = $loan_no");
+                            $toatLoanAmt = $toatLoanAmt + $loanAmt;
+
+                            $getpayment = mysqli_query($conn, "SELECT * FROM loan_installement WHERE loanNo = '$loan_no' ORDER BY id DESC LIMIT 1");
                             $PCount = mysqli_num_rows($getpayment);
 
                             if($PCount>0){
@@ -97,6 +105,8 @@ require '../include/config.php';
 
                                 $paid   = $pay_data['paid'];
                                 $li_date= $pay_data['li_date'];
+
+                                $toatPaid = $toatPaid + $paid;
 
                                 echo ' <tr>';
                                 echo ' <td style="display: none;">'.$i.' </td>';
@@ -124,8 +134,6 @@ require '../include/config.php';
                                 echo ' <td>'.$li_date.' </td>';
                                 echo ' </tr>';
                             }
-
-                            
                             $i++;
                             }
                         }else{
@@ -134,10 +142,18 @@ require '../include/config.php';
                           echo '</tr>';
                         }
                         ?>
+                        <tr>
+                        <th style="display: none;"> # </th>
+                        <th></th>
+                        <th></th>
+                        <th>Total Amount</th>
+                        <th style="text-align:right;"><?php if(isset($toatLoanAmt)){ echo number_format($toatLoanAmt,2,'.',',');} ?></th>
+                        <th style="text-align:right;"><?php if(isset($toatPaid)){ echo number_format($toatPaid,2,'.',',');} ?></th>
+                        <th></th>
+                        </tr>
                     </tbody>
                 </table>
                 </div>
-
                 <br>
                  
                 <button type="button"  onclick="javascript:printDiv('printablediv');" class="btn btn-info btn-fw" >PRINT</button>                          

@@ -52,8 +52,10 @@ require '../include/config.php';
                         <?php
                         
                         $numRows = mysqli_num_rows($sql); 
+
                         if($numRows > 0) {
                             $i = 1;
+                            $totalLoanAmt = 0;
 
                             while($row = mysqli_fetch_assoc($sql)) {
 
@@ -71,6 +73,8 @@ require '../include/config.php';
                             $disburseDate   = $row['disburseDate'];
                             $loanAmt        = $row['loanAmt'];
                             $status         = $row['status'];
+
+                            $totalLoanAmt =  $totalLoanAmt + $loanAmt;
 
                             echo ' <tr>';
                             echo ' <td style="display: none;">'.$i.' </td>';
@@ -95,6 +99,17 @@ require '../include/config.php';
                           echo '</tr>';
                         }
                         ?>
+                        <tr>
+                        <th style="display: none;"> # </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Total Loan Amount</th>
+                        <th style="text-align:right;"><?php if(isset($totalLoanAmt)){echo number_format($totalLoanAmt,2,'.',',');} ?></th>
+                        <th></th>
+                        </tr>
                     </tbody>
                 </table>
                 </div>

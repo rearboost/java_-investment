@@ -6,33 +6,41 @@
     //  Add Function 
     if(isset($_POST['add'])){
 
-        $date           = $_POST['date'];
-        $outstanding    = $_POST['outstanding'];
-        $bank           = $_POST['bank'];
-        $other1         = $_POST['other1'];
-        $other2         = $_POST['other2'];
-        $total          = $_POST['total'];
+        $bank          = $_POST['bank'];
+        $textOther1    = $_POST['textOther1'];
+        $other1        = $_POST['other1'];
+        $textOther2    = $_POST['textOther2'];
+        $other2        = $_POST['other2'];
+        $textOther3    = $_POST['textOther3'];
+        $other3        = $_POST['other3'];
 
-        $getcenter = mysqli_query($conn, "SELECT * FROM user WHERE username='$email'");
-        $fetchCenter = mysqli_fetch_assoc($getcenter);
-        $center = $fetchCenter['center_id'];
+        // $getcenter = mysqli_query($conn, "SELECT * FROM user WHERE username='$email'");
+        // $fetchCenter = mysqli_fetch_assoc($getcenter);
+        // $center = $fetchCenter['center_id'];
 
-        $check= mysqli_query($conn, "SELECT * FROM portfolio WHERE outstanding='$outstanding' AND bank='$bank' AND other1='$other1' AND other2='$other2' AND total='$total'");
+        $check= mysqli_query($conn, "SELECT * FROM portfolio");
 	    $count = mysqli_num_rows($check);
 
         if($count==0){
 
-            $insert = "INSERT INTO portfolio (center_id,date,outstanding,bank,other1,other2,total) VALUES ('$center','$date','$outstanding','$bank','$other1','$other2','$total')";
+            ///////  INSERT //////////
+            $insert = "INSERT INTO portfolio (bank,textOther1,other1,textOther2,other2,textOther3,other3) VALUES ('$bank','$textOther1','$other1','$textOther2','$other2','$textOther3','$other3')";
             $result = mysqli_query($conn,$insert);
             if($result){
                 echo  1;
             }else{
                 echo  mysqli_error($conn);		
             }
+
         }else{
-            echo 0;
+            ///////  UPDATE //////////
+            $update = mysqli_query($conn,"UPDATE portfolio SET bank='$bank',textOther1 ='$textOther1',other1 ='$other1',textOther2 = '$textOther2',other2 = '$other2',textOther3 = '$textOther3',other3 = '$other3'");
+            if($update){
+                echo  1;
+            }else{
+                echo  mysqli_error($conn);		
+            }
         }
     }
-
 
 ?>
