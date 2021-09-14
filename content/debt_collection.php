@@ -511,34 +511,33 @@
 
         var AllData = $('#myitemjson').val();
 
-        var answer = confirm("Are you sure, you want to submit this record ?")
-        if (!answer){
-          e.preventDefault();
-          return false;
-        }else{
-          if(total_amt!=0&&total_arr!=0&&total_out!=0){
+       swal({
+            title: "Are you sure?",
+            text: "Once submit, you will not be able to recover this details file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              
+               if(total_amt!=0&&total_arr!=0&&total_out!=0){
+                $.ajax({
+                    type: 'post',
+                    url: '../controller/debt_collection_controller.php',
+                    data: {save:save,li_date:li_date,center_id:center_id,total_amt:total_amt,total_arr:total_arr,total_out:total_out,AllData:AllData},
+                    success: function (data) {
+                      
+                        swal("Successfully Submited !");
+                        setTimeout(function(){ cancelForm(); }, 2500);
+                    }
+                });  
 
-            $.ajax({
-                type: 'post',
-                url: '../controller/debt_collection_controller.php',
-                data: {save:save,li_date:li_date,center_id:center_id,total_amt:total_amt,total_arr:total_arr,total_out:total_out,AllData:AllData},
-                success: function (data) {
-                  
-                    swal({
-                    title: "Good job !",
-                    text: "Successfully Submited",
-                    icon: "success",
-                    button: "Ok !",
-                    });
-                    setTimeout(function(){ cancelForm(); }, 2500);
-                }
-
-            });  
-
-          }else{
-              alert('Required Field is Empty');
-          }
-        }
+              }else{
+                  alert('Required Field is Empty');
+              }
+            } 
+        });
     }
 
     function cancelForm(){

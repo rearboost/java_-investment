@@ -653,49 +653,55 @@
           var customer = $('#customer').val();
           var loanStep = $('#loanStep').val();
 
-          var answer = confirm("Are you sure, you want to submit this record ?")
-          if (!answer){
-            e.preventDefault();
-            return false;
-          }else{
 
-            if(center!='' || customer!='' || loanStep!='')
-            {
-                e.preventDefault();
-                var loan_no= $('#loan_no').val();
-                $.ajax({
-                  type: 'post',
-                  url: '../controller/loan_controller.php',
-                  data: $('#loanAdd').serialize(),
-                  success: function (data) {
+          swal({
+            title: "Are you sure?",
+            text: "Once submit, you will not be able to recover this details file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
 
-                      if(data==0){
+              if(center!='' || customer!='' || loanStep!='')
+              {
+                  e.preventDefault();
+                  var loan_no= $('#loan_no').val();
+                  $.ajax({
+                    type: 'post',
+                    url: '../controller/loan_controller.php',
+                    data: $('#loanAdd').serialize(),
+                    success: function (data) {
+
+                        if(data==0){
+                            swal({
+                              title: "Can't Duplication !",
+                              text: "Client Already Exist.",
+                              icon: "error",
+                              button: "Ok !",
+                            });
+
+                        }else{
                           swal({
-                            title: "Can't Duplication !",
-                            text: "Client Already Exist.",
-                            icon: "error",
-                            button: "Ok !",
+                          title: "Good job !",
+                          text: "Successfully Submited",
+                          icon: "success",
+                          button: "Ok !",
                           });
+                          //setTimeout(function(){ location.reload(); }, 2500);
+                          //setTimeout(function(){window.open('receipt?id='+mid, '_blank'); }, 100);
+                          setTimeout(function(){ location.reload(); }, 2500);
 
-                      }else{
-                        swal({
-                        title: "Good job !",
-                        text: "Successfully Submited",
-                        icon: "success",
-                        button: "Ok !",
-                        });
-                        //setTimeout(function(){ location.reload(); }, 2500);
-                        //setTimeout(function(){window.open('receipt?id='+mid, '_blank'); }, 100);
-                        setTimeout(function(){ location.reload(); }, 2500);
+                        }
+                    }
+                  });
 
-                      }
-                  }
-                });
-
-            }else{
-              alert('Required Field is Empty');
-            }
-          }
+              }else{
+                alert('Required Field is Empty');
+              }
+            } 
+          })
         });
     });
 

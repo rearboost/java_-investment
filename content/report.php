@@ -237,7 +237,7 @@
               </div>
             </div> 
 
-            <div class="col-lg-3 grid-margin stretch-card" style="height: 425px;">   
+            <div class="col-lg-3 grid-margin stretch-card" style="height: 510px;">   
               <div class="card">
                   <div class="card-body">
                     <b><center><h4 class="card-title">Portfolio</h4></center></b>
@@ -290,8 +290,12 @@
                                     $other2      = $row['other2'];
                                     $textOther3  = $row['textOther3'];
                                     $other3      = $row['other3'];
+                                    $textOther4  = $row['textOther4'];
+                                    $other4      = $row['other4'];
+                                    $textOther5  = $row['textOther5'];
+                                    $other5      = $row['other5'];
                                     //// TOTAL 
-                                    $total = $bank+$other1+$other2+$other3;
+                                    $total = $bank+$other1+$other2+$other3+$other4+$other5;
                                   }
                                }
 
@@ -321,9 +325,9 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-4 col-form-label">Other (1)</label>
-                              <div class="col-sm-8" style="display: inherit; padding: 0px;">
-                                <div class="col-sm-6" ><input type="text"  class="form-control text-right" name="textOther1" id="textOther1" value="<?php  if(isset($textOther1)){ echo $textOther1;  } ?>" required=""></div>
+                              <!-- <label class="col-sm-4 col-form-label">Other (1)</label> -->
+                              <div class="col-sm-12" style="display: inherit; padding: 0px;">
+                                <div class="col-sm-6" ><input type="text"  class="form-control" name="textOther1" id="textOther1" value="<?php  if(isset($textOther1)){ echo $textOther1;  } ?>" required=""></div>
                                 <div class="col-sm-6" ><input type="number" class="form-control text-right calc" name="other1" id="other1" value="<?php  if(isset($other1)){ echo $other1;  } ?>" required=""></div>                              
                               </div>
                             </div>
@@ -333,9 +337,9 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-4 col-form-label">Other (2)</label>
-                              <div class="col-sm-8" style="display: inherit; padding: 0px;">
-                                 <div class="col-sm-6" ><input type="text"   class="form-control text-right" name="textOther2" id="textOther2" required="" value="<?php  if(isset($textOther2)){ echo $textOther2;  } ?>"></div>
+                              <!-- <label class="col-sm-4 col-form-label">Other (2)</label> -->
+                              <div class="col-sm-12" style="display: inherit; padding: 0px;">
+                                 <div class="col-sm-6" ><input type="text"   class="form-control" name="textOther2" id="textOther2" required="" value="<?php  if(isset($textOther2)){ echo $textOther2;  } ?>"></div>
                                  <div class="col-sm-6" ><input type="number"   class="form-control text-right calc" name="other2" id="other2" value="<?php  if(isset($other2)){ echo $other2;  } ?>" required=""></div>
                               </div>
                             </div>
@@ -346,10 +350,34 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-4 col-form-label">Other (3)</label>
-                              <div class="col-sm-8" style="display: inherit; padding: 0px;">
-                                 <div class="col-sm-6" ><input type="text"  class="form-control text-right" name="textOther3" id="textOther3" required="" value="<?php  if(isset($textOther3)){ echo $textOther3;  } ?>"></div>
+                              <!-- <label class="col-sm-4 col-form-label">Other (3)</label> -->
+                              <div class="col-sm-12" style="display: inherit; padding: 0px;">
+                                 <div class="col-sm-6" ><input type="text"  class="form-control" name="textOther3" id="textOther3" required="" value="<?php  if(isset($textOther3)){ echo $textOther3;  } ?>"></div>
                                  <div class="col-sm-6" ><input type="number"  class="form-control text-right calc" name="other3" id="other3" value="<?php  if(isset($other3)){ echo $other3;  } ?>" required=""></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                              <!-- <label class="col-sm-4 col-form-label">Other (3)</label> -->
+                              <div class="col-sm-12" style="display: inherit; padding: 0px;">
+                                 <div class="col-sm-6" ><input type="text"  class="form-control" name="textOther4" id="textOther4" required="" value="<?php  if(isset($textOther4)){ echo $textOther4;  } ?>"></div>
+                                 <div class="col-sm-6" ><input type="number"  class="form-control text-right calc" name="other4" id="other4" value="<?php  if(isset($other4)){ echo $other4;  } ?>" required=""></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                              <!-- <label class="col-sm-4 col-form-label">Other (3)</label> -->
+                              <div class="col-sm-12" style="display: inherit; padding: 0px;">
+                                 <div class="col-sm-6" ><input type="text"  class="form-control" name="textOther5" id="textOther5" required="" value="<?php  if(isset($textOther5)){ echo $textOther5;  } ?>"></div>
+                                 <div class="col-sm-6" ><input type="number"  class="form-control text-right calc" name="other5" id="other5" value="<?php  if(isset($other5)){ echo $other5;  } ?>" required=""></div>
                               </div>
                             </div>
                           </div>
@@ -562,9 +590,12 @@
 
      $('.calc').on('keyup',function(){
       var bank   = $('#bank').val();
+      var outstanding = $('#outstanding').val();
       var other1 = $('#other1').val();
       var other2 = $('#other2').val();
       var other3 = $('#other3').val();
+      var other4 = $('#other4').val();
+      var other5 = $('#other5').val();
 
       var date   = $('#date').val();
       $.ajax({
@@ -574,8 +605,8 @@
           success: function (response) {
 
               var obj = JSON.parse(response);
-              var outstanding = obj.tot_outstanding
-              var total = (Number(outstanding)+Number(bank)+Number(other1)+Number(other2)+Number(other3)).toFixed(2);
+             // var outstanding = obj.tot_outstanding
+              var total = (Number(outstanding)+Number(bank)+Number(other1)+Number(other2)+Number(other3)+Number(other4)+Number(other5)).toFixed(2);
 
               $('#total').val(total);
           }
@@ -594,13 +625,10 @@
               url: '../controller/portfolio_controller.php',
               data: $('#portfolioForm').serialize(),
               success: function (data) {
-                swal({
-                  title: "Good job !",
-                  text: "Successfully Submited",
+               
+                swal("Successfully Submited !", {
                   icon: "success",
-                  button: "Ok !",
                 });
-
                 setTimeout(function(){ location.reload(); }, 2500);
                   
               }
