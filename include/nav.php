@@ -98,9 +98,8 @@
                 </a>
               </div>
             </li> -->
-
             <li class="nav-item dropdown language-dropdown">
-              <a class="nav-link px-2 d-flex align-items-center" href="debt_collection.php">
+               <a class="nav-link dropdown-toggle px-2 d-flex align-items-center" id="LanguageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                 <div class="d-inline-flex mr-0 mr-md-3">
                   <div class="flag-icon-holder">
                     <i class="mdi  mdi-account-details"></i>
@@ -108,6 +107,18 @@
                 </div>
                 <span class="profile-text font-weight-medium d-none d-md-block">Transaction</span>
               </a>
+              <div class="dropdown-menu dropdown-menu-left navbar-dropdown py-2" aria-labelledby="LanguageDropdown">
+                <a class="dropdown-item" href="debt_collection.php">
+                  <div class="flag-icon-holder">
+                    <i class="mdi mdi-plus-box-outline" aria-hidden="true"></i>
+                  </div> Creation
+                </a>
+                <a class="dropdown-item" href="reverse.php">
+                  <div class="flag-icon-holder">
+                    <i class="mdi mdi-sync" aria-hidden="true"></i>
+                  </div>Reverse 
+                </a>
+              </div>
             </li>
             <li class="nav-item dropdown language-dropdown">
               <a class="nav-link px-2 d-flex align-items-center" href="report.php">

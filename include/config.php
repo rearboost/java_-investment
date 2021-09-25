@@ -2,7 +2,7 @@
 	$severname = "localhost";
 	$username = "root";
 	$password = "root";
-	$db = "jayamag1_db";
+	$db = "JB1";
 
 	$conn = mysqli_connect($severname,$username,$password);
 	mysqli_select_db($conn,$db);

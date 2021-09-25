@@ -65,10 +65,8 @@
             $date_val = explode('-', $li_date);
             $year  = $date_val['0'];
             $month = $date_val['1'];
-
             
             $sql_collect = mysqli_query($conn,"INSERT INTO collection(centerID,li_date,year,month,tot_collection,tot_arrears,tot_outstanding) VALUES ($center_id,'$li_date','$year','$month','$tot_collection','$tot_arrears','$tot_outstanding')");
-
 
             //// update Summary ////
 
@@ -150,7 +148,7 @@
               $insert_data = mysqli_query($conn,"INSERT INTO loan_installement (collectionID,li_date,paid,arrears,outstanding,loanNo) VALUES ('$collectionID','$li_date','$paid','$arrears','$balance',$loanNo)");
 
               // update loan status when outstanding balance = 0
-              if($balance<=0){
+              if($balance<0){
                 $updateStatus = mysqli_query($conn, "UPDATE loan SET status=0 WHERE loan_no=$loanNo ");
               }
             }
@@ -163,6 +161,65 @@
             }else{
                 echo  mysqli_error($conn);		
             }
+        }
+
+
+
+          // Reverse Function 
+        if(isset($_POST['reverse'])){
+
+            $li_date   = $_POST['li_date'];
+            $center_id = $_POST['center_id'];
+            $paid  = $_POST['paid'];
+            $rental  = $_POST['rental'];
+            $loan_ins_id  = $_POST['loan_ins_id'];
+            $balance  = $_POST['balance'];
+            $loan_no  = $_POST['loan_no'];
+
+            $tot_arrears = 0;
+
+            if($paid==0 || $paid==""){
+                $tot_arrears = $rental;
+            }else{
+                $tot_arrears = $rental-$paid;
+            }
+
+            $date_val = explode('-', $li_date);
+            $year  = $date_val['0'];
+            $month = $date_val['1'];
+
+
+            /////////////////////  Collection /////////////////////
+
+            $updateCollection = mysqli_query($conn, "UPDATE collection SET tot_collection= tot_collection - $paid , tot_arrears = tot_arrears - $tot_arrears , tot_outstanding = tot_outstanding - $paid   WHERE centerID='$center_id' AND li_date ='$li_date' AND year ='$year' AND  month = '$month'");
+
+
+             //// update Summary ////
+
+            $querySummary = "SELECT id ,debtAMT FROM summary WHERE year='$year' AND month='$month' ";
+            $resultSummary = mysqli_query($conn ,$querySummary);
+
+            $countSummary =mysqli_num_rows($resultSummary);
+
+            if($countSummary>0){
+
+                $rowSummary = mysqli_fetch_array($resultSummary);
+                $id = $rowSummary['id'];
+
+                $queryRow ="UPDATE summary SET debtAMT= debtAMT - $paid WHERE id='$id' ";
+                mysqli_query($conn,$queryRow);
+            }
+
+            // /////////////////////////////////////////////////// 
+             if($balance>0){
+                $updateStatus = mysqli_query($conn, "UPDATE loan SET status=1 WHERE loan_no=$loan_no ");
+             }
+
+             $queryDe ="DELETE FROM  loan_installement WHERE id='$loan_ins_id'";
+             mysqli_query($conn,$queryDe); 
+
+             echo 1;
+
         }
        
     ?>

@@ -353,24 +353,14 @@
 
                   }else if(data==2){
 
-                    swal({
-                    title: "Good job !",
-                    text: "Successfully Updated",
-                    icon: "success",
-                    button: "Ok !",
-                    });
+                    swal("Successfully Submited !");
                     setTimeout(function(){ window.location.href = "customer.php";; }, 2500);
                     
                   }
                   
                   else{
 
-                    swal({
-                    title: "Good job !",
-                    text: "Successfully Submited",
-                    icon: "success",
-                    button: "Ok !",
-                    });
+                    swal("Successfully Submited !");
                     setTimeout(function(){ location.reload(); }, 2500);
                     //window.location.href = "customer.php";
                     
@@ -401,12 +391,8 @@
             method:"POST",
             data:{removeID:id},
             success:function(data){
-                swal({
-                title: "Good job !",
-                text: "Successfully Removerd",
-                icon: "success",
-                button: "Ok !",
-                });
+              
+                swal("Successfully Submited !");
                 setTimeout(function(){ window.location.href = "customer.php"; }, 2500);
                 
             }

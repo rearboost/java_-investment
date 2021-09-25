@@ -418,9 +418,9 @@
 
           var $tds = $(this).find('td'),
           loanNo   = $tds.eq(0).text();
-          paid     = $tds.eq(2).find("input").val();
-          arrears  = $tds.eq(4).find("input").val();
-          balance  = $tds.eq(5).find("input").val();
+          paid     = $tds.eq(5).find("input").val();
+          arrears  = $tds.eq(7).find("input").val();
+          balance  = $tds.eq(8).find("input").val();
 
           var z={"loanNo":loanNo,"paid":paid,"arrears":arrears,"balance":balance};
 
@@ -514,7 +514,6 @@
        swal({
             title: "Are you sure?",
             text: "Once submit, you will not be able to recover this details file!",
-            icon: "warning",
             buttons: true,
             dangerMode: true,
           })
@@ -522,6 +521,7 @@
             if (willDelete) {
               
                if(total_amt!=0&&total_arr!=0&&total_out!=0){
+                 
                 $.ajax({
                     type: 'post',
                     url: '../controller/debt_collection_controller.php',

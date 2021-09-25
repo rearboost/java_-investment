@@ -227,24 +227,14 @@ $(function () {
 
                 }else if(data==2){
 
-                    swal({
-                    title: "Good job !",
-                    text: "Successfully Updated",
-                    icon: "success",
-                    button: "Ok !",
-                    });
+                    swal("Successfully Submited !");
                     setTimeout(function(){ window.location.href = "center.php";; }, 2500);
                     
                 }
                 else{
 
-                    swal({
-                      title: "Good job !",
-                      text: "Successfully Updated",
-                      icon: "success",
-                      button: "Ok !",
-                      });
-                      setTimeout(function(){ location.reload(); }, 2500);
+                    swal("Successfully Submited !");
+                    setTimeout(function(){ location.reload(); }, 2500);
                 }
             }
           });
