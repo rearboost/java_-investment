@@ -65,8 +65,18 @@
             $date_val = explode('-', $li_date);
             $year  = $date_val['0'];
             $month = $date_val['1'];
-            
-            $sql_collect = mysqli_query($conn,"INSERT INTO collection(centerID,li_date,year,month,tot_collection,tot_arrears,tot_outstanding) VALUES ($center_id,'$li_date','$year','$month','$tot_collection','$tot_arrears','$tot_outstanding')");
+
+            $resultCheck = mysqli_query($conn ,"SELECT * FROM collection  WHERE centerID='$center_id' AND li_date ='$li_date' AND year ='$year' AND  month = '$month' ");
+            $countCheck =mysqli_num_rows($resultCheck);
+
+            if($countCheck==0){
+
+                mysqli_query($conn,"INSERT INTO collection(centerID,li_date,year,month,tot_collection,tot_arrears,tot_outstanding) VALUES ($center_id,'$li_date','$year','$month','$tot_collection','$tot_arrears','$tot_outstanding')");
+
+            }else{
+
+                mysqli_query($conn, "UPDATE collection SET tot_collection= tot_collection + $tot_collection , tot_arrears = tot_arrears + $tot_arrears , tot_outstanding = tot_outstanding + $tot_outstanding   WHERE centerID='$center_id' AND li_date ='$li_date' AND year ='$year' AND  month = '$month'");
+            }
 
             //// update Summary ////
 
@@ -214,6 +224,10 @@
              if($balance>0){
                 $updateStatus = mysqli_query($conn, "UPDATE loan SET status=1 WHERE loan_no=$loan_no ");
              }
+
+             ////////////////////////////////////////////////////
+
+             //$updateCollection = mysqli_query($conn, "UPDATE loan_installement SET paid= paid - $paid , arrears = arrears - $tot_arrears , outstanding = outstanding - $paid   WHERE id='$loan_ins_id'");
 
              $queryDe ="DELETE FROM  loan_installement WHERE id='$loan_ins_id'";
              mysqli_query($conn,$queryDe); 

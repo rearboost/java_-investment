@@ -54,7 +54,7 @@ require '../include/config.php';
 
              // $q1 = "SELECT * FROM loan A INNER JOIN loan_installement B ON A.loan_no = B.loanNo WHERE (B.li_date BETWEEN '$fdate' AND '$tdate') AND A.centerId='$centerID'";
 
-              $sql = mysqli_query($conn, "SELECT * FROM loan A INNER JOIN loan_installement B ON A.loan_no = B.loanNo WHERE (B.li_date BETWEEN '$fdate' AND '$tdate') AND A.centerId='$centerID'");
+              $sql = mysqli_query($conn, "SELECT * FROM loan A INNER JOIN loan_installement B ON A.loan_no = B.loanNo WHERE (B.li_date BETWEEN '$fdate' AND '$tdate') AND A.centerId='$centerID' AND B.paid !=0");
             }
             else if($level3=="Contract"){
 

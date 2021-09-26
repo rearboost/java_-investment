@@ -16,6 +16,7 @@ include('../include/config.php');
         $centernName   = $row['center_name'];
         $leader   = $row['leader'];
         $contact   = $row['contact'];
+        $center_date = $row['center_date'];
       }
     }
   }
@@ -109,6 +110,13 @@ include('../include/config.php');
                           </div>
                         </div>
 
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Center Date</label>
+                          <div class="col-sm-3">
+                              <input type="date" class="form-control" name ="center_date"  value='<?php if(isset($center_date)){echo $center_date;} ?>' required=""  />
+                          </div>
+                        </div>
+
                           <?php if (isset($_GET['edit_id'])): ?>
                               <input type="hidden" class="form-control" name="edit_id" value='<?php if(isset($edit_id)){ echo $edit_id; } ?>' />
                               <input type="hidden" class="form-control" name="update" value="update" />
@@ -143,6 +151,7 @@ include('../include/config.php');
                           <th>Center Name </th>
                           <th>Center Leader </th>
                           <th>Center Contact </th>
+                          <th>Center Date </th>
                           <th> </th>
                         </tr>
                       </thead>
@@ -160,6 +169,7 @@ include('../include/config.php');
                               $center_name  = $row['center_name'];
                               $leader     = $row['leader'];
                               $contact  = $row['contact'];
+                              $center_date  = $row['center_date'];
 
                               echo ' <tr>';
                               echo ' <td>'.$i.' </td>';
@@ -167,6 +177,7 @@ include('../include/config.php');
                               echo ' <td>'.$center_name.' </td>';
                               echo ' <td>'.$leader.' </td>';
                               echo ' <td>'.$contact.' </td>';
+                              echo ' <td>'.$center_date.' </td>';
                               echo '<td class="td-center"><button type="button" onclick="editForm('.$row["id"].')" class="btn btn-info btn-fw">Edit</button></td>';
                               echo ' </tr>';
                               $i++;

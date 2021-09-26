@@ -4,17 +4,19 @@ require '../include/config.php';
          //  Add Function 
         if(isset($_POST['add'])){
 
-            $code        = $_POST['code'];
-            $name        = $_POST['name'];
-            $leader        = $_POST['leader'];
-            $contact        = $_POST['contact'];
+            $code      = $_POST['code'];
+            $name      = $_POST['name'];
+            $leader    = $_POST['leader'];
+            $contact   = $_POST['contact'];
+            $center_date  = $_POST['center_date'];
+            
 
             $check= mysqli_query($conn, "SELECT * FROM center WHERE center_name='$name' AND center_code='$code'");
             $count = mysqli_num_rows($check);
 
             if($count==0){
 
-                $insert = "INSERT INTO center(center_code,center_name,leader,contact) VALUES('$code','$name','$leader','$contact')";
+                $insert = "INSERT INTO center(center_code,center_name,leader,contact,center_date) VALUES('$code','$name','$leader','$contact','$center_date')";
 
                 $result = mysqli_query($conn,$insert);
                 if($result){
@@ -35,6 +37,7 @@ require '../include/config.php';
             $name      = $_POST['name'];
             $leader    = $_POST['leader'];
             $contact   = $_POST['contact'];
+            $center_date   = $_POST['center_date'];
 
             $check= mysqli_query($conn, "SELECT * FROM center WHERE id='$id'");
 		    $count = mysqli_num_rows($check);
@@ -44,7 +47,8 @@ require '../include/config.php';
                 $edit = "UPDATE center 
                                     SET center_name   ='$name',
                                         leader  ='$leader',
-                                        contact  ='$contact'
+                                        contact  ='$contact',
+                                        center_date = '$center_date'
                                     WHERE id=$id";
 
                 $result = mysqli_query($conn,$edit);

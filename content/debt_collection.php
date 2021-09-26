@@ -4,7 +4,6 @@
     // Database Connection
     require '../include/config.php';
      $row_num = 0;
-
   ?>
   <!-- include head code here -->
   <?php  include('../include/head.php');   ?>
@@ -112,6 +111,7 @@
                                   $center_name = $cd['center_name'];
                                   $leader      = $cd['leader'];
                                   $contact     = $cd['contact'];
+                                  $center_date = $cd['center_date'];
 
                                   $fetchData = mysqli_query($conn, "SELECT * FROM loan WHERE centerID=$center_id AND status=1");
                                   $count1 = mysqli_num_rows($fetchData);
@@ -122,6 +122,7 @@
 
                                   if($count1>0){
                                     while($row1 = mysqli_fetch_assoc($fetchData)){
+
                                         $loan_no      = $row1['loan_no'];
                                         $contractNo   = $row1['contractNo'];
                                         $customerID   = $row1['customerID'];
@@ -174,6 +175,8 @@
 
                                   <div class="col-md-3">
                                     <label class="col-sm-12 col-form-label"><strong>Formed Date : </strong> <?php echo $createDate; ?> </label>
+                                    <br>
+                                    <label class="col-sm-12 col-form-label"><strong>Center Date : </strong> <?php echo $center_date; ?> </label>
                                   </div>
 
                                   <div class="col-md-3">
@@ -242,7 +245,7 @@
 
                                       $id       = $row['id'];
                                       $paid     = $row['paid'];
-                                      $pacontractNoid     = $row['contractNo'];
+                                      $pacontractNoid = $row['contractNo'];
                                       $payable  = $row['payable'];
                                       $arrears  = $row['Arrears'];
                                       $balance  = $row['balance'];
@@ -253,7 +256,7 @@
 
                                     echo ' <tr>';
                                     echo ' <td>'.$loanNo.'</td>';
-                                    echo ' <td>'.$contractNo.'</td>';
+                                    echo ' <td>'.$pacontractNoid.'</td>';
                                     echo ' <td>'.$customer.'</td>';
                                     echo ' <td>'.$contact.'</td>';
                                     echo ' <td>'.$NIC.'</td>';

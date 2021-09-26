@@ -78,18 +78,18 @@
 
                       <div class="col-md-2">
                         <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Loan No </label>
+                            <label class="col-sm-4 col-form-label">Contract No </label>
                             <div class="col-sm-7">
-                               <input list="brow_loan" class="form-control" name="loanID" id="loanID" >
+                               <input list="brow_loan" class="form-control" name="contractNo" id="contractNo" >
                                 <datalist id="brow_loan" style="height: 100px;">
                                 <?php
-                                  $loan = "SELECT loanID FROM loan WHERE status=1";
+                                  $loan = "SELECT contractNo FROM loan WHERE status=1";
                                   $result = mysqli_query($conn,$loan);
                                   $numRows = mysqli_num_rows($result); 
                   
                                   if($numRows > 0) {
                                       while($dl = mysqli_fetch_assoc($result)) {
-                                          echo '<option value ="'.$dl["loanID"].'">';
+                                          echo '<option value ="'.$dl["contractNo"].'">';
                                       }
                                   }
                                 ?>
@@ -108,7 +108,7 @@
               </div>
 
               <div id="show">
-              <?php if (isset($_GET['createDate']) && isset($_GET['center']) && isset($_GET['loanID'])): ?>
+              <?php if (isset($_GET['createDate']) && isset($_GET['center']) && isset($_GET['contractNo'])): ?>
               
                   <div class="row">
                     <div class="col-lg-12 grid-margin stretch-card">
@@ -124,7 +124,7 @@
 
                                   $center_code = $_GET['center']; 
                                   $createDate =  $_GET['createDate'];
-                                  $loanID =  $_GET['loanID'];
+                                  $contractNo =  $_GET['contractNo'];
 
                                   ///////////////////////// CENTER DETAILS  /////////////////////////
 
@@ -138,8 +138,9 @@
                                 
                                   ///////////////////////// LOAN DETAILS  /////////////////////////
 
-                                  $getLoan = mysqli_query($conn, "SELECT * FROM loan WHERE loanID='$loanID' AND centerID = $center_id");
+                                  $getLoan = mysqli_query($conn, "SELECT * FROM loan WHERE contractNo='$contractNo' AND centerID = $center_id");
                                   $lo = mysqli_fetch_assoc($getLoan);
+                                  $loanID   = $lo['loanID'];
                                   $loan_no   = $lo['loan_no'];
                                   $loanAmt  = $lo['loanAmt'];
                                   $rental = $lo['rental'];
@@ -169,7 +170,6 @@
 
                                   ?>
                                
-
                                   <div class="col-md-3">
                                     <label class="col-sm-12 col-form-label"><strong>Formed Date : </strong> <?php echo $createDate; ?> </label>
                                   </div>
@@ -190,7 +190,7 @@
                           </div>
                           <hr><br>
 
-                           <?php if ($count1>0): ?>
+                          <?php if ($count1>0): ?>
 
                           <div class="row">
                             <!-- <div class="col-md-12" style="height: 240px; overflow-y: auto;"> -->
@@ -306,10 +306,10 @@
 
       var center = $('#center').val();
       var createDate = $('#createDate').val();
-      var loanID = $('#loanID').val();
+      var contractNo = $('#contractNo').val();
 
-      if(center&&createDate&&loanID){
-        window.location.href = "reverse.php?center="+center+"&createDate="+createDate+"&loanID="+loanID;
+      if(center&&createDate&&contractNo){
+        window.location.href = "reverse.php?center="+center+"&createDate="+createDate+"&contractNo="+contractNo;
 
       }else{
           alert('Selcet MSU Code and loan ID First');

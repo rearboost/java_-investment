@@ -42,19 +42,28 @@ include('../include/config.php');
             </div>
 
             <?php
-                //////////// card 1 /////////////
-                $loan_count = mysqli_query($conn, "SELECT loan_no FROM loan WHERE status=1");
-                $card_1 = mysqli_num_rows($loan_count); 
 
-                //////////// card 2 /////////////
                 $year = date('Y');
                 $month = date('m');
+
+                //////////// card 1 /////////////
+                $loan_count = mysqli_query($conn, "SELECT COUNT(loan_no) as tot_loan FROM loan WHERE year='$year' AND month='$month' GROUP BY month AND year");
+                $dataCount = mysqli_fetch_assoc($loan_count);
+                $card_1 = $dataCount['tot_loan'];
+                if($card_1==""){$card_1=0;}
+              
+                //////////// card 1.1 /////////////
+                $loan_amount = mysqli_query($conn, "SELECT loanAMT FROM summary WHERE year='$year' AND month='$month' ");
+                $getAMT = mysqli_fetch_assoc($loan_amount);
+                $loanAMT = $getAMT['loanAMT'];
+                
+
+                //////////// card 2 /////////////
                 $insatllements = mysqli_query($conn, "SELECT SUM(tot_collection) as tot_paid FROM collection WHERE year='$year' AND month='$month' GROUP BY month AND year");
                 $data = mysqli_fetch_assoc($insatllements);
                 $card_2 = $data['tot_paid'];
 
                 //////////// card 3 /////////////
-
 
                 $All_custom = mysqli_query($conn, "SELECT DISTINCT(cust_id) AS customer FROM customer");
                 $all = mysqli_num_rows($All_custom); 
@@ -76,7 +85,7 @@ include('../include/config.php');
 
             <div class="row">
               <!-- 1st card  -->
-              <div class="col-md-4 grid-margin stretch-card">
+              <div class="col-md-2 grid-margin stretch-card">
                 <div class="card text-white">
                   <div class="card-body badge-dark">
                     <div class="d-flex justify-content-between pb-2 align-items-center">
@@ -87,14 +96,31 @@ include('../include/config.php');
                     </div>
                     <div class="d-flex justify-content-between">
                       <h5 class="font-weight-semibold mb-0"></h5>
-                      <p class="text-white mb-0">Ongoning Loans</p>
+                      <p class="text-white mb-0">This Month Ongoning Loans</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-3 grid-margin stretch-card">
+                <div class="card text-white">
+                  <div class="card-body badge-warning">
+                    <div class="d-flex justify-content-between pb-2 align-items-center">
+                      <div class="icon-holder">
+                        <i class="mdi mdi-animation" style="font-size: 3em;"></i>
+                      </div>
+                      <h2 class="font-weight-semibold mb-0"><?php echo number_format($loanAMT,2,'.',',')?></h2>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <h5 class="font-weight-semibold mb-0"></h5>
+                      <p class="text-white mb-0">This month Loans Total Amount </p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- 2nd card  -->
-              <div class="col-md-4 grid-margin stretch-card">
+              <div class="col-md-3 grid-margin stretch-card">
                 <div class="card text-white">
                   <div class="card-body badge-success">
                     <div class="d-flex justify-content-between pb-2 align-items-center">
@@ -144,7 +170,7 @@ include('../include/config.php');
             <div class="row">
 
               <!-- Area Chart -->
-              <div class="col-md-8 col-sm">
+              <div class="col-md-9 col-sm">
                 <div class="card shadow mb-7">
                   <!-- Card Header - Dropdown -->
                   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -179,7 +205,7 @@ include('../include/config.php');
                 </div>
               </div>
 
-              <div class="col-md-4 col-sm">
+              <div class="col-md-3 col-sm">
                 <div class="card shadow mb-4">
                   <!-- Card Header - Dropdown -->
                   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">

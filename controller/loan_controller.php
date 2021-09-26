@@ -104,7 +104,7 @@
                     }
                 }
                 
-                $insert = mysqli_query($conn,"INSERT INTO loan (loanID,branch,centerID,customerID,loanType,contractNo,loanAmt,terms,interestRate,rental,daily_rental,totalAmt,inspectionDate,disburseDate,gurantee1Name,gurantee1NIC,gurantee1ContactNo,gurantee1ad1,gurantee1ad2,gurantee2Name,gurantee2NIC,gurantee2ContactNo,gurantee2ad1,gurantee2ad2,loanStep,status) VALUES ('$loanID','$branch','$center','$cust_id','$loan_type','$contractNo','$loanAmt','$terms','$intRate','$rental','$daily_rental','$tot_amt','$inspectionDate','$disburseDate','$gurantee1Name','$gurantee1NIC','$gurantee1ContactNo','$gurantee1ad1','$gurantee1ad2','$gurantee2Name','$gurantee2NIC','$gurantee2ContactNo','$gurantee2ad1','$gurantee2ad2','$loanStep',1)");
+                $insert = mysqli_query($conn,"INSERT INTO loan (loanID,branch,centerID,customerID,loanType,contractNo,loanAmt,terms,interestRate,rental,daily_rental,totalAmt,inspectionDate,disburseDate,gurantee1Name,gurantee1NIC,gurantee1ContactNo,gurantee1ad1,gurantee1ad2,gurantee2Name,gurantee2NIC,gurantee2ContactNo,gurantee2ad1,gurantee2ad2,loanStep,status,year,month,createDate) VALUES ('$loanID','$branch','$center','$cust_id','$loan_type','$contractNo','$loanAmt','$terms','$intRate','$rental','$daily_rental','$tot_amt','$inspectionDate','$disburseDate','$gurantee1Name','$gurantee1NIC','$gurantee1ContactNo','$gurantee1ad1','$gurantee1ad2','$gurantee2Name','$gurantee2NIC','$gurantee2ContactNo','$gurantee2ad1','$gurantee2ad2','$loanStep',1,'$year','$month','$createDate')");    
 
                 if($insert){
                     echo  1;
