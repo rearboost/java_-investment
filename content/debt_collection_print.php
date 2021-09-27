@@ -120,6 +120,7 @@
                                   $center_name = $cd['center_name'];
                                   $leader      = $cd['leader'];
                                   $contact     = $cd['contact'];
+                                  $center_date     = $cd['center_date'];
 
                                   $fetchData = mysqli_query($conn, "SELECT * FROM loan WHERE centerID='$center_id' AND status=1");
                                   $count1 = mysqli_num_rows($fetchData);
@@ -191,6 +192,10 @@
 
                                   <div class="col-md-4" style="margin-bottom: 4px;">
                                     <label class="col-sm-12 col-form-label"><strong>MSU Leader : </strong> <?php echo $leader .' [' . $contact . ']' ; ?> </label>
+                                  </div>
+
+                                   <div class="col-md-4" style="margin-bottom: 4px;">
+                                    <label class="col-sm-12 col-form-label"><strong>Center Date : </strong> <?php echo $center_date; ?></label>
                                   </div>
 
                                   <div class="col-md-2" style="margin-bottom: 4px;">

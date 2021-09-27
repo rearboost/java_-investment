@@ -113,7 +113,51 @@ include('../include/config.php');
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Center Date</label>
                           <div class="col-sm-3">
-                              <input type="date" class="form-control" name ="center_date"  value='<?php if(isset($center_date)){echo $center_date;} ?>' required=""  />
+                                <SELECT class="form-control" name="center_date" id="center_date" required="This field is required">
+                                    <?php
+
+                                        if(isset($center_date)&& $center_date!=""){
+
+                                            echo '<option value ="'.$center_date.'">' . $center_date.'</option>';
+
+                                            if($center_date!='Monday'){
+                                                echo '<option value="Monday">Monday</option>';
+                                            }
+                                            if($center_date!="Tuesday"){
+                                                echo '<option value="Tuesday">Tuesday</option>';
+                                            }
+                                            if($center_date!="Wednesday"){
+                                                echo '<option value="Wednesday">Wednesday</option>';
+                                            }
+                                            if($center_date!="Thursday"){
+                                                echo '<option value="Thursday">Thursday</option>';
+                                            }
+                                            if($center_date!="Friday"){
+                                                echo '<option value="Friday">Friday</option>';
+                                            }
+                                            if($center_date!="Saturday"){
+                                                echo '<option value="Saturday">Saturday</option>';
+                                            }
+                                            if($center_date!="Sunday"){
+                                                echo '<option value="Sunday">Sunday</option>';
+                                            }
+
+                                        }else{
+
+                                            echo'
+                                                <option selected="" disabled="">--Select Date--</option>
+                                                <option value="Monday">Monday</option>
+                                                <option value="Tuesday">Tuesday</option>
+                                                <option value="Wednesday">Wednesday</option>
+                                                <option value="Thursday">Thursday</option>
+                                                <option value="Friday">Friday</option>
+                                                <option value="Saturday">Saturday</option>
+                                                <option value="Sunday">Sunday</option>
+                                            ';
+
+                                        }
+                                    ?>
+                                    </SELECT>
                           </div>
                         </div>
 

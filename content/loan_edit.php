@@ -307,34 +307,34 @@
                                             echo '<option value ="'.$loanStep.'">Step' . $loanStep.'</option>';
 
                                             if($loanStep!=1){
-                                                echo 'option value="1">Step 01</option>';
+                                                echo '<option value="1">Step 01</option>';
                                             }
                                             if($loanStep!=2){
-                                                echo 'option value="2">Step 02</option>';
+                                                echo '<option value="2">Step 02</option>';
                                             }
                                             if($loanStep!=3){
-                                                echo 'option value="3">Step 03</option>';
+                                                echo '<option value="3">Step 03</option>';
                                             }
                                             if($loanStep!=4){
-                                                echo 'option value="4">Step 04</option>';
+                                                echo '<option value="4">Step 04</option>';
                                             }
                                             if($loanStep!=5){
-                                                echo 'option value="5">Step 05</option>';
+                                                echo '<option value="5">Step 05</option>';
                                             }
                                             if($loanStep!=6){
-                                                echo 'option value="6">Step 06</option>';
+                                                echo '<option value="6">Step 06</option>';
                                             }
                                             if($loanStep!=7){
-                                                echo 'option value="7">Step 07</option>';
+                                                echo '<option value="7">Step 07</option>';
                                             }
                                             if($loanStep!=8){
-                                                echo 'option value="8">Step 08</option>';
+                                                echo '<option value="8">Step 08</option>';
                                             }
                                             if($loanStep!=9){
-                                                echo 'option value="9">Step 09</option>';
+                                                echo '<option value="9">Step 09</option>';
                                             }
                                             else if($loanStep!=10){
-                                                echo 'option value="10">Step 10</option>';
+                                                echo '<option value="10">Step 10</option>';
                                             }
 
                                         }else{
