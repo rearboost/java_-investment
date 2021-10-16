@@ -48,7 +48,7 @@ require '../include/config.php';
 
              // $q1 = "SELECT * FROM loan A INNER JOIN loan_installement B ON A.loan_no = B.loanNo WHERE (B.li_date BETWEEN '$fdate' AND '$tdate') AND A.branch='$center'";
 
-              $sql = mysqli_query($conn, "SELECT * FROM loan A INNER JOIN loan_installement B ON A.loan_no = B.loanNo WHERE (B.li_date BETWEEN '$fdate' AND '$tdate') AND A.branch='$center'");
+              $sql = mysqli_query($conn, "SELECT * FROM loan A INNER JOIN loan_installement B ON A.loan_no = B.loanNo WHERE (B.li_date BETWEEN '$fdate' AND '$tdate') AND A.branch='$center' AND B.paid !=0");
 
             }else if($level3=="MSU"){
 
@@ -62,7 +62,7 @@ require '../include/config.php';
 
              // $q1 = "SELECT * FROM loan A INNER JOIN loan_installement B ON A.loan_no = B.loanNo WHERE (B.li_date BETWEEN '$fdate' AND '$tdate') AND A.contractNo='$contractNo'";
 
-              $sql = mysqli_query($conn, "SELECT * FROM loan A INNER JOIN loan_installement B ON A.loan_no = B.loanNo WHERE (B.li_date BETWEEN '$fdate' AND '$tdate') AND A.contractNo='$contractNo'");
+              $sql = mysqli_query($conn, "SELECT * FROM loan A INNER JOIN loan_installement B ON A.loan_no = B.loanNo WHERE (B.li_date BETWEEN '$fdate' AND '$tdate') AND A.contractNo='$contractNo' AND B.paid !=0 ");
             }
         
             ?>
@@ -85,6 +85,9 @@ require '../include/config.php';
                         <?php
                         
                         $numRows = mysqli_num_rows($sql); 
+
+                        echo '<script type="text/javascript">alert("' . $numRows . '")</script>';
+
                         if($numRows > 0) {
                             $i = 1;
                             $toatLoanAmt = 0;

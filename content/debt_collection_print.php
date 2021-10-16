@@ -267,7 +267,7 @@
 
                                     echo ' <tr>';
                                     echo ' <td style="font-size: 0.877rem;">'.$loanNo.'</td>';
-                                    echo ' <td style="font-size: 0.877rem;">'.$contractNo.'</td>';
+                                    echo ' <td style="font-size: 0.877rem;">'.$pacontractNoid.'</td>';
                                     echo ' <td style="font-size: 0.877rem;">'.$customer.'</td>';
                                     echo ' <td style="font-size: 0.877rem;">'.$contact.'</td>';
                                     echo ' <td style="font-size: 0.877rem;">'.$NIC.'</td>';
