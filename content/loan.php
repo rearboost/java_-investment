@@ -7,7 +7,7 @@
   ?>
   <!-- include head code here -->
   <?php  include('../include/head.php');   ?>
-
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <body>
     <div class="container-scroller">
@@ -139,9 +139,9 @@
                                     </datalist> 
                               </div>
 
-                              <div class="col-sm-1 size">
+                              <!-- <div class="col-sm-1 size">
                                   <i class="fa fa-plus-circle pointer" onclick="customerForm()"></i>
-                              </div>
+                              </div> -->
                             </div>
                           </div>
 
@@ -213,11 +213,24 @@
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Gurantee Details (01)</label>
                               <div class="col-sm-9">
-                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1Name" placeholder="Gurantee 01 Name" />
-                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1NIC" placeholder="Gurantee 01 NIC No" />
-                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1ContactNo" placeholder="Gurantee 01 Contact No" />
-                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee1ad1" placeholder="Gurantee 01 Address Line 1" />
-                                <input type="text" class="form-control"  name="gurantee1ad2" placeholder="Gurantee 01 Address Line 2" />
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" id="gurantee1Name" name="gurantee1Name" placeholder="Gurantee 01 Name" />
+                                <input type="text" list="browg1" class="form-control" style="margin-bottom: 20px;" id="gurantee1NIC" name="gurantee1NIC" placeholder="Gurantee 01 NIC No" />
+                                 <datalist id="browg1">
+                                    <?php
+                                      $custom = "SELECT * FROM customer";
+                                      $result = mysqli_query($conn,$custom);
+                                      $numRows = mysqli_num_rows($result); 
+                      
+                                      if($numRows > 0) {
+                                          while($dl = mysqli_fetch_assoc($result)) {
+                                              echo '<option value ="'.$dl["NIC"].'">';
+                                          }
+                                      }
+                                    ?>
+                                 </datalist> 
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" id="gurantee1ContactNo" name="gurantee1ContactNo" placeholder="Gurantee 01 Contact No" />
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" id="gurantee1ad1" name="gurantee1ad1" placeholder="Gurantee 01 Address Line 1" />
+                                <input type="text" class="form-control"  name="gurantee1ad2" id="gurantee1ad2" placeholder="Gurantee 01 Address Line 2" />
                               </div>
                             </div>
                           </div>
@@ -226,11 +239,24 @@
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Gurantee Details (02)</label>
                               <div class="col-sm-9">
-                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2Name" placeholder="Gurantee 02 Name" />
-                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2NIC" placeholder="Gurantee 02 NIC No" />
-                                <input type="text" class="form-control" style="margin-bottom: 20px;"name="gurantee2ContactNo" placeholder="Gurantee 02 Contact No" />
-                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2ad1" placeholder="Gurantee 02 Address Line 1" />
-                                <input type="text" class="form-control" name="gurantee2ad2" placeholder="Gurantee 02 Address Line 2" />
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" id="gurantee2Name" name="gurantee2Name" placeholder="Gurantee 02 Name" />
+                                <input type="text" list="browg2" class="form-control" style="margin-bottom: 20px;" id="gurantee2NIC" name="gurantee2NIC" placeholder="Gurantee 02 NIC No" />
+                                <datalist id="browg2">
+                                    <?php
+                                      $custom = "SELECT * FROM customer";
+                                      $result = mysqli_query($conn,$custom);
+                                      $numRows = mysqli_num_rows($result); 
+                      
+                                      if($numRows > 0) {
+                                          while($dl = mysqli_fetch_assoc($result)) {
+                                              echo '<option value ="'.$dl["NIC"].'">';
+                                          }
+                                      }
+                                    ?>
+                                 </datalist> 
+                                <input type="text" class="form-control" style="margin-bottom: 20px;"name="gurantee2ContactNo" id="gurantee2ContactNo" placeholder="Gurantee 02 Contact No" />
+                                <input type="text" class="form-control" style="margin-bottom: 20px;" name="gurantee2ad1" id="gurantee2ad1" placeholder="Gurantee 02 Address Line 1" />
+                                <input type="text" class="form-control" name="gurantee2ad2" id="gurantee2ad2" placeholder="Gurantee 02 Address Line 2" />
                               </div>
                             </div>
                           </div>
@@ -239,7 +265,7 @@
                             <div class="form-group row">
                               <label class="col-sm-3 col-form-label">loan Step</label>
                               <div class="col-sm-9">
-                                 <input type="text" class="form-control" id="loanCount" name="loanStep" readonly="" />
+                                 <input type="text" class="form-control" id="loanStep" name="loanStep" readonly="" value="1"/>
                               </div>
                             </div>
                           </div>
@@ -431,6 +457,57 @@
     });
     
     //var numberRegex = /^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/;
+
+    ////// Gurantee 01 //////
+    $('#gurantee1NIC').on('change',function(){
+       var gurantee1NIC = $(this).val();
+
+       $.ajax({
+            url: '../functions/get_gurantee.php',
+            method:"POST",
+            data:{gurantee1NIC:gurantee1NIC},
+            success: function (response) {
+                var obj = JSON.parse(response);
+
+                var gurantee1Name = obj.name
+                var gurantee1ContactNo = obj.contact
+                var gurantee1ad1 = obj.addLine1
+                var gurantee1ad2 = obj.addLine2
+
+                $('#gurantee1Name').val(gurantee1Name);
+                $('#gurantee1ContactNo').val(gurantee1ContactNo);
+                $('#gurantee1ad1').val(gurantee1ad1);
+                $('#gurantee1ad2').val(gurantee1ad2);
+
+            }
+        });       
+    });
+
+
+     ////// Gurantee 02 //////
+    $('#gurantee2NIC').on('change',function(){
+       var gurantee2NIC = $(this).val();
+
+       $.ajax({
+            url: '../functions/get_gurantee.php',
+            method:"POST",
+            data:{gurantee2NIC:gurantee2NIC},
+            success: function (response) {
+                var obj = JSON.parse(response);
+
+                var gurantee2Name = obj.name
+                var gurantee2ContactNo = obj.contact
+                var gurantee2ad1 = obj.addLine1
+                var gurantee2ad2 = obj.addLine2
+
+               $('#gurantee2Name').val(gurantee2Name);
+                $('#gurantee2ContactNo').val(gurantee2ContactNo);
+                $('#gurantee2ad1').val(gurantee2ad1);
+                $('#gurantee2ad2').val(gurantee2ad2);
+
+            }
+        });       
+    });
     
 
     $('#center').on('change',function(){
@@ -649,59 +726,58 @@
 
         $('#loanAdd').on('submit', function (e) {
 
+          e.preventDefault();
+
           var center = $('#center').val();
           var customer = $('#customer').val();
           var loanStep = $('#loanStep').val();
 
-
           swal({
-            title: "Are you sure?",
-            text: "Once submit, you will not be able to recover this details file!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
+              title: "Are you sure?",
+              text: "Once submit, you will not be able to recover this details file!",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
 
-              if(center!='' || customer!='' || loanStep!='')
-              {
-                  e.preventDefault();
-                  var loan_no= $('#loan_no').val();
-                  $.ajax({
-                    type: 'post',
-                    url: '../controller/loan_controller.php',
-                    data: $('#loanAdd').serialize(),
-                    success: function (data) {
+                if(center!='' || customer!='' || loanStep!='')
+                {
+                    $.ajax({
+                      type: 'post',
+                      url: '../controller/loan_controller.php',
+                      data: $('#loanAdd').serialize(),
+                      success: function (data) {
 
-                        if(data==0){
+                          if(data==0){
+                              swal({
+                                title: "Can't Duplication !",
+                                text: "Client Already Exist.",
+                                icon: "error",
+                                button: "Ok !",
+                              });
+
+                          }else{
                             swal({
-                              title: "Can't Duplication !",
-                              text: "Client Already Exist.",
-                              icon: "error",
-                              button: "Ok !",
+                            title: "Good job !",
+                            text: "Successfully Submited",
+                            icon: "success",
+                            button: "Ok !",
                             });
+                            //setTimeout(function(){ location.reload(); }, 2500);
+                            //setTimeout(function(){window.open('receipt?id='+mid, '_blank'); }, 100);
+                            setTimeout(function(){ location.reload(); }, 2500);
 
-                        }else{
-                          swal({
-                          title: "Good job !",
-                          text: "Successfully Submited",
-                          icon: "success",
-                          button: "Ok !",
-                          });
-                          //setTimeout(function(){ location.reload(); }, 2500);
-                          //setTimeout(function(){window.open('receipt?id='+mid, '_blank'); }, 100);
-                          setTimeout(function(){ location.reload(); }, 2500);
+                          }
+                      }
+                    });
 
-                        }
-                    }
-                  });
+                }else{
+                  alert('Required Field is Empty');
+                }
+              } 
+          });
 
-              }else{
-                alert('Required Field is Empty');
-              }
-            } 
-          })
         });
     });
 
