@@ -120,15 +120,39 @@
                 </a>
               </div>
             </li>
-            <li class="nav-item dropdown language-dropdown">
+            <!-- <li class="nav-item dropdown language-dropdown">
               <a class="nav-link px-2 d-flex align-items-center" href="report.php">
                 <div class="d-inline-flex mr-0 mr-md-3">
                   <div class="flag-icon-holder">
                     <i class="mdi mdi-file-document"></i>
                   </div>
                 </div>
-                <span class="profile-text font-weight-medium d-none d-md-block">Report</span>
+                <span class="profile-text font-weight-medium d-none d-md-block"></span>
               </a>
+            </li>
+ -->
+
+            <li class="nav-item dropdown language-dropdown">
+               <a class="nav-link dropdown-toggle px-2 d-flex align-items-center" id="LanguageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <div class="d-inline-flex mr-0 mr-md-3">
+                  <div class="flag-icon-holder">
+                     <i class="mdi mdi-file"></i>
+                  </div>
+                </div>
+                <span class="profile-text font-weight-medium d-none d-md-block">Summary</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-left navbar-dropdown py-2" aria-labelledby="LanguageDropdown">
+                <a class="dropdown-item" href="report.php">
+                  <div class="flag-icon-holder">
+                    <i class="mdi mdi-file-document" aria-hidden="true"></i>
+                  </div> Report
+                </a>
+                <a class="dropdown-item" href="portfolio.php">
+                  <div class="flag-icon-holder">
+                    <i class="mdi mdi-weight" aria-hidden="true"></i>
+                  </div>Portfolio 
+                </a>
+              </div>
             </li>
 
           </ul>
