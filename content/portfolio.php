@@ -34,7 +34,7 @@
             </div>
             <!-- Page Title Header Ends-->
             <div style="display: flex;">
-              <div class="col-4 stretch-card">
+               <div class="col-4 stretch-card">
                 <div class="card">
                     <div class="card-body">
                     <h4 class="card-title">Centers Summary</h4>
@@ -55,21 +55,16 @@
                                 if($numRows > 0) {
 
                                     while($row = mysqli_fetch_assoc($sql_p)) {  
-                                      $ang1_Pay      = $row['ang1_Pay'];
-                                      $ang1_Ban  = $row['ang1_Ban'];
-                                      $ang2_Pay      = $row['ang2_Pay'];
-                                      $ang2_Ban  = $row['ang2_Ban'];
-                                      $ang3_Pay      = $row['ang3_Pay'];
-                                      $ang3_Ban  = $row['ang3_Ban'];
-                                      $ang4_Pay      = $row['ang4_Pay'];
-                                      $ang4_Ban  = $row['ang4_Ban'];
-                                      $ang5_Pay      = $row['ang5_Pay'];
-                                      $ang5_Ban  = $row['ang5_Ban'];
-                                      $ang6_Pay      = $row['ang6_Pay'];
-                                      $ang6_Ban      = $row['ang6_Ban'];
-                                      $ang6_Pay      = $row['ang6_Pay'];
 
-                                      $total_Pay =  $ang1_Pay +  $ang2_Pay +  $ang3_Pay +  $ang4_Pay +  $ang5_Pay +  $ang6_Pay;
+                                      $ang1_Pay      = $row['ang1_Pay'];
+                                      $ang2_Pay      = $row['ang2_Pay'];
+                                      $ang3_Pay      = $row['ang3_Pay'];
+                                      $ang4_Pay      = $row['ang4_Pay'];
+                                      $ang5_Pay      = $row['ang5_Pay'];
+                                      $ang6_Pay      = $row['ang6_Pay'];
+                                      $ang7_Pay      = $row['ang7_Pay'];
+
+                                      $total_Pay =  $ang1_Pay +  $ang2_Pay +  $ang3_Pay +  $ang4_Pay +  $ang5_Pay +  $ang6_Pay + $ang7_Pay; 
                                   
                                       //// TOTAL 
                                       // $total = $bank+$other1+$other2+$other3+$other4+$other5;
@@ -114,13 +109,13 @@
                               
                               <label class="col-sm-3 col-form-label">ANG 01</label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right calc" id="outstandingANG01" value="<?php  if(isset($outstandingANG01)){ echo $outstandingANG01;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right" id="outstandingANG01" value="<?php  if(isset($outstandingANG01)){ echo $outstandingANG01;  } ?>" readonly>
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number"  step="any" class="form-control text-right calc" name="ang1_Pay" id="ang1_Pay" value="<?php  if(isset($ang1_Pay)){ echo $ang1_Pay;  } ?>" required="">
+                                 <input type="number"  step="any" class="form-control text-right" name="ang1_Pay" id="ang1_Pay" value="<?php  if(isset($ang1_Pay)){ echo $ang1_Pay;  } ?>" required="">
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right calc" name="ang1_Ban" id="ang1_Ban" value="<?php  if(isset($ang1_Ban)){ echo $ang1_Ban;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right"  value="<?php  if(isset($ang1_Ban)){ echo $ang1_Ban;  } ?>" readonly>
                               </div>
                             </div>
                           </div>
@@ -155,13 +150,13 @@
 
                               <label class="col-sm-3 col-form-label">ANG 02</label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right calc"  id="outstandingANG02" value="<?php  if(isset($outstandingANG02)){ echo $outstandingANG02;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right"  id="outstandingANG02" value="<?php  if(isset($outstandingANG02)){ echo $outstandingANG02;  } ?>" readonly>
                               </div>
                                <div class="col-sm-3"  style="display: inherit; padding-left: inherit;">
-                                 <input type="number" step="any" class="form-control text-right calc" name="ang2_Pay" id="ang2_Pay" value="<?php  if(isset($ang2_Pay)){ echo $ang2_Pay;  } ?>" required="">
+                                 <input type="number" step="any" class="form-control text-right" name="ang2_Pay" id="ang2_Pay" value="<?php  if(isset($ang2_Pay)){ echo $ang2_Pay;  } ?>" required="">
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right calc" name="ang2_Ban" id="ang2_Ban" value="<?php  if(isset($ang2_Ban)){ echo $ang2_Ban;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right" name="ang2_Ban" id="ang2_Ban" value="<?php  if(isset($ang2_Ban)){ echo $ang2_Ban;  } ?>" readonly>
                               </div>
                             </div>
                           </div>
@@ -200,10 +195,10 @@
                                  <input type="number" class="form-control text-right calc" id="outstandingANG03" value="<?php  if(isset($outstandingANG03)){ echo $outstandingANG03;  } ?>" readonly>
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" step="any" class="form-control text-right calc" name="ang3_Pay" id="ang3_Pay" value="<?php  if(isset($ang3_Pay)){ echo $ang3_Pay;  } ?>" required="">
+                                 <input type="number" step="any" class="form-control text-right" name="ang3_Pay" id="ang3_Pay" value="<?php  if(isset($ang3_Pay)){ echo $ang3_Pay;  } ?>" required="">
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right calc" name="ang3_Ban" id="ang3_Ban" value="<?php  if(isset($ang3_Ban)){ echo $ang3_Ban;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right" name="ang3_Ban" id="ang3_Ban" value="<?php  if(isset($ang3_Ban)){ echo $ang3_Ban;  } ?>" readonly>
                               </div>
                             </div>
                           </div>
@@ -239,13 +234,13 @@
 
                               <label class="col-sm-3 col-form-label">ANG 04</label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right calc" id="outstandingANG04" value="<?php  if(isset($outstandingANG04)){ echo $outstandingANG04;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right" id="outstandingANG04" value="<?php  if(isset($outstandingANG04)){ echo $outstandingANG04;  } ?>" readonly>
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" step="any" class="form-control text-right calc" name="ang4_Pay" id="ang4_Pay" value="<?php  if(isset($ang4_Pay)){ echo $ang4_Pay;  } ?>" required="">
+                                 <input type="number" step="any" class="form-control text-right" name="ang4_Pay" id="ang4_Pay" value="<?php  if(isset($ang4_Pay)){ echo $ang4_Pay;  } ?>" required="">
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right calc" name="ang4_Ban" id="ang4_Ban" value="<?php  if(isset($ang4_Ban)){ echo $ang4_Ban;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right" name="ang4_Ban" id="ang4_Ban" value="<?php  if(isset($ang4_Ban)){ echo $ang4_Ban;  } ?>" readonly>
                               </div>
                             </div>
                           </div>
@@ -280,13 +275,13 @@
                                <!-- ///////////////////////////////////////////// -->
                               <label class="col-sm-3 col-form-label">ANG 05</label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right calc"  id="outstandingANG05" value="<?php  if(isset($outstandingANG05)){ echo $outstandingANG05;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right"  id="outstandingANG05" value="<?php  if(isset($outstandingANG05)){ echo $outstandingANG05;  } ?>" readonly>
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" step="any" class="form-control text-right calc" name="ang5_Pay" id="ang5_Pay" value="<?php  if(isset($ang5_Pay)){ echo $ang5_Pay;  } ?>" required="">
+                                 <input type="number" step="any" class="form-control text-right" name="ang5_Pay" id="ang5_Pay" value="<?php  if(isset($ang5_Pay)){ echo $ang5_Pay;  } ?>" required="">
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right calc" name="ang5_Ban" id="ang5_Ban" value="<?php  if(isset($ang5_Ban)){ echo $ang5_Ban;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right" name="ang5_Ban" id="ang5_Ban" value="<?php  if(isset($ang5_Ban)){ echo $ang5_Ban;  } ?>" readonly>
                               </div>
                             </div>
                           </div>
@@ -312,7 +307,7 @@
                                         }else{
                                           $balance06  = $row['totalAmt'];
                                         }
-                                        $outstandingANG06 = $outstandingANG06 + $balance05;
+                                        $outstandingANG06 = $outstandingANG06 + $balance06;
                                     }
                                     $ang6_Ban = $outstandingANG06 - $ang6_Pay;
 
@@ -320,20 +315,60 @@
                                <!-- ///////////////////////////////////////////// -->
                               <label class="col-sm-3 col-form-label">ANG 06</label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right calc" id="outstandingANG06" value="<?php  if(isset($outstandingANG06)){ echo $outstandingANG06;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right" id="outstandingANG06" value="<?php  if(isset($outstandingANG06)){ echo $outstandingANG06;  } ?>" readonly>
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" step="any" class="form-control text-right calc" name="ang6_Pay" id="ang6_Pay" value="<?php  if(isset($ang6_Pay)){ echo $ang6_Pay;  } ?>" required="">
+                                 <input type="number" step="any" class="form-control text-right" name="ang6_Pay" id="ang6_Pay" value="<?php  if(isset($ang6_Pay)){ echo $ang6_Pay;  } ?>" required="">
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right calc" name="ang6_Ban" id="ang6_Ban" value="<?php  if(isset($ang6_Ban)){ echo $ang6_Ban;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right" name="ang6_Ban" id="ang6_Ban" value="<?php  if(isset($ang6_Ban)){ echo $ang6_Ban;  } ?>" readonly>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                               <!-- ///////////////////////////////////////////// -->
+                               <?php
+
+                                  $centerID = "7";
+                                  $outstandingANG07 = 0;
+                                  $sql_bal = mysqli_query($conn, "SELECT * FROM loan WHERE centerID=$centerID AND status=1");
+                                  ////////
+                                  while($row = mysqli_fetch_assoc($sql_bal)) {
+                                      $loan_no      = $row['loan_no'];
+
+                                      $fetchInst = mysqli_query($conn, "SELECT * FROM loan_installement WHERE loanNo='$loan_no' ORDER BY id DESC LIMIT 1");
+                                      $count2 = mysqli_num_rows($fetchInst);
+                                        if(!$count2==0){
+                                          $row2 = mysqli_fetch_assoc($fetchInst);
+                                          $balance07 = $row2['outstanding'];
+                                        }else{
+                                          $balance07  = $row['totalAmt'];
+                                        }
+                                        $outstandingANG07 = $outstandingANG07 + $balance07;
+                                    }
+                                    $ang7_Ban = $outstandingANG07 - $ang7_Pay;
+
+                              ?>
+                               <!-- ///////////////////////////////////////////// -->
+                              <label class="col-sm-3 col-form-label">ANG 07</label>
+                              <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
+                                 <input type="number" class="form-control text-right" id="outstandingANG07" value="<?php  if(isset($outstandingANG07)){ echo $outstandingANG07;  } ?>" readonly>
+                              </div>
+                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
+                                 <input type="number" step="any" class="form-control text-right" name="ang7_Pay" id="ang7_Pay" value="<?php  if(isset($ang7_Pay)){ echo $ang7_Pay;  } ?>" required="">
+                              </div>
+                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
+                                 <input type="number" class="form-control text-right" name="ang7_Ban" id="ang7_Ban" value="<?php  if(isset($ang7_Ban)){ echo $ang7_Ban;  } ?>" readonly>
                               </div>
                             </div>
                           </div>
                         </div>
                         <?php 
                               //////////////////////////////////////
-                              $outstanding = $outstandingANG01 + $outstandingANG02 + $outstandingANG03 + $outstandingANG04 + $outstandingANG05 + $outstandingANG06;
+                              $outstanding = $outstandingANG01 + $outstandingANG02 + $outstandingANG03 + $outstandingANG04 + $outstandingANG05 + $outstandingANG06 + $outstandingANG07;
                               $total_Ban = $outstanding - $total_Pay;
                               //////////////////////////////////////
                         ?>
@@ -361,13 +396,13 @@
                       
                     </div>
                 </div>
-              </div>
+               </div>
                <br>
                <div class="col-4 stretch-card">
                 <div class="card">
                     <div class="card-body">
                       <h4 class="card-title">Outside Cash</h4>
-                      <form class="forms-sample" id="portfolioForm">
+                      <form class="forms-sample" id="outsideCashForm">
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
@@ -384,7 +419,9 @@
                                   while($row = mysqli_fetch_assoc($sql)) {
 
                                     $centerID = $row['id'];
+                                    $totalBalance = 0 ;
                                     $sql_bal = mysqli_query($conn, "SELECT * FROM loan WHERE centerID=$centerID AND status=1");
+
                                     ////////
                                     while($row = mysqli_fetch_assoc($sql_bal)) {
                                         $loan_no      = $row['loan_no'];
@@ -397,8 +434,10 @@
                                           }else{
                                             $balance  = $row['totalAmt'];
                                           }
-                                          $outstanding = $outstanding + $balance;
+                                           $totalBalance  =   $totalBalance + $balance;
+                                         
                                      }
+                                      $outstanding = $outstanding + $totalBalance;
                                   }
                                } 
                              
@@ -426,12 +465,6 @@
 
                             ?>
                         
-                              <label class="col-sm-6 col-form-label">Outstanding</label>
-                              <div class="col-sm-6">
-                              <input type="hidden" name="date" id="date" value="<?php if(isset($outstanding)){ echo $today; }?>">
-                              <input type="hidden" name="outstanding" id="outstanding" value="<?php if(isset($outstanding)){  echo $outstanding;} ?>">
-                              <input type="text" class="form-control text-right" name="" id="" value="<?php   if(isset($outstanding)){ echo number_format($outstanding,2,'.',',');}?>" required="" readonly="">
-                              </div>
                             </div>
                           </div>
                         </div>
@@ -513,7 +546,7 @@
                             <div class="form-group row">
                               <label class="col-sm-6 col-form-label">Total Amount</label>
                               <div class="col-sm-6">
-                                <input type="text" class="form-control text-right" name="total" id="total" required="" value="<?php  if(isset($total)){ echo number_format((float)($total+$outstanding), 2, '.', '');  } ?>" readonly="">
+                                <input type="text" class="form-control text-right" name="total" id="total" required="" value="<?php  if(isset($total)){ echo number_format((float)($total), 2, '.', '');  } ?>" readonly="">
                               </div>
                             </div>
                           </div>
@@ -527,6 +560,54 @@
                     </div>
                 </div>
               </div>
+              <!-- ////////// -->
+               <div class="col-2 stretch-card">
+                <div class="card" style="height: 243px; border: 1px solid;">
+                    <div class="card-body">
+                      <h4 class="card-title">Portfolio</h4>
+                      <form class="forms-sample" id="portfolioForm">
+                       
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                              <label class="col-sm-6 col-form-label">Portfolio</label>
+                              <div class="col-sm-6" style="display: inherit;">
+                                 <?php  if(isset($outstanding)){ echo number_format($outstanding,2,'.',',');  } ?>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                         <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                              <label class="col-sm-6 col-form-label">Outside Cash</label>
+                              <div class="col-sm-6" style="display: inherit;">
+                                <?php   if(isset($total)){ echo number_format($total,2,'.',',');  } ?>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <hr style="border: 1px solid;">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                              <label class="col-sm-6 col-form-label"><b>Profit</b></label>
+                              <div class="col-sm-6" style="display: inherit;">
+                                <b><?php   if(isset($total)){ echo  number_format(($total+$outstanding),2,'.',',');   } ?></b>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <button class="btn btn-light">Cancel</button> -->
+                      </form>
+                    
+                    </div>
+                </div>
+              </div>
+
+
+
             </div> 
            </div>
            
@@ -611,11 +692,21 @@
           getPayToatal();
       });
 
+       ////////////////////
+      $('#ang7_Pay').keyup(function() {
+          var ang7_Pay = this.value;
+          var outstandingANG07 = $('#outstandingANG07').val();
+          var ang7_Ban = outstandingANG07 - ang7_Pay
+          $('#ang7_Ban').val(ang7_Ban)
+          getPayToatal();
+      });
+
+
     });
 
     function getPayToatal(){
 
-       var total_Pay= Number($('#ang1_Pay').val()) + Number($('#ang2_Pay').val()) + Number($('#ang3_Pay').val()) + Number($('#ang4_Pay').val()) + Number($('#ang5_Pay').val()) + Number($('#ang6_Pay').val())
+       var total_Pay= Number($('#ang1_Pay').val()) + Number($('#ang2_Pay').val()) + Number($('#ang3_Pay').val()) + Number($('#ang4_Pay').val()) + Number($('#ang5_Pay').val()) + Number($('#ang6_Pay').val()) +  Number($('#ang7_Pay').val())
         $('#total_Pay').val(total_Pay)
 
     }
@@ -652,7 +743,6 @@
 
      $('.calc').on('keyup',function(){
       var bank   = $('#bank').val();
-      var outstanding = $('#outstanding').val();
       var other1 = $('#other1').val();
       var other2 = $('#other2').val();
       var other3 = $('#other3').val();
@@ -668,7 +758,7 @@
 
               var obj = JSON.parse(response);
              // var outstanding = obj.tot_outstanding
-              var total = (Number(outstanding)+Number(bank)+Number(other1)+Number(other2)+Number(other3)+Number(other4)+Number(other5)).toFixed(2);
+              var total = (Number(bank)+Number(other1)+Number(other2)+Number(other3)+Number(other4)+Number(other5)).toFixed(2);
 
               $('#total').val(total);
           }
@@ -678,14 +768,14 @@
 
     $(function () {
 
-      $('#portfolioForm').on('submit', function (e) {
+      $('#outsideCashForm').on('submit', function (e) {
         
         e.preventDefault();
 
             $.ajax({
               type: 'post',
               url: '../controller/portfolio_controller.php',
-              data: $('#portfolioForm').serialize(),
+              data: $('#outsideCashForm').serialize(),
               success: function (data) {
                
                 swal("Successfully Submited !", {

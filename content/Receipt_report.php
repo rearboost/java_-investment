@@ -86,8 +86,6 @@ require '../include/config.php';
                         
                         $numRows = mysqli_num_rows($sql); 
 
-                        echo '<script type="text/javascript">alert("' . $numRows . '")</script>';
-
                         if($numRows > 0) {
                             $i = 1;
                             $toatLoanAmt = 0;
