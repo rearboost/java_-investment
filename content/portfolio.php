@@ -34,10 +34,10 @@
             </div>
             <!-- Page Title Header Ends-->
             <div style="display: flex;">
-               <div class="col-4 stretch-card">
+               <div class="col-6 stretch-card">
                 <div class="card">
                     <div class="card-body">
-                    <h4 class="card-title">Centers Summary</h4>
+                    <h4 class="card-title">CENTERS SUMMARY</h4>
                       <form class="forms-sample" id="centersSummaryForm">
                         <div class="row">
                           <div class="col-md-6">
@@ -107,15 +107,15 @@
                                <!-- ///////////////////////////////////////////// -->
 
                               
-                              <label class="col-sm-3 col-form-label">ANG 01</label>
+                              <label class="col-sm-3 col-form-label">ANG 001</label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right" id="outstandingANG01" value="<?php  if(isset($outstandingANG01)){ echo $outstandingANG01;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right" id="outstandingANG01" value="<?php  if(isset($outstandingANG01)){ echo $outstandingANG01;  } ?>" style="font-weight: 800;"  readonly>
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
                                  <input type="number"  step="any" class="form-control text-right" name="ang1_Pay" id="ang1_Pay" value="<?php  if(isset($ang1_Pay)){ echo $ang1_Pay;  } ?>" required="">
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right"  value="<?php  if(isset($ang1_Ban)){ echo $ang1_Ban;  } ?>" readonly>
+                                 <b><input type="number" class="form-control text-right" name="ang1_Ban" id="ang1_Ban" value="<?php  if(isset($ang1_Ban)){ echo $ang1_Ban;  } ?>" readonly></b>
                               </div>
                             </div>
                           </div>
@@ -148,15 +148,15 @@
                               ?>
                                <!-- ///////////////////////////////////////////// -->
 
-                              <label class="col-sm-3 col-form-label">ANG 02</label>
+                              <label class="col-sm-3 col-form-label">ANG 002</label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right"  id="outstandingANG02" value="<?php  if(isset($outstandingANG02)){ echo $outstandingANG02;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right"  id="outstandingANG02" value="<?php  if(isset($outstandingANG02)){ echo $outstandingANG02;  } ?>" style="font-weight: 800;"  readonly>
                               </div>
                                <div class="col-sm-3"  style="display: inherit; padding-left: inherit;">
                                  <input type="number" step="any" class="form-control text-right" name="ang2_Pay" id="ang2_Pay" value="<?php  if(isset($ang2_Pay)){ echo $ang2_Pay;  } ?>" required="">
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right" name="ang2_Ban" id="ang2_Ban" value="<?php  if(isset($ang2_Ban)){ echo $ang2_Ban;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right" name="ang2_Ban" id="ang2_Ban"  value="<?php  if(isset($ang2_Ban)){ echo $ang2_Ban;  } ?>" readonly>
                               </div>
                             </div>
                           </div>
@@ -190,9 +190,9 @@
                               ?>
                                <!-- ///////////////////////////////////////////// -->
 
-                              <label class="col-sm-3 col-form-label">ANG 03</label>
+                              <label class="col-sm-3 col-form-label">ANG 003</label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right calc" id="outstandingANG03" value="<?php  if(isset($outstandingANG03)){ echo $outstandingANG03;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right calc" id="outstandingANG03" value="<?php  if(isset($outstandingANG03)){ echo $outstandingANG03;  } ?>" style="font-weight: 800;"  readonly>
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
                                  <input type="number" step="any" class="form-control text-right" name="ang3_Pay" id="ang3_Pay" value="<?php  if(isset($ang3_Pay)){ echo $ang3_Pay;  } ?>" required="">
@@ -232,9 +232,9 @@
                               ?>
                                <!-- ///////////////////////////////////////////// -->
 
-                              <label class="col-sm-3 col-form-label">ANG 04</label>
+                              <label class="col-sm-3 col-form-label">ANG 004</label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right" id="outstandingANG04" value="<?php  if(isset($outstandingANG04)){ echo $outstandingANG04;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right" id="outstandingANG04" value="<?php  if(isset($outstandingANG04)){ echo $outstandingANG04;  } ?>" style="font-weight: 800;"  readonly>
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
                                  <input type="number" step="any" class="form-control text-right" name="ang4_Pay" id="ang4_Pay" value="<?php  if(isset($ang4_Pay)){ echo $ang4_Pay;  } ?>" required="">
@@ -273,9 +273,9 @@
                                   
                               ?>
                                <!-- ///////////////////////////////////////////// -->
-                              <label class="col-sm-3 col-form-label">ANG 05</label>
+                              <label class="col-sm-3 col-form-label">ANG 005</label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right"  id="outstandingANG05" value="<?php  if(isset($outstandingANG05)){ echo $outstandingANG05;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right"  id="outstandingANG05" value="<?php  if(isset($outstandingANG05)){ echo $outstandingANG05;  } ?>" style="font-weight: 800;"  readonly>
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
                                  <input type="number" step="any" class="form-control text-right" name="ang5_Pay" id="ang5_Pay" value="<?php  if(isset($ang5_Pay)){ echo $ang5_Pay;  } ?>" required="">
@@ -313,9 +313,9 @@
 
                               ?>
                                <!-- ///////////////////////////////////////////// -->
-                              <label class="col-sm-3 col-form-label">ANG 06</label>
+                              <label class="col-sm-3 col-form-label">ANG 0006</label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right" id="outstandingANG06" value="<?php  if(isset($outstandingANG06)){ echo $outstandingANG06;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right" id="outstandingANG06" value="<?php  if(isset($outstandingANG06)){ echo $outstandingANG06;  } ?>" style="font-weight: 800;"  readonly>
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
                                  <input type="number" step="any" class="form-control text-right" name="ang6_Pay" id="ang6_Pay" value="<?php  if(isset($ang6_Pay)){ echo $ang6_Pay;  } ?>" required="">
@@ -353,9 +353,9 @@
 
                               ?>
                                <!-- ///////////////////////////////////////////// -->
-                              <label class="col-sm-3 col-form-label">ANG 07</label>
+                              <label class="col-sm-3 col-form-label">ANG 007</label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right" id="outstandingANG07" value="<?php  if(isset($outstandingANG07)){ echo $outstandingANG07;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right" id="outstandingANG07" value="<?php  if(isset($outstandingANG07)){ echo $outstandingANG07;  } ?>" style="font-weight: 800;"  readonly>
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
                                  <input type="number" step="any" class="form-control text-right" name="ang7_Pay" id="ang7_Pay" value="<?php  if(isset($ang7_Pay)){ echo $ang7_Pay;  } ?>" required="">
@@ -375,9 +375,9 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">Total</label>
+                              <label class="col-sm-3 col-form-label"><b>TOTAL AMOUNT</b></label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
-                                 <input type="number" class="form-control text-right calc"  value="<?php  if(isset($outstanding)){ echo $outstanding;  } ?>" readonly>
+                                 <input type="number" class="form-control text-right calc"  value="<?php  if(isset($outstanding)){ echo $outstanding;  } ?>" style="font-weight: 800;" readonly>
                               </div>
                                <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
                                  <input type="number" step="any" class="form-control text-right calc" name="total_Pay" id="total_Pay" value="<?php  if(isset($total_Pay)){ echo $total_Pay;  } ?>" required="">
@@ -398,10 +398,10 @@
                 </div>
                </div>
                <br>
-               <div class="col-4 stretch-card">
+               <div class="col-3 stretch-card">
                 <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Outside Cash</h4>
+                      <h4 class="card-title">OUTSIDE CASH</h4>
                       <form class="forms-sample" id="outsideCashForm">
                         <div class="row">
                           <div class="col-md-12">
@@ -472,7 +472,7 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-6 col-form-label">Cash In Bank</label>
+                              <label class="col-sm-6 col-form-label">CASH IN BANK</label>
                               <div class="col-sm-6" style="display: inherit;">
                                  <input type="number" class="form-control text-right calc" name="bank" id="bank" value="<?php  if(isset($bank)){ echo $bank;  } ?>" required="">
                               </div>
@@ -544,9 +544,9 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-6 col-form-label">Total Amount</label>
+                              <label class="col-sm-6 col-form-label"><b>TOTAL AMOUNT</b></label>
                               <div class="col-sm-6">
-                                <input type="text" class="form-control text-right" name="total" id="total" required="" value="<?php  if(isset($total)){ echo number_format((float)($total), 2, '.', '');  } ?>" readonly="">
+                                <input type="text" class="form-control text-right" name="total" id="total" required="" value="<?php  if(isset($total)){ echo number_format((float)($total), 2, '.', '');  } ?>" style="font-weight: 800;"  readonly="">
                               </div>
                             </div>
                           </div>
@@ -561,18 +561,18 @@
                 </div>
               </div>
               <!-- ////////// -->
-               <div class="col-2 stretch-card">
+               <div class="col-3 stretch-card">
                 <div class="card" style="height: 243px; border: 1px solid;">
-                    <div class="card-body">
-                      <h4 class="card-title">Portfolio</h4>
+                    <div class="card-body" style="background: #f3f3f3; text-transform: uppercase; font-size: 20px;">
+                      <h4 class="card-title">PORTFOLIO</h4>
                       <form class="forms-sample" id="portfolioForm">
                        
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-6 col-form-label">Portfolio</label>
-                              <div class="col-sm-6" style="display: inherit;">
-                                 <?php  if(isset($outstanding)){ echo number_format($outstanding,2,'.',',');  } ?>
+                              <label class="col-sm-6 col-form-label" style="font-size: 15px;">CENTERS TOTAL</label>
+                              <div class="col-sm-6 text-right" style="display: inherit;">
+                                 <?php   if(isset($outstanding)){ echo  number_format($outstanding, 0, '.', ','); } ?>
                               </div>
                             </div>
                           </div>
@@ -581,24 +581,29 @@
                          <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-6 col-form-label">Outside Cash</label>
+                              <label class="col-sm-6 col-form-label" style="font-size: 15px;">Outside Cash</label>
                               <div class="col-sm-6" style="display: inherit;">
-                                <?php   if(isset($total)){ echo number_format($total,2,'.',',');  } ?>
+                                <?php   if(isset($total)){ echo number_format($total, 0, '.', ','); } ?>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <hr style="border: 1px solid;">
+                        <hr style="border: 1px solid; margin: 0px;">
                         <div class="row">
                           <div class="col-md-12">
-                            <div class="form-group row">
-                              <label class="col-sm-6 col-form-label"><b>Profit</b></label>
+                            <div class="form-group row" style="margin-bottom: 0px;">
+                              <label class="col-sm-6 col-form-label" style="font-size: 18px;"><b>Profit</b></label>
                               <div class="col-sm-6" style="display: inherit;">
-                                <b><?php   if(isset($total)){ echo  number_format(($total+$outstanding),2,'.',',');   } ?></b>
-                              </div>
+                                <b><?php   if(isset($total)){ echo  number_format(($total+$outstanding), 0, '.', ','); } ?></b>
+                              </div>    
+                                                      
+
                             </div>
+                            <hr style="border: 1px solid; margin: 0px 0px 1px;">
+                            <hr style="border: 1px solid; margin: 0px;">
                           </div>
                         </div>
+                       
                         <!-- <button class="btn btn-light">Cancel</button> -->
                       </form>
                     
