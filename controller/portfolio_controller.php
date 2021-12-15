@@ -46,8 +46,8 @@
             }
         }
     }
-
-    ///// Centers Summary
+    
+     ///// Centers Summary
     if(isset($_POST['addCS'])){
 
         $ang1_Pay    = $_POST['ang1_Pay'];
@@ -57,6 +57,7 @@
         $ang5_Pay    = $_POST['ang5_Pay'];
         $ang6_Pay    = $_POST['ang6_Pay'];
         $ang7_Pay    = $_POST['ang7_Pay'];
+        $ang8_Pay    = $_POST['ang8_Pay'];
         
 
         $check= mysqli_query($conn, "SELECT * FROM centersSummaryTB");
@@ -65,7 +66,7 @@
         if($count==0){
 
             ///////  INSERT //////////
-            $insert = "INSERT INTO centersSummaryTB (ang1_Pay,ang2_Pay,ang3_Pay,ang4_Pay,ang5_Pay,ang6_Pay,ang7_Pay) VALUES ('$ang1_Pay','$ang2_Pay','$ang3_Pay','$ang4_Pay','$ang5_Pay','$ang6_Pay','$ang7_Pay')";
+            $insert = "INSERT INTO centersSummaryTB (ang1_Pay,ang2_Pay,ang3_Pay,ang4_Pay,ang5_Pay,ang6_Pay,ang7_Pay,ang8_Pay) VALUES ('$ang1_Pay','$ang2_Pay','$ang3_Pay','$ang4_Pay','$ang5_Pay','$ang6_Pay','$ang7_Pay','$ang8_Pay')";
             $result = mysqli_query($conn,$insert);
             if($result){
                 echo  1;
@@ -75,7 +76,7 @@
 
         }else{
             ///////  UPDATE //////////
-            $update = mysqli_query($conn,"UPDATE centersSummaryTB SET ang1_Pay='$ang1_Pay',ang2_Pay ='$ang2_Pay',ang3_Pay ='$ang3_Pay',ang4_Pay = '$ang4_Pay',ang5_Pay = '$ang5_Pay',ang6_Pay = '$ang6_Pay',ang7_Pay='$ang7_Pay'");
+            $update = mysqli_query($conn,"UPDATE centersSummaryTB SET ang1_Pay='$ang1_Pay',ang2_Pay ='$ang2_Pay',ang3_Pay ='$ang3_Pay',ang4_Pay = '$ang4_Pay',ang5_Pay = '$ang5_Pay',ang6_Pay = '$ang6_Pay',ang7_Pay='$ang7_Pay',ang8_Pay ='$ang8_Pay'");
             if($update){
                 echo  1;
             }else{
@@ -83,5 +84,4 @@
             }
         }
     }
-
 ?>

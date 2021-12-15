@@ -63,8 +63,9 @@
                                       $ang5_Pay      = $row['ang5_Pay'];
                                       $ang6_Pay      = $row['ang6_Pay'];
                                       $ang7_Pay      = $row['ang7_Pay'];
+                                      $ang8_Pay      = $row['ang8_Pay'];
 
-                                      $total_Pay =  $ang1_Pay +  $ang2_Pay +  $ang3_Pay +  $ang4_Pay +  $ang5_Pay +  $ang6_Pay + $ang7_Pay; 
+                                      $total_Pay =  $ang1_Pay +  $ang2_Pay +  $ang3_Pay +  $ang4_Pay +  $ang5_Pay +  $ang6_Pay + $ang7_Pay+$ang8_Pay; 
                                   
                                       //// TOTAL 
                                       // $total = $bank+$other1+$other2+$other3+$other4+$other5;
@@ -313,7 +314,7 @@
 
                               ?>
                                <!-- ///////////////////////////////////////////// -->
-                              <label class="col-sm-3 col-form-label">ANG 0006</label>
+                              <label class="col-sm-3 col-form-label">ANG 006</label>
                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
                                  <input type="number" class="form-control text-right" id="outstandingANG06" value="<?php  if(isset($outstandingANG06)){ echo $outstandingANG06;  } ?>" style="font-weight: 800;"  readonly>
                               </div>
@@ -326,7 +327,7 @@
                             </div>
                           </div>
                         </div>
-                          <div class="row">
+                        <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
                                <!-- ///////////////////////////////////////////// -->
@@ -366,9 +367,49 @@
                             </div>
                           </div>
                         </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                               <!-- ///////////////////////////////////////////// -->
+                               <?php
+
+                                  $centerID = "8";
+                                  $outstandingANG08 = 0;
+                                  $sql_bal = mysqli_query($conn, "SELECT * FROM loan WHERE centerID=$centerID AND status=1");
+                                  ////////
+                                  while($row = mysqli_fetch_assoc($sql_bal)) {
+                                      $loan_no      = $row['loan_no'];
+
+                                      $fetchInst = mysqli_query($conn, "SELECT * FROM loan_installement WHERE loanNo='$loan_no' ORDER BY id DESC LIMIT 1");
+                                      $count2 = mysqli_num_rows($fetchInst);
+                                        if(!$count2==0){
+                                          $row2 = mysqli_fetch_assoc($fetchInst);
+                                          $balance08 = $row2['outstanding'];
+                                        }else{
+                                          $balance08  = $row['totalAmt'];
+                                        }
+                                        $outstandingANG08 = $outstandingANG08 + $balance08;
+                                    }
+                                    $ang8_Ban = $outstandingANG08 - $ang8_Pay;
+
+                              ?>
+                               <!-- ///////////////////////////////////////////// -->
+                              <label class="col-sm-3 col-form-label">ANG 008</label>
+                              <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
+                                 <input type="number" class="form-control text-right" id="outstandingANG08" value="<?php  if(isset($outstandingANG08)){ echo $outstandingANG08;  } ?>" style="font-weight: 800;"  readonly>
+                              </div>
+                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
+                                 <input type="number" step="any" class="form-control text-right" name="ang8_Pay" id="ang8_Pay" value="<?php  if(isset($ang8_Pay)){ echo $ang8_Pay;  } ?>" required="">
+                              </div>
+                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
+                                 <input type="number" class="form-control text-right" name="ang8_Ban" id="ang8_Ban" value="<?php  if(isset($ang8_Ban)){ echo $ang8_Ban;  } ?>" readonly>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         <?php 
                               //////////////////////////////////////
-                              $outstanding = $outstandingANG01 + $outstandingANG02 + $outstandingANG03 + $outstandingANG04 + $outstandingANG05 + $outstandingANG06 + $outstandingANG07;
+                              $outstanding = $outstandingANG01 + $outstandingANG02 + $outstandingANG03 + $outstandingANG04 + $outstandingANG05 + $outstandingANG06 + $outstandingANG07 + $outstandingANG08;
                               $total_Ban = $outstanding - $total_Pay;
                               //////////////////////////////////////
                         ?>
@@ -606,12 +647,18 @@
                        
                         <!-- <button class="btn btn-light">Cancel</button> -->
                       </form>
+                    
                     </div>
                 </div>
               </div>
+
+
+
             </div> 
            </div>
            
+          
+          
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <!-- include footer coe here -->
@@ -699,13 +746,22 @@
           $('#ang7_Ban').val(ang7_Ban)
           getPayToatal();
       });
+      
+      ////////////////////
+      $('#ang8_Pay').keyup(function() {
+          var ang8_Pay = this.value;
+          var outstandingANG08 = $('#outstandingANG08').val();
+          var ang8_Ban = outstandingANG08 - ang8_Pay
+          $('#ang8_Ban').val(ang8_Ban)
+          getPayToatal();
+      });
 
 
     });
 
     function getPayToatal(){
 
-       var total_Pay= Number($('#ang1_Pay').val()) + Number($('#ang2_Pay').val()) + Number($('#ang3_Pay').val()) + Number($('#ang4_Pay').val()) + Number($('#ang5_Pay').val()) + Number($('#ang6_Pay').val()) +  Number($('#ang7_Pay').val())
+       var total_Pay= Number($('#ang1_Pay').val()) + Number($('#ang2_Pay').val()) + Number($('#ang3_Pay').val()) + Number($('#ang4_Pay').val()) + Number($('#ang5_Pay').val()) + Number($('#ang6_Pay').val()) +  Number($('#ang7_Pay').val()) + Number($('#ang8_Pay').val())
         $('#total_Pay').val(total_Pay)
 
     }
