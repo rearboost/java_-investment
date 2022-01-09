@@ -57,16 +57,16 @@
         $ang5_Pay    = $_POST['ang5_Pay'];
         $ang6_Pay    = $_POST['ang6_Pay'];
         $ang7_Pay    = $_POST['ang7_Pay'];
-        $ang8_Pay    = $_POST['ang8_Pay'];
+        $ang8_Pay    = $_POST['ang8_Pay']; 
+        $ang9_Pay    = $_POST['ang9_Pay']; 
         
-
         $check= mysqli_query($conn, "SELECT * FROM centersSummaryTB");
 	    $count = mysqli_num_rows($check);
 
         if($count==0){
 
             ///////  INSERT //////////
-            $insert = "INSERT INTO centersSummaryTB (ang1_Pay,ang2_Pay,ang3_Pay,ang4_Pay,ang5_Pay,ang6_Pay,ang7_Pay,ang8_Pay) VALUES ('$ang1_Pay','$ang2_Pay','$ang3_Pay','$ang4_Pay','$ang5_Pay','$ang6_Pay','$ang7_Pay','$ang8_Pay')";
+            $insert = "INSERT INTO centersSummaryTB (ang1_Pay,ang2_Pay,ang3_Pay,ang4_Pay,ang5_Pay,ang6_Pay,ang7_Pay,ang8_Pay,ang9_Pay) VALUES ('$ang1_Pay','$ang2_Pay','$ang3_Pay','$ang4_Pay','$ang5_Pay','$ang6_Pay','$ang7_Pay','$ang8_Pay','$ang9_Pay')";
             $result = mysqli_query($conn,$insert);
             if($result){
                 echo  1;
@@ -76,7 +76,7 @@
 
         }else{
             ///////  UPDATE //////////
-            $update = mysqli_query($conn,"UPDATE centersSummaryTB SET ang1_Pay='$ang1_Pay',ang2_Pay ='$ang2_Pay',ang3_Pay ='$ang3_Pay',ang4_Pay = '$ang4_Pay',ang5_Pay = '$ang5_Pay',ang6_Pay = '$ang6_Pay',ang7_Pay='$ang7_Pay',ang8_Pay ='$ang8_Pay'");
+            $update = mysqli_query($conn,"UPDATE centersSummaryTB SET ang1_Pay='$ang1_Pay',ang2_Pay ='$ang2_Pay',ang3_Pay ='$ang3_Pay',ang4_Pay = '$ang4_Pay',ang5_Pay = '$ang5_Pay',ang6_Pay = '$ang6_Pay',ang7_Pay='$ang7_Pay',ang8_Pay ='$ang8_Pay',ang9_Pay='$ang9_Pay'");
             if($update){
                 echo  1;
             }else{

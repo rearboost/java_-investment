@@ -342,6 +342,8 @@
             data: data,
             success: function (data) {
 
+                    alert(data)
+
                   if(data==0){
 
                     swal({
@@ -391,7 +393,8 @@
             method:"POST",
             data:{removeID:id},
             success:function(data){
-              
+
+
                 swal("Successfully Submited !");
                 setTimeout(function(){ window.location.href = "customer.php"; }, 2500);
                 

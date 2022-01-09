@@ -64,8 +64,9 @@
                                       $ang6_Pay      = $row['ang6_Pay'];
                                       $ang7_Pay      = $row['ang7_Pay'];
                                       $ang8_Pay      = $row['ang8_Pay'];
+                                      $ang9_Pay      = $row['ang9_Pay'];
 
-                                      $total_Pay =  $ang1_Pay +  $ang2_Pay +  $ang3_Pay +  $ang4_Pay +  $ang5_Pay +  $ang6_Pay + $ang7_Pay+$ang8_Pay; 
+                                      $total_Pay =  $ang1_Pay +  $ang2_Pay +  $ang3_Pay +  $ang4_Pay +  $ang5_Pay +  $ang6_Pay + $ang7_Pay+$ang8_Pay + $ang9_Pay; 
                                   
                                       //// TOTAL 
                                       // $total = $bank+$other1+$other2+$other3+$other4+$other5;
@@ -407,9 +408,50 @@
                             </div>
                           </div>
                         </div>
+
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                               <!-- ///////////////////////////////////////////// -->
+                               <?php
+
+                                  $centerID = "9";
+                                  $outstandingANG09 = 0;
+                                  $sql_bal = mysqli_query($conn, "SELECT * FROM loan WHERE centerID=$centerID AND status=1");
+                                  ////////
+                                  while($row = mysqli_fetch_assoc($sql_bal)) {
+                                      $loan_no      = $row['loan_no'];
+
+                                      $fetchInst = mysqli_query($conn, "SELECT * FROM loan_installement WHERE loanNo='$loan_no' ORDER BY id DESC LIMIT 1");
+                                      $count2 = mysqli_num_rows($fetchInst);
+                                        if(!$count2==0){
+                                          $row2 = mysqli_fetch_assoc($fetchInst);
+                                          $balance09 = $row2['outstanding'];
+                                        }else{
+                                          $balance09  = $row['totalAmt'];
+                                        }
+                                        $outstandingANG09 = $outstandingANG09 + $balance09;
+                                    }
+                                    $ang9_Ban = $outstandingANG09 - $ang9_Pay;
+
+                              ?>
+                               <!-- ///////////////////////////////////////////// -->
+                              <label class="col-sm-3 col-form-label">ANG 009</label>
+                              <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
+                                 <input type="number" class="form-control text-right" id="outstandingANG09" value="<?php  if(isset($outstandingANG09)){ echo $outstandingANG09;  } ?>" style="font-weight: 800;"  readonly>
+                              </div>
+                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
+                                 <input type="number" step="any" class="form-control text-right" name="ang9_Pay" id="ang9_Pay" value="<?php  if(isset($ang9_Pay)){ echo $ang9_Pay;  } ?>" required="">
+                              </div>
+                               <div class="col-sm-3" style="display: inherit; padding-left: inherit;">
+                                 <input type="number" class="form-control text-right" name="ang9_Ban" id="ang9_Ban" value="<?php  if(isset($ang9_Ban)){ echo $ang9_Ban;  } ?>" readonly>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         <?php 
                               //////////////////////////////////////
-                              $outstanding = $outstandingANG01 + $outstandingANG02 + $outstandingANG03 + $outstandingANG04 + $outstandingANG05 + $outstandingANG06 + $outstandingANG07 + $outstandingANG08;
+                              $outstanding = $outstandingANG01 + $outstandingANG02 + $outstandingANG03 + $outstandingANG04 + $outstandingANG05 + $outstandingANG06 + $outstandingANG07 + $outstandingANG08 +  $outstandingANG09;
                               $total_Ban = $outstanding - $total_Pay;
                               //////////////////////////////////////
                         ?>
@@ -756,12 +798,21 @@
           getPayToatal();
       });
 
+      ////////////////////
+      $('#ang9_Pay').keyup(function() {
+          var ang9_Pay = this.value;
+          var outstandingANG09 = $('#outstandingANG09').val();
+          var ang9_Ban = outstandingANG09 - ang9_Pay
+          $('#ang9_Ban').val(ang8_Ban)
+          getPayToatal();
+      });
+
 
     });
 
     function getPayToatal(){
 
-       var total_Pay= Number($('#ang1_Pay').val()) + Number($('#ang2_Pay').val()) + Number($('#ang3_Pay').val()) + Number($('#ang4_Pay').val()) + Number($('#ang5_Pay').val()) + Number($('#ang6_Pay').val()) +  Number($('#ang7_Pay').val()) + Number($('#ang8_Pay').val())
+       var total_Pay= Number($('#ang1_Pay').val()) + Number($('#ang2_Pay').val()) + Number($('#ang3_Pay').val()) + Number($('#ang4_Pay').val()) + Number($('#ang5_Pay').val()) + Number($('#ang6_Pay').val()) +  Number($('#ang7_Pay').val()) + Number($('#ang8_Pay').val()+Number($('#ang9_Pay').val())
         $('#total_Pay').val(total_Pay)
 
     }

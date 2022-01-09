@@ -17,7 +17,8 @@
             $contact   = $_POST['contact'];
             $contact2  = $_POST['contact2'];
 
-            $check= mysqli_query($conn, "SELECT * FROM customer WHERE memberID='$memberID' AND name='$client' AND address='$address' AND NIC='$nic' AND contact='$contact' AND contact2='$contact2'");
+             // $check= mysqli_query($conn, "SELECT * FROM customer WHERE memberID='$memberID' AND name='$client' AND address='$address' AND NIC='$nic' AND contact='$contact' AND contact2='$contact2'");
+            $check= mysqli_query($conn, "SELECT * FROM customer WHERE NIC='$nic'");
 		    $count = mysqli_num_rows($check);
 
             if($count==0){
